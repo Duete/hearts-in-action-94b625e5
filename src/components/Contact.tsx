@@ -25,7 +25,7 @@ const Contact = () => {
     {
       icon: Mail,
       title: "Email",
-      content: "info@globalheartsug.org",
+      content: "globalheartscommunity@gmail.com, info@globalheartscommunity.org",
     },
     {
       icon: Phone,
