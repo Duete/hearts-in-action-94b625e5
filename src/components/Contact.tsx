@@ -20,7 +20,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Location",
-      content: "Sironko, Uganda",
+      content: "Mbale, Uganda",
     },
     {
       icon: Mail,
