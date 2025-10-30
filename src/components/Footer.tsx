@@ -1,4 +1,4 @@
-import { Heart } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 const Footer = () => {
   const scrollToSection = (href: string) => {
@@ -27,8 +27,8 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-2 mb-4">
-              <Heart className="h-8 w-8 fill-current" />
+            <div className="flex items-center gap-3 mb-4">
+              <img src={logo} alt="Global Hearts Community Logo" className="h-12 w-12" />
               <span className="text-2xl font-bold">Global Hearts Community</span>
             </div>
             <p className="text-primary-foreground/80 leading-relaxed mb-4">

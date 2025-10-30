@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
-import { Menu, X, Heart } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import logo from "@/assets/logo.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -40,8 +41,8 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#home" className="flex items-center gap-2 transition-smooth hover:scale-105">
-            <Heart className="h-8 w-8 text-primary fill-primary" />
+          <a href="#home" className="flex items-center gap-3 transition-smooth hover:scale-105">
+            <img src={logo} alt="Global Hearts Community Logo" className="h-12 w-12 md:h-14 md:w-14" />
             <span className="text-xl md:text-2xl font-bold text-primary">Global Hearts</span>
           </a>
 
