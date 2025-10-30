@@ -32,7 +32,7 @@ const Footer = () => {
               <span className="text-2xl font-bold">Global Hearts Community</span>
             </div>
             <p className="text-primary-foreground/80 leading-relaxed mb-4">
-              Empowering vulnerable groups in Sironko, Uganda through education, health programs, and community development initiatives.
+              Registered Organization (MC/195) headquartered in Mbale City. Empowering vulnerable groups through education, health programs, and community development initiatives.
             </p>
           </div>
 

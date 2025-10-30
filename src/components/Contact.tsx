@@ -1,4 +1,4 @@
-import { MapPin, Mail, Phone, Facebook, Twitter, Instagram } from "lucide-react";
+import { MapPin, Mail, Phone, Facebook, Twitter, Instagram, Banknote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -20,7 +20,7 @@ const Contact = () => {
     {
       icon: MapPin,
       title: "Location",
-      content: "Mbale, Uganda",
+      content: "Mbale City, Uganda",
     },
     {
       icon: Mail,
@@ -31,6 +31,11 @@ const Contact = () => {
       icon: Phone,
       title: "Phone",
       content: "+256784 434 649, +256791 481 089",
+    },
+    {
+      icon: Banknote,
+      title: "Bank Account",
+      content: "01110017845397 - DFCU Bank Uganda (Global Hearts Community)",
     },
   ];
 
