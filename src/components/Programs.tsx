@@ -1,9 +1,13 @@
-import { GraduationCap, Users, Heart, Trees } from "lucide-react";
+import { GraduationCap, Users, Heart, Trees, Droplets, HeartHandshake, Accessibility, ShoppingBasket } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
 import environmentImg from "@/assets/environment-program.jpg";
+import waterImg from "@/assets/water-sanitation.jpg";
+import elderlyImg from "@/assets/elderly-care.jpg";
+import disabilityImg from "@/assets/disability-support.jpg";
+import foodImg from "@/assets/food-security.jpg";
 
 const Programs = () => {
   const programs = [
@@ -24,7 +28,7 @@ const Programs = () => {
     {
       icon: Heart,
       title: "Health Outreach",
-      description: "Medical camps, health education, maternal care support, and disease prevention programs to improve community health and wellbeing.",
+      description: "Medical camps, health education, maternal care support, HIV/AIDS awareness, and disease prevention programs to improve community health and wellbeing.",
       image: healthImg,
       color: "accent",
     },
@@ -34,6 +38,34 @@ const Programs = () => {
       description: "Tree planting initiatives, sustainable farming practices, and environmental education to protect our natural resources for future generations.",
       image: environmentImg,
       color: "primary",
+    },
+    {
+      icon: Droplets,
+      title: "Water & Sanitation",
+      description: "Drilling boreholes, protecting water sources, and promoting hygiene practices to ensure clean water access and improved sanitation for all community members.",
+      image: waterImg,
+      color: "secondary",
+    },
+    {
+      icon: HeartHandshake,
+      title: "Elderly & Vulnerable Support",
+      description: "Providing care, social support, and essential resources to elderly persons, widows, orphans, and displaced individuals in our community.",
+      image: elderlyImg,
+      color: "accent",
+    },
+    {
+      icon: Accessibility,
+      title: "Disability Inclusion",
+      description: "Supporting persons with disabilities through accessibility programs, skills training, and advocacy to ensure full participation in community life.",
+      image: disabilityImg,
+      color: "primary",
+    },
+    {
+      icon: ShoppingBasket,
+      title: "Food Security",
+      description: "Distributing food packages to vulnerable families, promoting small-scale agriculture, and providing nutrition education to combat hunger and malnutrition.",
+      image: foodImg,
+      color: "secondary",
     },
   ];
 
