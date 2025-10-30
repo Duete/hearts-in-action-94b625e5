@@ -35,7 +35,7 @@ const Contact = () => {
     {
       icon: Banknote,
       title: "Bank Account",
-      content: "01110017845397 - DFCU Bank Uganda (Global Hearts Community)",
+      content: "01110017845397 - DFCU Bank Uganda | SWIFT: DFCUUGKA | DFCU Towers, Kampala Road, Kampala, Uganda",
     },
   ];
 
