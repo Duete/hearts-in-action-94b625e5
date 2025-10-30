@@ -30,7 +30,7 @@ const Hero = () => {
           </h1>
           
           <p className="text-lg md:text-xl text-primary-foreground/90 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Join us in creating lasting change through education, health programs, and community development in Sironko, Uganda.
+            Join us in creating lasting change through education, health programs, and community development in Mbale and surrounding areas, Uganda.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
