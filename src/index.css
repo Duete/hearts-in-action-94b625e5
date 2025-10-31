@@ -17,20 +17,20 @@ All colors MUST be HSL.
     --popover: 0 0% 100%;
     --popover-foreground: 150 10% 15%;
 
-    /* Primary: Vibrant Green (growth, hope) */
-    --primary: 120 60% 35%;
+    /* Primary: Forest Green (growth, stability) - inspired by Megan Organization */
+    --primary: 140 60% 25%;
     --primary-foreground: 0 0% 100%;
-    --primary-light: 120 55% 45%;
+    --primary-light: 140 55% 35%;
     
-    /* Secondary: Bright Orange (community, energy) */
-    --secondary: 30 95% 55%;
+    /* Secondary: Warm Orange (community, energy) */
+    --secondary: 30 85% 50%;
     --secondary-foreground: 0 0% 100%;
-    --secondary-light: 30 90% 65%;
+    --secondary-light: 30 80% 60%;
 
-    /* Accent: Calming Blue (trust, peace) */
-    --accent: 200 65% 50%;
+    /* Accent: Deep Teal (trust, peace) */
+    --accent: 180 45% 40%;
     --accent-foreground: 0 0% 100%;
-    --accent-light: 200 60% 65%;
+    --accent-light: 180 40% 50%;
 
     --muted: 150 15% 95%;
     --muted-foreground: 150 10% 45%;
@@ -45,14 +45,14 @@ All colors MUST be HSL.
     --radius: 0.75rem;
     
     /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(120 60% 35%), hsl(120 55% 45%));
-    --gradient-warm: linear-gradient(135deg, hsl(30 95% 55%), hsl(35 90% 60%));
-    --gradient-hero: linear-gradient(135deg, hsl(120 60% 35% / 0.95), hsl(200 65% 50% / 0.9));
+    --gradient-primary: linear-gradient(135deg, hsl(140 60% 25%), hsl(140 55% 35%));
+    --gradient-warm: linear-gradient(135deg, hsl(30 85% 50%), hsl(35 80% 55%));
+    --gradient-hero: linear-gradient(135deg, hsl(140 60% 25% / 0.95), hsl(180 45% 40% / 0.9));
     
     /* Shadows */
-    --shadow-soft: 0 4px 16px hsl(120 60% 35% / 0.08);
-    --shadow-medium: 0 8px 24px hsl(120 60% 35% / 0.12);
-    --shadow-strong: 0 12px 32px hsl(120 60% 35% / 0.16);
+    --shadow-soft: 0 4px 16px hsl(140 60% 25% / 0.08);
+    --shadow-medium: 0 8px 24px hsl(140 60% 25% / 0.12);
+    --shadow-strong: 0 12px 32px hsl(140 60% 25% / 0.16);
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -85,13 +85,13 @@ All colors MUST be HSL.
     --popover: 150 15% 10%;
     --popover-foreground: 0 0% 95%;
 
-    --primary: 120 55% 45%;
+    --primary: 140 55% 40%;
     --primary-foreground: 150 15% 8%;
 
-    --secondary: 30 90% 65%;
+    --secondary: 30 80% 60%;
     --secondary-foreground: 150 15% 8%;
 
-    --accent: 200 60% 65%;
+    --accent: 180 40% 55%;
     --accent-foreground: 150 15% 8%;
 
     --muted: 150 10% 15%;
