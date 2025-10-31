@@ -43,7 +43,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           <a href="#home" className="flex items-center gap-3 transition-smooth hover:scale-105">
             <img src={logo} alt="Global Hearts Community Logo" className="h-12 w-12 md:h-14 md:w-14" />
-            <span className="text-xl md:text-2xl font-bold text-primary">Global Hearts Community</span>
+            <span className="text-xl md:text-2xl font-bold text-primary leading-tight">Global Hearts Community</span>
           </a>
 
           <div className="hidden md:flex items-center gap-6">

@@ -41,7 +41,7 @@ const Contact = () => {
     {
       icon: Banknote,
       title: "Bank Account",
-      content: "01110017845397 - DFCU Bank Uganda | SWIFT: DFCUUGKA | DFCU Towers, Kampala Road, Kampala, Uganda",
+      content: "Global Hearts Community - 01110017845397 - DFCU Bank Uganda | SWIFT: DFCUUGKA | DFCU Towers, Kampala Road, Kampala, Uganda",
     },
   ];
 
@@ -120,7 +120,8 @@ const Contact = () => {
                   Bank Transfer Details
                 </h3>
                 <div className="space-y-2 text-sm text-muted-foreground">
-                  <p><span className="font-semibold text-foreground">Account:</span> 01110017845397</p>
+                  <p><span className="font-semibold text-foreground">Account Name:</span> Global Hearts Community</p>
+                  <p><span className="font-semibold text-foreground">Account Number:</span> 01110017845397</p>
                   <p><span className="font-semibold text-foreground">Bank:</span> DFCU Bank Uganda</p>
                   <p><span className="font-semibold text-foreground">SWIFT:</span> DFCUUGKA</p>
                   <p><span className="font-semibold text-foreground">Address:</span> DFCU Towers, Kampala Road, Kampala, Uganda</p>
