@@ -38,7 +38,7 @@ const About = () => {
                 <h3 className="text-2xl font-bold text-foreground">Our Mission</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                To empower vulnerable groups in Sironko, Uganda, through comprehensive education support, 
+                To empower vulnerable groups in Mbale and surrounding areas, through comprehensive education support, 
                 health outreach, women empowerment initiatives, and environmental conservation programs. 
                 We strive to create lasting positive change that transforms lives and strengthens communities.
               </p>
