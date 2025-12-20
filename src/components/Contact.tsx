@@ -47,7 +47,7 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: Facebook, href: "https://www.facebook.com/share/17tiYWGKkU/", label: "Facebook" },
-    { icon: Twitter, href: "#", label: "Twitter" },
+    { icon: Twitter, href: "https://x.com/GHCUganda", label: "X" },
     { icon: Instagram, href: "#", label: "Instagram" },
     { icon: MessageCircle, href: "https://wa.me/256784330284", label: "WhatsApp" },
   ];
