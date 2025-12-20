@@ -46,7 +46,7 @@ const Contact = () => {
   ];
 
   const socialLinks = [
-    { icon: Facebook, href: "#", label: "Facebook" },
+    { icon: Facebook, href: "https://www.facebook.com/share/17tiYWGKkU/", label: "Facebook" },
     { icon: Twitter, href: "#", label: "Twitter" },
     { icon: Instagram, href: "#", label: "Instagram" },
     { icon: MessageCircle, href: "https://wa.me/256784330284", label: "WhatsApp" },
