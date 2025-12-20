@@ -56,7 +56,7 @@ const Navigation = () => {
                 {link.name}
               </button>
             ))}
-            <Button variant="hero" size="default" onClick={() => scrollToSection("#contact")}>
+            <Button variant="hero" size="default" onClick={() => scrollToSection("#donate")}>
               Donate Now
             </Button>
           </div>
@@ -83,7 +83,7 @@ const Navigation = () => {
                 {link.name}
               </button>
             ))}
-            <Button variant="hero" size="default" onClick={() => scrollToSection("#contact")} className="w-full">
+            <Button variant="hero" size="default" onClick={() => scrollToSection("#donate")} className="w-full">
               Donate Now
             </Button>
           </div>
