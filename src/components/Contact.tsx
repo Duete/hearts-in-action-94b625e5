@@ -139,7 +139,7 @@ const Contact = () => {
           </Card>
 
           {/* Contact Form */}
-          <div className="grid md:grid-cols-2 gap-8 mb-12">
+          <div id="contact" className="grid md:grid-cols-2 gap-8 mb-12 scroll-mt-24">
             <Card className="shadow-medium">
               <CardContent className="p-6">
                 <h3 className="text-xl font-bold text-foreground mb-6">Send us a Message</h3>
