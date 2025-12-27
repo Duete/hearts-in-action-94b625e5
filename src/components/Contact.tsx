@@ -67,19 +67,6 @@ const Contact = () => {
         </div>
       </div>
 
-      {/* Contact Header */}
-      <div id="contact" className="relative h-[300px] flex items-center justify-center overflow-hidden mt-16">
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImg})` }}
-        >
-          <div className="absolute inset-0 bg-foreground/60"></div>
-        </div>
-        <div className="relative z-10">
-          <h1 className="text-6xl md:text-8xl font-bold text-secondary mb-4">DONATE</h1>
-        </div>
-      </div>
-
       {/* Donation Section */}
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-4xl mx-auto">
