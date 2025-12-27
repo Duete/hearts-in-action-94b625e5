@@ -54,8 +54,8 @@ const Contact = () => {
 
   return (
     <section className="bg-background">
-      {/* Contact Header */}
-      <div id="contact" className="relative h-[300px] flex items-center justify-center overflow-hidden">
+      {/* Donate Header */}
+      <div id="donate" className="relative h-[300px] flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImg})` }}
@@ -63,12 +63,12 @@ const Contact = () => {
           <div className="absolute inset-0 bg-foreground/60"></div>
         </div>
         <div className="relative z-10">
-          <h1 className="text-6xl md:text-8xl font-bold text-secondary mb-4">CONTACT</h1>
+          <h1 className="text-6xl md:text-8xl font-bold text-secondary mb-4">DONATE</h1>
         </div>
       </div>
 
-      {/* Donate Header */}
-      <div id="donate" className="relative h-[300px] flex items-center justify-center overflow-hidden mt-16">
+      {/* Contact Header */}
+      <div id="contact" className="relative h-[300px] flex items-center justify-center overflow-hidden mt-16">
         <div 
           className="absolute inset-0 bg-cover bg-center"
           style={{ backgroundImage: `url(${heroImg})` }}
