@@ -4,7 +4,7 @@ import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
 import environmentImg from "@/assets/environment-program.jpg";
-import waterImg from "@/assets/water-sanitation.jpg";
+import waterImg from "@/assets/water_well.webp";
 import elderlyImg from "@/assets/elderly-care.jpg";
 import disabilityImg from "@/assets/disability-support.jpg";
 import foodImg from "@/assets/lame_being_fed.webp";
