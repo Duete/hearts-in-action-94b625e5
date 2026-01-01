@@ -6,7 +6,7 @@ import healthImg from "@/assets/health-outreach.jpg";
 import environmentImg from "@/assets/environment-program.jpg";
 import waterImg from "@/assets/water_well.webp";
 import elderlyImg from "@/assets/elderly-care.jpg";
-import disabilityImg from "@/assets/disability-support.jpg";
+import disabilityImg from "@/assets/pwds.webp";
 import foodImg from "@/assets/lame_being_fed.webp";
 
 const Programs = () => {
