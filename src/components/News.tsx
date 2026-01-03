@@ -8,9 +8,9 @@ import healthImg from "@/assets/health-outreach.jpg";
 const News = () => {
   const articles = [
     {
-      title: "200 Students Receive Scholarships",
+      title: "50 Students Receive Scholarships",
       date: "March 15, 2025",
-      excerpt: "We're proud to announce that 200 students from vulnerable families have received full scholarships for the upcoming academic year, ensuring access to quality education.",
+      excerpt: "We're proud to support 50 primary school students so far—mainly orphans and children born from unwanted pregnancies by teen mothers—with full scholarships, ensuring access to quality education.",
       image: educationImg,
     },
     {
