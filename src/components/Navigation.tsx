@@ -42,17 +42,17 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#home" className="flex items-center gap-3 transition-smooth hover:scale-105">
-            <img src={logo} alt="Global Hearts Community Logo" className="h-12 w-12 md:h-14 md:w-14" />
-            <span className="text-xl md:text-2xl font-bold text-primary leading-tight">Global Hearts Community</span>
+          <a href="#home" className="flex items-center gap-2 transition-smooth hover:scale-105">
+            <img src={logo} alt="Global Hearts Community Logo" className="h-10 w-10 md:h-12 md:w-12" />
+            <span className="text-lg md:text-xl font-bold text-primary leading-tight">Global Hearts Community</span>
           </a>
 
-          <div className="hidden md:flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-5">
             {navLinks.map((link) => (
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className="text-foreground hover:text-primary transition-smooth font-medium"
+                className="text-[0.9rem] text-foreground hover:text-primary transition-smooth font-medium"
               >
                 {link.name}
               </button>
