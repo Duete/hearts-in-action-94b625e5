@@ -8,9 +8,9 @@ import healthImg from "@/assets/health-outreach.jpg";
 const News = () => {
   const articles = [
     {
-      title: "50 Students Receive Scholarships",
+      title: "50+ Students Receive Scholarships",
       date: "March 15, 2025",
-      excerpt: "We're proud to support 50 primary school students so far—mainly orphans and children born from unwanted pregnancies by teen mothers—with full scholarships, ensuring access to quality education.",
+      excerpt: "Global Hearts Community continues to make a quiet but meaningful impact through its education support project aimed at vulnerable children. So far, 50 primary school pupils have received full scholarships, giving them a real chance to stay in school and learn without the burden of school fees.\n\nThe beneficiaries are mainly orphans and children born from unintended pregnancies to teenage mothers, groups that often face the highest risk of dropping out of school. Through this project, Global Hearts Community covers school fees and provides essential scholastic materials, helping to create a stable learning environment for each child.\n\nBeyond financial support, the initiative restores hope to families and children who might otherwise see education as unreachable. For many of these learners, the scholarship is more than assistance. It is a lifeline that allows them to focus on their studies, grow in confidence, and imagine a better future.\n\nGlobal Hearts Community remains committed to expanding this program and reaching even more children in need, guided by the belief that access to education can break cycles of poverty and change lives in lasting ways.",
       image: educationImg,
     },
     {
