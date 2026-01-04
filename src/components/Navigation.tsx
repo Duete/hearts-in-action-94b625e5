@@ -52,8 +52,10 @@ const Navigation = () => {
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className={`text-[0.9rem] font-medium transition-smooth ${
-                  isScrolled ? "text-primary-foreground hover:text-primary-foreground/80" : "text-foreground hover:text-primary"
+                className={`text-[0.9rem] font-medium transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
+                  isScrolled 
+                    ? "text-primary-foreground hover:text-primary-foreground/80 after:bg-primary-foreground/80" 
+                    : "text-foreground hover:text-primary after:bg-primary"
                 }`}
               >
                 {link.name}
