@@ -36,15 +36,15 @@ const Navigation = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-smooth ${
-        isScrolled ? "bg-background/95 backdrop-blur-sm shadow-medium" : "bg-transparent"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-primary text-primary-foreground shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#home" className="flex items-center gap-2 transition-smooth hover:scale-105">
+          <a href="#home" className={`flex items-center gap-2 transition-smooth hover:scale-105 ${isScrolled ? "text-primary-foreground" : ""}`}>
             <img src={logo} alt="Global Hearts Community Logo" className="h-10 w-10 md:h-12 md:w-12" />
-            <span className="text-lg md:text-xl font-bold text-primary leading-tight">Global Hearts Community</span>
+            <span className={`text-lg md:text-xl font-bold leading-tight ${isScrolled ? "text-primary-foreground" : "text-primary"}`}>Global Hearts Community</span>
           </a>
 
           <div className="hidden md:flex items-center gap-5">
@@ -52,7 +52,9 @@ const Navigation = () => {
               <button
                 key={link.name}
                 onClick={() => scrollToSection(link.href)}
-                className="text-[0.9rem] text-foreground hover:text-primary transition-smooth font-medium"
+                className={`text-[0.9rem] font-medium transition-smooth ${
+                  isScrolled ? "text-primary-foreground hover:text-primary-foreground/80" : "text-foreground hover:text-primary"
+                }`}
               >
                 {link.name}
               </button>
