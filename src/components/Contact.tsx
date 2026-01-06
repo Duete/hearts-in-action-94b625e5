@@ -6,11 +6,31 @@ import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import heroImg from "@/assets/hero-community.jpg";
+import DonationModal from "./DonationModal";
 
 const Contact = () => {
   const { toast } = useToast();
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState("");
+  const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+
+  const getDonationAmount = () => {
+    if (customAmount) return parseFloat(customAmount);
+    return selectedAmount;
+  };
+
+  const handleProceedToDonate = () => {
+    const amount = getDonationAmount();
+    if (!amount || amount <= 0) {
+      toast({
+        title: "Please select an amount",
+        description: "Choose a preset amount or enter a custom donation.",
+        variant: "destructive",
+      });
+      return;
+    }
+    setIsDonationModalOpen(true);
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -132,11 +152,18 @@ const Contact = () => {
               <Button 
                 size="lg" 
                 className="w-full bg-primary hover:bg-primary/90 text-lg font-semibold h-14"
+                onClick={handleProceedToDonate}
               >
                 Proceed to Donate
               </Button>
             </CardContent>
           </Card>
+
+          <DonationModal 
+            isOpen={isDonationModalOpen}
+            onClose={() => setIsDonationModalOpen(false)}
+            amount={getDonationAmount()}
+          />
 
           {/* Contact Form */}
           <div id="contact" className="grid md:grid-cols-2 gap-8 mb-12 scroll-mt-24">
