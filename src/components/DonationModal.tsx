@@ -1,14 +1,15 @@
 import { useState } from "react";
-import { Phone, CreditCard, Globe, ArrowLeft, Check, Copy, Loader2 } from "lucide-react";
+import { CreditCard, Building2, Check, Loader2, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
@@ -19,121 +20,105 @@ interface DonationModalProps {
   amount: number | null;
 }
 
-type PaymentMethod = "avo" | "atm" | "western-union" | null;
+type DonationType = "one-time" | "recurring";
+type PaymentMethod = "card" | "bank";
 
-const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
+const presetAmounts = [500, 100, 50, 25];
+
+const DonationModal = ({ isOpen, onClose, amount: initialAmount }: DonationModalProps) => {
   const { toast } = useToast();
-  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>(null);
-  const [step, setStep] = useState<"select" | "details">("select");
+  const [donationType, setDonationType] = useState<DonationType>("one-time");
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(initialAmount);
+  const [customAmount, setCustomAmount] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
   const [isProcessing, setIsProcessing] = useState(false);
-  const [copied, setCopied] = useState(false);
-
-  // Form states
-  const [phoneNumber, setPhoneNumber] = useState("");
+  const [coverFees, setCoverFees] = useState(false);
+  
+  // Personal info
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [comment, setComment] = useState("");
+  const [receiveUpdates, setReceiveUpdates] = useState(true);
+  
+  // Card details
   const [cardNumber, setCardNumber] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [cvv, setCvv] = useState("");
-  const [cardName, setCardName] = useState("");
 
-  const paymentMethods = [
-    {
-      id: "avo" as const,
-      name: "Avo Mobile Money",
-      icon: Phone,
-      description: "Pay instantly using your Avo mobile wallet. Quick and secure.",
-      color: "bg-emerald-500",
-    },
-    {
-      id: "atm" as const,
-      name: "ATM / Debit Card",
-      icon: CreditCard,
-      description: "Use your Visa or Mastercard for a secure online payment.",
-      color: "bg-blue-500",
-    },
-    {
-      id: "western-union" as const,
-      name: "Western Union",
-      icon: Globe,
-      description: "Send your donation via Western Union money transfer.",
-      color: "bg-amber-500",
-    },
-  ];
-
-  const westernUnionDetails = {
-    receiverName: "Global Hearts Community",
-    country: "Uganda",
-    city: "Mbale",
-    referenceCode: "GHC-" + Math.random().toString(36).substring(2, 8).toUpperCase(),
+  const handleAmountSelect = (amount: number) => {
+    setSelectedAmount(amount);
+    setCustomAmount("");
   };
 
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-    toast({
-      title: "Copied!",
-      description: "Details copied to clipboard.",
-    });
+  const handleCustomAmountChange = (value: string) => {
+    const numericValue = value.replace(/[^0-9.]/g, "");
+    setCustomAmount(numericValue);
+    setSelectedAmount(null);
   };
 
-  const handleMethodSelect = (method: PaymentMethod) => {
-    setSelectedMethod(method);
-    setStep("details");
-  };
-
-  const handleBack = () => {
-    setStep("select");
-    setSelectedMethod(null);
+  const getFinalAmount = () => {
+    const baseAmount = selectedAmount || parseFloat(customAmount) || 0;
+    if (coverFees && baseAmount > 0) {
+      return Math.round(baseAmount * 1.03 * 100) / 100; // 3% fee
+    }
+    return baseAmount;
   };
 
   const handleClose = () => {
-    setStep("select");
-    setSelectedMethod(null);
-    setPhoneNumber("");
+    setDonationType("one-time");
+    setSelectedAmount(initialAmount);
+    setCustomAmount("");
+    setPaymentMethod("card");
+    setFirstName("");
+    setLastName("");
+    setEmail("");
+    setComment("");
     setCardNumber("");
     setExpiryDate("");
     setCvv("");
-    setCardName("");
+    setCoverFees(false);
+    setReceiveUpdates(true);
     onClose();
   };
 
-  const handleAvoSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phoneNumber || phoneNumber.length < 10) {
+    
+    const finalAmount = getFinalAmount();
+    if (!finalAmount || finalAmount <= 0) {
       toast({
-        title: "Invalid Phone Number",
-        description: "Please enter a valid phone number.",
+        title: "Please select an amount",
+        description: "Choose a preset amount or enter a custom amount.",
         variant: "destructive",
       });
       return;
     }
-    setIsProcessing(true);
-    setTimeout(() => {
-      setIsProcessing(false);
-      toast({
-        title: "Payment Request Sent!",
-        description: "Please check your phone to confirm the payment.",
-      });
-      handleClose();
-    }, 2000);
-  };
 
-  const handleCardSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!cardNumber || !expiryDate || !cvv || !cardName) {
+    if (!firstName || !lastName || !email) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all card details.",
+        description: "Please fill in your personal details.",
         variant: "destructive",
       });
       return;
     }
+
+    if (paymentMethod === "card" && (!cardNumber || !expiryDate || !cvv)) {
+      toast({
+        title: "Missing Card Details",
+        description: "Please fill in all card information.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsProcessing(true);
     setTimeout(() => {
       setIsProcessing(false);
       toast({
-        title: "Payment Successful!",
-        description: `Thank you for your donation of $${amount}!`,
+        title: "Thank You for Your Donation!",
+        description: `Your ${donationType} donation of $${finalAmount.toFixed(2)} has been processed.`,
       });
       handleClose();
     }, 2000);
@@ -160,254 +145,335 @@ const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={handleClose}>
-      <DialogContent className="sm:max-w-lg max-h-[90vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-foreground flex items-center gap-2">
-            {step === "details" && (
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={handleBack}
-                className="mr-2 h-8 w-8"
-                aria-label="Go back to payment methods"
-              >
-                <ArrowLeft className="h-4 w-4" />
-              </Button>
-            )}
-            {step === "select" ? "Choose Payment Method" : paymentMethods.find(m => m.id === selectedMethod)?.name}
-          </DialogTitle>
-          <DialogDescription className="text-muted-foreground">
-            {step === "select" 
-              ? `Donating $${amount || 0}. Select your preferred payment method.`
-              : "Complete your donation securely."
-            }
-          </DialogDescription>
-        </DialogHeader>
-
-        {step === "select" && (
-          <div className="space-y-4 py-4">
-            {paymentMethods.map((method) => (
-              <button
-                key={method.id}
-                onClick={() => handleMethodSelect(method.id)}
-                className={cn(
-                  "w-full p-4 rounded-xl border-2 border-border bg-card text-left",
-                  "transition-all duration-300 hover:border-primary hover:shadow-medium",
-                  "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
-                  "group"
-                )}
-                aria-label={`Pay with ${method.name}`}
-              >
-                <div className="flex items-center gap-4">
-                  <div className={cn(
-                    "p-3 rounded-lg transition-transform duration-300 group-hover:scale-110",
-                    method.color
-                  )}>
-                    <method.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="font-semibold text-foreground text-lg">{method.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">{method.description}</p>
-                  </div>
-                  <ArrowLeft className="h-5 w-5 text-muted-foreground rotate-180 transition-transform duration-300 group-hover:translate-x-1" />
-                </div>
-              </button>
-            ))}
-          </div>
-        )}
-
-        {step === "details" && selectedMethod === "avo" && (
-          <form onSubmit={handleAvoSubmit} className="space-y-6 py-4">
-            <div className="bg-emerald-50 dark:bg-emerald-950/30 p-4 rounded-lg border border-emerald-200 dark:border-emerald-800">
-              <p className="text-sm text-emerald-700 dark:text-emerald-300">
-                Enter your Avo registered phone number. You'll receive a prompt to confirm the payment of <strong>${amount}</strong>.
-              </p>
+      <DialogContent className="sm:max-w-2xl max-h-[90vh] overflow-y-auto p-0">
+        {/* Header */}
+        <div className="bg-primary px-6 py-8 text-primary-foreground">
+          <DialogHeader>
+            <div className="flex items-center gap-3 mb-4">
+              <div className="p-2 bg-white/20 rounded-full">
+                <Heart className="h-6 w-6" />
+              </div>
+              <DialogTitle className="text-2xl font-bold">
+                Make a Difference Today
+              </DialogTitle>
             </div>
-            
-            <div className="space-y-2">
-              <Label htmlFor="phone" className="text-foreground font-medium">Phone Number</Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder="+256 7XX XXX XXX"
-                value={phoneNumber}
-                onChange={(e) => setPhoneNumber(e.target.value)}
-                className="h-12 text-lg"
-                required
-                aria-describedby="phone-help"
-              />
-              <p id="phone-help" className="text-xs text-muted-foreground">Enter your Avo registered mobile number</p>
-            </div>
+            <p className="text-primary-foreground/90 text-sm leading-relaxed">
+              Your generous support helps us provide essential services to communities in need. 
+              Every donation, no matter the size, creates lasting impact.
+            </p>
+          </DialogHeader>
+        </div>
 
-            <Button 
-              type="submit" 
-              className="w-full h-12 text-lg font-semibold"
-              disabled={isProcessing}
-            >
-              {isProcessing ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                <>
-                  <Check className="mr-2 h-5 w-5" />
-                  Confirm Payment
-                </>
+        <form onSubmit={handleSubmit} className="px-6 py-6 space-y-6">
+          {/* Donation Type Toggle */}
+          <div className="flex rounded-lg border border-border overflow-hidden">
+            <button
+              type="button"
+              onClick={() => setDonationType("one-time")}
+              className={cn(
+                "flex-1 py-3 px-4 text-sm font-semibold transition-colors",
+                donationType === "one-time"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
               )}
-            </Button>
-          </form>
-        )}
+            >
+              One-time
+            </button>
+            <button
+              type="button"
+              onClick={() => setDonationType("recurring")}
+              className={cn(
+                "flex-1 py-3 px-4 text-sm font-semibold transition-colors",
+                donationType === "recurring"
+                  ? "bg-primary text-primary-foreground"
+                  : "bg-muted text-muted-foreground hover:bg-muted/80"
+              )}
+            >
+              Monthly
+            </button>
+          </div>
 
-        {step === "details" && selectedMethod === "atm" && (
-          <form onSubmit={handleCardSubmit} className="space-y-4 py-4">
-            <div className="bg-blue-50 dark:bg-blue-950/30 p-4 rounded-lg border border-blue-200 dark:border-blue-800">
-              <p className="text-sm text-blue-700 dark:text-blue-300 flex items-center gap-2">
-                <CreditCard className="h-4 w-4" />
-                Your payment is secured with 256-bit SSL encryption.
-              </p>
+          {/* Amount Selection */}
+          <div className="space-y-3">
+            <Label className="text-foreground font-semibold">
+              Choose a <span className="text-primary">{donationType}</span> amount
+            </Label>
+            <div className="grid grid-cols-4 gap-3">
+              {presetAmounts.map((amount) => (
+                <button
+                  key={amount}
+                  type="button"
+                  onClick={() => handleAmountSelect(amount)}
+                  className={cn(
+                    "py-3 px-4 rounded-lg border-2 font-bold text-lg transition-all",
+                    selectedAmount === amount
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-card text-foreground hover:border-primary/50"
+                  )}
+                >
+                  ${amount}
+                </button>
+              ))}
             </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="cardName" className="text-foreground font-medium">Name on Card</Label>
+            <div className="relative">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-semibold">$</span>
               <Input
-                id="cardName"
                 type="text"
-                placeholder="John Doe"
-                value={cardName}
-                onChange={(e) => setCardName(e.target.value)}
-                className="h-12"
-                required
+                placeholder="Other amount"
+                value={customAmount}
+                onChange={(e) => handleCustomAmountChange(e.target.value)}
+                className="pl-8 h-12 text-lg"
               />
             </div>
+          </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="cardNumber" className="text-foreground font-medium">Card Number</Label>
-              <Input
-                id="cardNumber"
-                type="text"
-                placeholder="1234 5678 9012 3456"
-                value={cardNumber}
-                onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
-                maxLength={19}
-                className="h-12 font-mono"
-                required
-              />
-            </div>
-
+          {/* Personal Information */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-foreground border-b border-border pb-2">
+              Your Information
+            </h3>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="expiry" className="text-foreground font-medium">Expiry Date</Label>
+                <Label htmlFor="firstName">First Name *</Label>
                 <Input
-                  id="expiry"
+                  id="firstName"
                   type="text"
-                  placeholder="MM/YY"
-                  value={expiryDate}
-                  onChange={(e) => setExpiryDate(formatExpiryDate(e.target.value))}
-                  maxLength={5}
-                  className="h-12 font-mono"
+                  placeholder="John"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="h-11"
                   required
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="cvv" className="text-foreground font-medium">CVV</Label>
+                <Label htmlFor="lastName">Last Name *</Label>
                 <Input
-                  id="cvv"
-                  type="password"
-                  placeholder="•••"
-                  value={cvv}
-                  onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 4))}
-                  maxLength={4}
-                  className="h-12 font-mono"
+                  id="lastName"
+                  type="text"
+                  placeholder="Doe"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="h-11"
                   required
                 />
               </div>
             </div>
-
-            <Button 
-              type="submit" 
-              className="w-full h-12 text-lg font-semibold mt-6"
-              disabled={isProcessing}
-            >
-              {isProcessing ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Processing...
-                </>
-              ) : (
-                <>
-                  <CreditCard className="mr-2 h-5 w-5" />
-                  Pay ${amount}
-                </>
-              )}
-            </Button>
-          </form>
-        )}
-
-        {step === "details" && selectedMethod === "western-union" && (
-          <div className="space-y-6 py-4">
-            <div className="bg-amber-50 dark:bg-amber-950/30 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
-              <p className="text-sm text-amber-700 dark:text-amber-300">
-                Visit your nearest Western Union agent and use the details below to send your donation of <strong>${amount}</strong>.
-              </p>
+            <div className="space-y-2">
+              <Label htmlFor="email">Email Address *</Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder="john@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="h-11"
+                required
+              />
             </div>
-
-            <div className="space-y-4">
-              <div className="bg-muted p-4 rounded-lg">
-                <div className="flex justify-between items-start mb-4">
-                  <h4 className="font-semibold text-foreground">Transfer Details</h4>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => handleCopy(`Receiver: ${westernUnionDetails.receiverName}\nCountry: ${westernUnionDetails.country}\nCity: ${westernUnionDetails.city}\nReference: ${westernUnionDetails.referenceCode}`)}
-                    className="h-8"
-                  >
-                    {copied ? <Check className="h-4 w-4 mr-1" /> : <Copy className="h-4 w-4 mr-1" />}
-                    Copy All
-                  </Button>
-                </div>
-                
-                <div className="space-y-3 text-sm">
-                  <div className="flex justify-between py-2 border-b border-border">
-                    <span className="text-muted-foreground">Receiver Name</span>
-                    <span className="font-medium text-foreground">{westernUnionDetails.receiverName}</span>
-                  </div>
-                  <div className="flex justify-between py-2 border-b border-border">
-                    <span className="text-muted-foreground">Country</span>
-                    <span className="font-medium text-foreground">{westernUnionDetails.country}</span>
-                  </div>
-                  <div className="flex justify-between py-2 border-b border-border">
-                    <span className="text-muted-foreground">City</span>
-                    <span className="font-medium text-foreground">{westernUnionDetails.city}</span>
-                  </div>
-                  <div className="flex justify-between py-2">
-                    <span className="text-muted-foreground">Reference Code</span>
-                    <span className="font-mono font-bold text-primary">{westernUnionDetails.referenceCode}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <h4 className="font-semibold text-foreground">Steps to Complete</h4>
-                <ol className="list-decimal list-inside space-y-2 text-sm text-muted-foreground">
-                  <li>Visit your nearest Western Union agent</li>
-                  <li>Fill out the "Send Money" form with the details above</li>
-                  <li>Pay the transfer amount plus any fees</li>
-                  <li>Keep your receipt with the MTCN (tracking number)</li>
-                  <li>Email the MTCN to <span className="text-primary">globalheartscommunity@gmail.com</span></li>
-                </ol>
-              </div>
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="updates"
+                checked={receiveUpdates}
+                onCheckedChange={(checked) => setReceiveUpdates(checked as boolean)}
+              />
+              <Label htmlFor="updates" className="text-sm text-muted-foreground cursor-pointer">
+                Keep me updated on the impact of my donation
+              </Label>
             </div>
-
-            <Button 
-              onClick={handleClose}
-              className="w-full h-12 text-lg font-semibold"
-            >
-              <Check className="mr-2 h-5 w-5" />
-              I've Noted the Details
-            </Button>
           </div>
-        )}
+
+          {/* Comment */}
+          <div className="space-y-2">
+            <Label htmlFor="comment">Leave a Comment (Optional)</Label>
+            <Textarea
+              id="comment"
+              placeholder="Share why you're giving or leave a message of support..."
+              value={comment}
+              onChange={(e) => setComment(e.target.value)}
+              className="min-h-[80px] resize-none"
+              maxLength={500}
+            />
+            <p className="text-xs text-muted-foreground text-right">{comment.length}/500</p>
+          </div>
+
+          {/* Cover Fees */}
+          <div className="bg-muted/50 p-4 rounded-lg border border-border">
+            <div className="flex items-start space-x-3">
+              <Checkbox
+                id="coverFees"
+                checked={coverFees}
+                onCheckedChange={(checked) => setCoverFees(checked as boolean)}
+                className="mt-0.5"
+              />
+              <div>
+                <Label htmlFor="coverFees" className="text-foreground font-medium cursor-pointer">
+                  Cover transaction fees
+                </Label>
+                <p className="text-sm text-muted-foreground mt-1">
+                  Add 3% to help cover processing fees so 100% of your intended gift goes to our programs.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Payment Method */}
+          <div className="space-y-4">
+            <h3 className="font-semibold text-foreground border-b border-border pb-2">
+              Payment Method
+            </h3>
+            <div className="flex rounded-lg border border-border overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setPaymentMethod("card")}
+                className={cn(
+                  "flex-1 py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
+                  paymentMethod === "card"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                )}
+              >
+                <CreditCard className="h-4 w-4" />
+                Debit or Credit
+              </button>
+              <button
+                type="button"
+                onClick={() => setPaymentMethod("bank")}
+                className={cn(
+                  "flex-1 py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
+                  paymentMethod === "bank"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                )}
+              >
+                <Building2 className="h-4 w-4" />
+                Bank Transfer
+              </button>
+            </div>
+
+            {paymentMethod === "card" && (
+              <div className="space-y-4 animate-in fade-in duration-300">
+                <div className="space-y-2">
+                  <Label htmlFor="cardNumber">Card Number</Label>
+                  <Input
+                    id="cardNumber"
+                    type="text"
+                    placeholder="1234 5678 9012 3456"
+                    value={cardNumber}
+                    onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                    maxLength={19}
+                    className="h-11 font-mono"
+                    required
+                  />
+                </div>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="expiry">Expiry Date</Label>
+                    <Input
+                      id="expiry"
+                      type="text"
+                      placeholder="MM/YY"
+                      value={expiryDate}
+                      onChange={(e) => setExpiryDate(formatExpiryDate(e.target.value))}
+                      maxLength={5}
+                      className="h-11 font-mono"
+                      required
+                    />
+                  </div>
+                  <div className="space-y-2">
+                    <Label htmlFor="cvv">Security Code</Label>
+                    <Input
+                      id="cvv"
+                      type="password"
+                      placeholder="CVV"
+                      value={cvv}
+                      onChange={(e) => setCvv(e.target.value.replace(/\D/g, "").slice(0, 4))}
+                      maxLength={4}
+                      className="h-11 font-mono"
+                      required
+                    />
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground flex items-center gap-1">
+                  <CreditCard className="h-3 w-3" />
+                  Your payment is secured with 256-bit SSL encryption
+                </p>
+              </div>
+            )}
+
+            {paymentMethod === "bank" && (
+              <div className="space-y-4 animate-in fade-in duration-300">
+                <div className="bg-muted p-4 rounded-lg">
+                  <h4 className="font-semibold text-foreground mb-3">Bank Transfer Details</h4>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between py-2 border-b border-border">
+                      <span className="text-muted-foreground">Bank Name</span>
+                      <span className="font-medium text-foreground">Stanbic Bank Uganda</span>
+                    </div>
+                    <div className="flex justify-between py-2 border-b border-border">
+                      <span className="text-muted-foreground">Account Name</span>
+                      <span className="font-medium text-foreground">Global Hearts Community</span>
+                    </div>
+                    <div className="flex justify-between py-2 border-b border-border">
+                      <span className="text-muted-foreground">Account Number</span>
+                      <span className="font-mono font-medium text-foreground">9030012345678</span>
+                    </div>
+                    <div className="flex justify-between py-2">
+                      <span className="text-muted-foreground">Swift Code</span>
+                      <span className="font-mono font-medium text-foreground">SBICUGKX</span>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Please use your email address as the payment reference. After completing the transfer, 
+                  email your confirmation to <span className="text-primary">globalheartscommunity@gmail.com</span>
+                </p>
+              </div>
+            )}
+          </div>
+
+          {/* Summary & Submit */}
+          <div className="bg-primary/5 p-4 rounded-lg border border-primary/20">
+            <div className="flex justify-between items-center mb-2">
+              <span className="text-muted-foreground">Donation Amount</span>
+              <span className="font-medium">${(selectedAmount || parseFloat(customAmount) || 0).toFixed(2)}</span>
+            </div>
+            {coverFees && (
+              <div className="flex justify-between items-center mb-2 text-sm">
+                <span className="text-muted-foreground">Processing Fee (3%)</span>
+                <span className="font-medium">
+                  ${((selectedAmount || parseFloat(customAmount) || 0) * 0.03).toFixed(2)}
+                </span>
+              </div>
+            )}
+            <div className="flex justify-between items-center pt-2 border-t border-primary/20">
+              <span className="font-semibold text-foreground">Total</span>
+              <span className="text-xl font-bold text-primary">${getFinalAmount().toFixed(2)}</span>
+            </div>
+          </div>
+
+          <Button 
+            type="submit" 
+            className="w-full h-14 text-lg font-bold"
+            disabled={isProcessing}
+          >
+            {isProcessing ? (
+              <>
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                Processing...
+              </>
+            ) : (
+              <>
+                <Heart className="mr-2 h-5 w-5" />
+                Complete {donationType === "recurring" ? "Monthly" : ""} Donation
+              </>
+            )}
+          </Button>
+
+          <p className="text-xs text-center text-muted-foreground">
+            By completing this donation, you agree to our terms and privacy policy. 
+            You will receive a tax receipt via email.
+          </p>
+        </form>
       </DialogContent>
     </Dialog>
   );
