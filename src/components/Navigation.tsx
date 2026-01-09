@@ -42,9 +42,9 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#home" className={`flex items-center gap-2 transition-smooth hover:scale-105 ${isScrolled ? "text-primary-foreground" : ""}`}>
+          <a href="#home" className={`flex items-center gap-2 transition-smooth hover:scale-105`}>
             <img src={logo} alt="Global Hearts Community Logo" className="h-10 w-10 md:h-12 md:w-12" />
-            <span className={`text-lg md:text-xl font-bold leading-tight ${isScrolled ? "text-primary-foreground" : "text-primary"}`}>Global Hearts Community</span>
+            <span className={`text-lg md:text-xl font-bold leading-tight ${isScrolled ? "text-primary-foreground" : "text-white"}`}>Global Hearts Community</span>
           </a>
 
           <div className="hidden md:flex items-center gap-5">
@@ -55,7 +55,7 @@ const Navigation = () => {
                 className={`text-[0.9rem] font-medium transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
                   isScrolled 
                     ? "text-primary-foreground hover:text-primary-foreground/80 after:bg-primary-foreground/80" 
-                    : "text-foreground hover:text-primary after:bg-primary"
+                    : "text-white hover:text-white/80 after:bg-white"
                 }`}
               >
                 {link.name}
