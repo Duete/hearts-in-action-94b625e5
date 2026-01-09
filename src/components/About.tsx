@@ -25,8 +25,8 @@ const About = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">About Us</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Building stronger communities through sustainable programs and compassionate action.
+          <p className="text-xl md:text-2xl text-[hsl(220,60%,25%)] max-w-4xl mx-auto leading-relaxed font-medium">
+            Building stronger communities through sustainable programs and compassionate action as we believe no one should go hungry, face crisis alone, or be denied the chance to build a better life.
           </p>
         </div>
 
