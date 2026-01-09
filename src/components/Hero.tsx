@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 import heroVideo from "@/assets/hero-video-new.mp4";
 
 const Hero = () => {
@@ -8,6 +9,29 @@ const Hero = () => {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut" as const,
+      },
+    },
   };
 
   return (
@@ -28,25 +52,39 @@ const Hero = () => {
 
       {/* Content */}
       <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center">
-        <div className="max-w-4xl mx-auto animate-fade-in">
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight">
-            A better world can't wait
-          </h1>
-          
-          <p className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-            We work alongside communities to create lasting, positive change through sustainable development, humanitarian assistance, and innovative partnerships.
-          </p>
-          
-          <Button 
-            variant="warm" 
-            size="xl" 
-            onClick={() => scrollToSection("#get-involved")}
-            className="group text-lg px-8 py-6"
+        <motion.div 
+          className="max-w-4xl mx-auto"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <motion.h1 
+            variants={itemVariants}
+            className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight tracking-tight"
           >
-            Get Involved
-            <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-          </Button>
-        </div>
+            A better world can't wait
+          </motion.h1>
+          
+          <motion.p 
+            variants={itemVariants}
+            className="text-lg md:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed font-light"
+          >
+            We work alongside communities to create lasting, positive change through sustainable development, humanitarian assistance, and innovative partnerships.
+          </motion.p>
+          
+          <motion.div variants={itemVariants}>
+            <Button 
+              variant="warm" 
+              size="xl" 
+              onClick={() => scrollToSection("#get-involved")}
+              className="group text-lg px-8 py-6"
+            >
+              Get Involved
+              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+            </Button>
+          </motion.div>
+        </motion.div>
       </div>
 
       {/* Bottom Gradient Fade */}
