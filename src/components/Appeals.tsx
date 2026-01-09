@@ -1,6 +1,7 @@
 import { Droplets, Heart, Moon, Building, BookOpen, TreePine } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { motion } from "framer-motion";
 
 const Appeals = () => {
   const appealCategories = [
@@ -134,19 +135,78 @@ const Appeals = () => {
     }
   };
 
+  const headerVariants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
+  const categoryVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.5,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
+  const cardContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const cardVariants = {
+    hidden: { opacity: 0, y: 20, scale: 0.95 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        ease: "easeOut" as const,
+      },
+    },
+  };
+
   return (
     <section id="appeals" className="py-20 md:py-32 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
+        <motion.div 
+          className="text-center mb-16"
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+        >
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Appeals</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Your generous donations help us deliver life-changing programs. Choose an appeal that resonates with your heart.
           </p>
-        </div>
+        </motion.div>
 
         <div className="space-y-16">
           {appealCategories.map((category, catIndex) => (
-            <div key={catIndex}>
+            <motion.div 
+              key={catIndex}
+              variants={categoryVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+            >
               <div className="flex items-center gap-3 mb-8">
                 <div className="bg-primary/10 w-12 h-12 rounded-full flex items-center justify-center">
                   <category.icon className="h-6 w-6 text-primary" />
@@ -154,38 +214,49 @@ const Appeals = () => {
                 <h3 className="text-2xl md:text-3xl font-bold text-foreground">{category.title}</h3>
               </div>
 
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <motion.div 
+                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                variants={cardContainerVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.1 }}
+              >
                 {category.appeals.map((appeal, appealIndex) => (
-                  <Card
-                    key={appealIndex}
-                    className="shadow-medium hover:shadow-strong transition-smooth group overflow-hidden"
-                  >
-                    <CardContent className="p-6">
-                      <h4 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
-                        {appeal.name}
-                      </h4>
-                      <p className="text-muted-foreground mb-4 leading-relaxed text-sm">
-                        {appeal.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="text-lg font-bold text-primary">{appeal.amount}</span>
-                        <Button variant="hero" size="sm" onClick={scrollToContact}>
-                          Donate
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
+                  <motion.div key={appealIndex} variants={cardVariants}>
+                    <Card className="shadow-medium hover:shadow-strong transition-smooth group overflow-hidden h-full">
+                      <CardContent className="p-6 flex flex-col h-full">
+                        <h4 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-colors">
+                          {appeal.name}
+                        </h4>
+                        <p className="text-muted-foreground mb-4 leading-relaxed text-sm flex-grow">
+                          {appeal.description}
+                        </p>
+                        <div className="flex items-center justify-between">
+                          <span className="text-lg font-bold text-primary">{appeal.amount}</span>
+                          <Button variant="hero" size="sm" onClick={scrollToContact}>
+                            Donate
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="text-center mt-16">
+        <motion.div 
+          className="text-center mt-16"
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+        >
           <Button variant="hero" size="xl" onClick={scrollToContact} className="shadow-medium">
             Donate Now
           </Button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
