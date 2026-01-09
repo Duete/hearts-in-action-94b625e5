@@ -67,9 +67,9 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: Facebook, href: "https://www.facebook.com/share/17tiYWGKkU/", label: "Facebook" },
-    { icon: Twitter, href: "https://x.com/GHCUganda", label: "X" },
-    { icon: Instagram, href: "#", label: "Instagram" },
-    { icon: MessageCircle, href: "https://wa.me/256784330284", label: "WhatsApp" },
+    { icon: Twitter, href: "https://x.com/GHCommunity_Ug", label: "X" },
+    { icon: Instagram, href: "https://www.instagram.com/global_hearts_community_ugand/", label: "Instagram" },
+    { icon: MessageCircle, href: "https://wa.me/256791481089", label: "WhatsApp" },
   ];
 
   return (
