@@ -21,7 +21,7 @@ interface DonationModalProps {
 }
 
 type DonationType = "one-time" | "recurring";
-type PaymentMethod = "card" | "bank";
+type PaymentMethod = "paypal" | "card" | "bank";
 
 const presetAmounts = [500, 100, 50, 25];
 
@@ -30,7 +30,7 @@ const DonationModal = ({ isOpen, onClose, amount: initialAmount }: DonationModal
   const [donationType, setDonationType] = useState<DonationType>("one-time");
   const [selectedAmount, setSelectedAmount] = useState<number | null>(initialAmount);
   const [customAmount, setCustomAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("card");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("paypal");
   const [isProcessing, setIsProcessing] = useState(false);
   const [coverFees, setCoverFees] = useState(false);
   
@@ -69,7 +69,7 @@ const DonationModal = ({ isOpen, onClose, amount: initialAmount }: DonationModal
     setDonationType("one-time");
     setSelectedAmount(initialAmount);
     setCustomAmount("");
-    setPaymentMethod("card");
+    setPaymentMethod("paypal");
     setFirstName("");
     setLastName("");
     setEmail("");
@@ -321,25 +321,40 @@ const DonationModal = ({ isOpen, onClose, amount: initialAmount }: DonationModal
             <h3 className="font-semibold text-foreground border-b border-border pb-2">
               Payment Method
             </h3>
-            <div className="flex rounded-lg border border-border overflow-hidden">
+            <div className="grid grid-cols-3 rounded-lg border border-border overflow-hidden">
+              <button
+                type="button"
+                onClick={() => setPaymentMethod("paypal")}
+                className={cn(
+                  "py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
+                  paymentMethod === "paypal"
+                    ? "bg-primary text-primary-foreground"
+                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                )}
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.768.768 0 0 1 .757-.646h6.609c2.193 0 3.815.621 4.824 1.845.431.524.73 1.092.899 1.716.172.635.218 1.384.139 2.29l-.016.15v.426l.31.176c.268.139.492.298.679.479.37.357.607.807.706 1.342.103.555.068 1.203-.104 1.93-.197.835-.52 1.565-.959 2.161-.42.568-.946 1.029-1.563 1.368-.593.327-1.278.566-2.036.712-.735.142-1.562.213-2.458.213H12.07a1.096 1.096 0 0 0-1.083.92l-.022.155-.457 2.903-.019.101a.313.313 0 0 1-.309.27H7.076z"/>
+                </svg>
+                PayPal
+              </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod("card")}
                 className={cn(
-                  "flex-1 py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
+                  "py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
                   paymentMethod === "card"
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
                 )}
               >
                 <CreditCard className="h-4 w-4" />
-                Debit or Credit
+                Debit/Credit
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod("bank")}
                 className={cn(
-                  "flex-1 py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
+                  "py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
                   paymentMethod === "bank"
                     ? "bg-primary text-primary-foreground"
                     : "bg-muted text-muted-foreground hover:bg-muted/80"
@@ -349,6 +364,27 @@ const DonationModal = ({ isOpen, onClose, amount: initialAmount }: DonationModal
                 Bank Transfer
               </button>
             </div>
+
+            {paymentMethod === "paypal" && (
+              <div className="space-y-4 animate-in fade-in duration-300">
+                <div className="bg-muted p-4 rounded-lg text-center">
+                  <svg className="h-10 w-10 mx-auto mb-3 text-primary" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.768.768 0 0 1 .757-.646h6.609c2.193 0 3.815.621 4.824 1.845.431.524.73 1.092.899 1.716.172.635.218 1.384.139 2.29l-.016.15v.426l.31.176c.268.139.492.298.679.479.37.357.607.807.706 1.342.103.555.068 1.203-.104 1.93-.197.835-.52 1.565-.959 2.161-.42.568-.946 1.029-1.563 1.368-.593.327-1.278.566-2.036.712-.735.142-1.562.213-2.458.213H12.07a1.096 1.096 0 0 0-1.083.92l-.022.155-.457 2.903-.019.101a.313.313 0 0 1-.309.27H7.076z"/>
+                  </svg>
+                  <h4 className="font-semibold text-foreground mb-2">Pay with PayPal</h4>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    You will be redirected to PayPal to complete your secure donation.
+                  </p>
+                  <Button
+                    type="button"
+                    className="bg-[#0070ba] hover:bg-[#005ea6] text-white"
+                    onClick={() => window.open('https://paypal.me/globalheartscommunity', '_blank')}
+                  >
+                    Continue with PayPal
+                  </Button>
+                </div>
+              </div>
+            )}
 
             {paymentMethod === "card" && (
               <div className="space-y-4 animate-in fade-in duration-300">
@@ -415,7 +451,7 @@ const DonationModal = ({ isOpen, onClose, amount: initialAmount }: DonationModal
                     </div>
                     <div className="flex justify-between py-2 border-b border-border">
                       <span className="text-muted-foreground">Account Number</span>
-                      <span className="font-mono font-medium text-foreground">9030012345678</span>
+                      <span className="font-mono font-medium text-foreground">01110017845397</span>
                     </div>
                     <div className="flex justify-between py-2">
                       <span className="text-muted-foreground">Swift Code</span>
