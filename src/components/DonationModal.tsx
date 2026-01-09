@@ -689,7 +689,10 @@ Thank you for your generous support!
                 <div className="bg-amber-50 dark:bg-amber-950/30 p-3 rounded-lg border border-amber-200 dark:border-amber-800">
                   <p className="text-sm text-amber-800 dark:text-amber-200">
                     <strong>Important:</strong> After completing the transfer, please send the MTCN (Money Transfer Control Number) to{" "}
-                    <span className="text-primary font-medium">globalheartscommunity@gmail.com</span>
+                    <span className="text-primary font-medium">globalheartscommunity@gmail.com</span> or via WhatsApp at{" "}
+                    <a href="https://wa.me/256791481089" target="_blank" rel="noopener noreferrer" className="text-primary font-medium underline hover:no-underline">
+                      +256 791 481 089
+                    </a>
                   </p>
                 </div>
               </div>
