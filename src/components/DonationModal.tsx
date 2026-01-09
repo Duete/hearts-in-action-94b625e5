@@ -633,7 +633,7 @@ Thank you for your generous support!
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between py-2 border-b border-border">
                       <span className="text-muted-foreground">Bank Name</span>
-                      <span className="font-medium text-foreground">Stanbic Bank Uganda</span>
+                      <span className="font-medium text-foreground">DFCU Bank Uganda</span>
                     </div>
                     <div className="flex justify-between py-2 border-b border-border">
                       <span className="text-muted-foreground">Account Name</span>
@@ -643,9 +643,13 @@ Thank you for your generous support!
                       <span className="text-muted-foreground">Account Number</span>
                       <span className="font-mono font-medium text-foreground">01110017845397</span>
                     </div>
-                    <div className="flex justify-between py-2">
+                    <div className="flex justify-between py-2 border-b border-border">
                       <span className="text-muted-foreground">Swift Code</span>
-                      <span className="font-mono font-medium text-foreground">SBICUGKX</span>
+                      <span className="font-mono font-medium text-foreground">DFCUUGKA</span>
+                    </div>
+                    <div className="flex justify-between py-2">
+                      <span className="text-muted-foreground">Address</span>
+                      <span className="font-medium text-foreground text-right">DFCU Towers, Kampala Road, Kampala, Uganda</span>
                     </div>
                   </div>
                 </div>
