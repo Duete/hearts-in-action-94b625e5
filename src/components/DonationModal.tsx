@@ -21,7 +21,7 @@ interface DonationModalProps {
 }
 
 type DonationType = "one-time" | "recurring";
-type PaymentMethod = "paypal" | "stripe" | "bank";
+type PaymentMethod = "paypal" | "dpo" | "bank" | "western-union";
 type Step = "form" | "confirmation";
 
 const presetAmounts = [500, 100, 50, 25];
@@ -45,7 +45,7 @@ const DonationModal = ({ isOpen, onClose, amount: initialAmount }: DonationModal
   const [donationType, setDonationType] = useState<DonationType>("one-time");
   const [selectedAmount, setSelectedAmount] = useState<number | null>(initialAmount);
   const [customAmount, setCustomAmount] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("paypal");
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("dpo");
   const [isProcessing, setIsProcessing] = useState(false);
   const [coverFees, setCoverFees] = useState(false);
   const [donationData, setDonationData] = useState<DonationData | null>(null);
@@ -542,49 +542,107 @@ Thank you for your generous support!
               <Lock className="h-4 w-4 text-green-600" />
               Secure Payment Method
             </h3>
-            <div className="grid grid-cols-3 rounded-lg border border-border overflow-hidden">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2 rounded-lg">
+              <button
+                type="button"
+                onClick={() => setPaymentMethod("dpo")}
+                className={cn(
+                  "py-3 px-3 text-sm font-medium transition-colors flex flex-col items-center justify-center gap-1.5 rounded-lg border-2",
+                  paymentMethod === "dpo"
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-muted text-muted-foreground hover:border-primary/50"
+                )}
+              >
+                <CreditCard className="h-5 w-5" />
+                <span>DPO Pay</span>
+              </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod("paypal")}
                 className={cn(
-                  "py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
+                  "py-3 px-3 text-sm font-medium transition-colors flex flex-col items-center justify-center gap-1.5 rounded-lg border-2",
                   paymentMethod === "paypal"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-muted text-muted-foreground hover:border-primary/50"
                 )}
               >
-                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74L4.944 3.72a.768.768 0 0 1 .757-.646h6.609c2.193 0 3.815.621 4.824 1.845.431.524.73 1.092.899 1.716.172.635.218 1.384.139 2.29l-.016.15v.426l.31.176c.268.139.492.298.679.479.37.357.607.807.706 1.342.103.555.068 1.203-.104 1.93-.197.835-.52 1.565-.959 2.161-.42.568-.946 1.029-1.563 1.368-.593.327-1.278.566-2.036.712-.735.142-1.562.213-2.458.213H12.07a1.096 1.096 0 0 0-1.083.92l-.022.155-.457 2.903-.019.101a.313.313 0 0 1-.309.27H7.076z"/>
                 </svg>
-                PayPal
+                <span>PayPal</span>
               </button>
               <button
                 type="button"
-                onClick={() => setPaymentMethod("stripe")}
+                onClick={() => setPaymentMethod("western-union")}
                 className={cn(
-                  "py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
-                  paymentMethod === "stripe"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                  "py-3 px-3 text-sm font-medium transition-colors flex flex-col items-center justify-center gap-1.5 rounded-lg border-2",
+                  paymentMethod === "western-union"
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-muted text-muted-foreground hover:border-primary/50"
                 )}
               >
-                <CreditCard className="h-4 w-4" />
-                Card (Stripe)
+                <svg className="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                </svg>
+                <span>Western Union</span>
               </button>
               <button
                 type="button"
                 onClick={() => setPaymentMethod("bank")}
                 className={cn(
-                  "py-3 px-4 text-sm font-medium transition-colors flex items-center justify-center gap-2",
+                  "py-3 px-3 text-sm font-medium transition-colors flex flex-col items-center justify-center gap-1.5 rounded-lg border-2",
                   paymentMethod === "bank"
-                    ? "bg-primary text-primary-foreground"
-                    : "bg-muted text-muted-foreground hover:bg-muted/80"
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border bg-muted text-muted-foreground hover:border-primary/50"
                 )}
               >
-                <Building2 className="h-4 w-4" />
-                Bank Transfer
+                <Building2 className="h-5 w-5" />
+                <span>Bank Transfer</span>
               </button>
             </div>
+
+            {paymentMethod === "dpo" && (
+              <div className="space-y-4 animate-in fade-in duration-300">
+                <div className="bg-muted p-4 rounded-lg text-center">
+                  <CreditCard className="h-10 w-10 mx-auto mb-3 text-primary" />
+                  <h4 className="font-semibold text-foreground mb-2">Pay with DPO Pay</h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    Secure payment via VISA, MasterCard, and American Express. You will be redirected to DPO Pay's secure checkout.
+                  </p>
+                  <div className="flex items-center justify-center gap-3 mt-3">
+                    <div className="bg-white p-1.5 rounded shadow-sm">
+                      <svg className="h-6 w-10" viewBox="0 0 50 16" fill="none">
+                        <rect width="50" height="16" rx="2" fill="#1A1F71"/>
+                        <text x="25" y="11" textAnchor="middle" fill="white" fontSize="8" fontWeight="bold">VISA</text>
+                      </svg>
+                    </div>
+                    <div className="bg-white p-1.5 rounded shadow-sm">
+                      <svg className="h-6 w-10" viewBox="0 0 50 16" fill="none">
+                        <circle cx="18" cy="8" r="7" fill="#EB001B"/>
+                        <circle cx="32" cy="8" r="7" fill="#F79E1B"/>
+                        <path d="M25 3.5a7 7 0 000 9" fill="#FF5F00"/>
+                      </svg>
+                    </div>
+                    <div className="bg-white p-1.5 rounded shadow-sm">
+                      <svg className="h-6 w-10" viewBox="0 0 50 16" fill="none">
+                        <rect width="50" height="16" rx="2" fill="#016FD0"/>
+                        <text x="25" y="11" textAnchor="middle" fill="white" fontSize="6" fontWeight="bold">AMEX</text>
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="flex items-center justify-center gap-4 mt-4 text-xs text-muted-foreground">
+                    <span className="flex items-center gap-1">
+                      <Shield className="h-3 w-3 text-green-600" />
+                      PCI-DSS Compliant
+                    </span>
+                    <span className="flex items-center gap-1">
+                      <Lock className="h-3 w-3 text-green-600" />
+                      3D Secure
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
 
             {paymentMethod === "paypal" && (
               <div className="space-y-4 animate-in fade-in duration-300">
@@ -604,24 +662,35 @@ Thank you for your generous support!
               </div>
             )}
 
-            {paymentMethod === "stripe" && (
+            {paymentMethod === "western-union" && (
               <div className="space-y-4 animate-in fade-in duration-300">
-                <div className="bg-muted p-4 rounded-lg text-center">
-                  <CreditCard className="h-10 w-10 mx-auto mb-3 text-primary" />
-                  <h4 className="font-semibold text-foreground mb-2">Pay with Card via Stripe</h4>
-                  <p className="text-sm text-muted-foreground">
-                    You will be securely redirected to Stripe's checkout. We never see or store your card details.
-                  </p>
-                  <div className="flex items-center justify-center gap-4 mt-3 text-xs text-muted-foreground">
-                    <span className="flex items-center gap-1">
-                      <Shield className="h-3 w-3 text-green-600" />
-                      PCI-DSS Compliant
-                    </span>
-                    <span className="flex items-center gap-1">
-                      <Lock className="h-3 w-3 text-green-600" />
-                      Tokenized Payments
-                    </span>
+                <div className="bg-muted p-4 rounded-lg">
+                  <div className="flex items-center justify-center gap-2 mb-3">
+                    <svg className="h-8 w-8 text-yellow-600" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                    <h4 className="font-semibold text-foreground">Western Union Transfer</h4>
                   </div>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between py-2 border-b border-border">
+                      <span className="text-muted-foreground">Receiver Name</span>
+                      <span className="font-medium text-foreground">Global Hearts Community</span>
+                    </div>
+                    <div className="flex justify-between py-2 border-b border-border">
+                      <span className="text-muted-foreground">Country</span>
+                      <span className="font-medium text-foreground">Uganda</span>
+                    </div>
+                    <div className="flex justify-between py-2">
+                      <span className="text-muted-foreground">City</span>
+                      <span className="font-medium text-foreground">Mbale</span>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-amber-50 dark:bg-amber-950/30 p-3 rounded-lg border border-amber-200 dark:border-amber-800">
+                  <p className="text-sm text-amber-800 dark:text-amber-200">
+                    <strong>Important:</strong> After completing the transfer, please send the MTCN (Money Transfer Control Number) to{" "}
+                    <span className="text-primary font-medium">globalheartscommunity@gmail.com</span>
+                  </p>
                 </div>
               </div>
             )}
@@ -717,12 +786,16 @@ Thank you for your generous support!
             {isProcessing ? (
               <>
                 <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                Redirecting to {paymentMethod === "stripe" ? "Stripe" : paymentMethod === "paypal" ? "PayPal" : "Complete Donation"}...
+                {paymentMethod === "dpo" ? "Redirecting to DPO Pay..." : 
+                 paymentMethod === "paypal" ? "Redirecting to PayPal..." : 
+                 "Processing..."}
               </>
             ) : (
               <>
                 <Lock className="mr-2 h-5 w-5" />
-                {paymentMethod === "bank" ? "Complete Donation" : `Continue to ${paymentMethod === "stripe" ? "Stripe" : "PayPal"}`}
+                {paymentMethod === "bank" || paymentMethod === "western-union" 
+                  ? "Complete Donation" 
+                  : `Continue to ${paymentMethod === "dpo" ? "DPO Pay" : "PayPal"}`}
               </>
             )}
           </Button>

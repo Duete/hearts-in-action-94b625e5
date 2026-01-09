@@ -6,6 +6,7 @@ import GetInvolved from "@/components/GetInvolved";
 import Appeals from "@/components/Appeals";
 import Gallery from "@/components/Gallery";
 import News from "@/components/News";
+import Newsletter from "@/components/Newsletter";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 const Index = () => {
@@ -20,6 +21,7 @@ const Index = () => {
         <Appeals />
         <Gallery />
         <News />
+        <Newsletter />
         <Contact />
       </main>
       <Footer />
