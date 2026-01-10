@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { MapPin, Mail, Phone, Facebook, Twitter, Instagram, Banknote, MessageCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -33,6 +34,13 @@ const Contact = () => {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [customAmount, setCustomAmount] = useState("");
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
+  
+  const donateRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: donateRef,
+    offset: ["start end", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const getDonationAmount = () => {
     if (customAmount) return parseFloat(customAmount);
@@ -94,21 +102,21 @@ const Contact = () => {
 
   return (
     <section className="bg-background">
-      {/* Donate Header */}
-      <motion.div
+      {/* Donate Header with Parallax */}
+      <div
+        ref={donateRef}
         id="donate"
         className="relative h-[300px] flex items-center justify-center overflow-hidden"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
       >
-        <div 
-          className="absolute inset-0 bg-cover bg-center"
-          style={{ backgroundImage: `url(${heroImg})` }}
+        <motion.div 
+          className="absolute inset-0 w-full h-[140%] bg-cover bg-center"
+          style={{ 
+            backgroundImage: `url(${heroImg})`,
+            y: bgY
+          }}
         >
           <div className="absolute inset-0 bg-foreground/60"></div>
-        </div>
+        </motion.div>
         <motion.div
           className="relative z-10"
           initial={{ opacity: 0, y: 30 }}
@@ -118,7 +126,7 @@ const Contact = () => {
         >
           <h1 className="text-6xl md:text-8xl font-bold text-secondary mb-4">DONATE</h1>
         </motion.div>
-      </motion.div>
+      </div>
 
       {/* Donation Section */}
       <div className="container mx-auto px-4 py-16">
