@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { motion } from "framer-motion";
 import { Mail, Send, CheckCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -39,7 +40,13 @@ const Newsletter = () => {
   if (isSubscribed) {
     return (
       <section className="py-16 bg-primary">
-        <div className="container mx-auto px-4">
+        <motion.div
+          className="container mx-auto px-4"
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5 }}
+        >
           <div className="max-w-2xl mx-auto text-center">
             <div className="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
               <CheckCircle className="h-8 w-8 text-primary-foreground" />
@@ -58,18 +65,30 @@ const Newsletter = () => {
               Subscribe Another Email
             </Button>
           </div>
-        </div>
+        </motion.div>
       </section>
     );
   }
 
   return (
     <section className="py-16 bg-primary">
-      <div className="container mx-auto px-4">
+      <motion.div
+        className="container mx-auto px-4"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.6 }}
+      >
         <div className="max-w-2xl mx-auto text-center">
-          <div className="w-14 h-14 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
+          <motion.div
+            className="w-14 h-14 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center"
+            initial={{ scale: 0 }}
+            whileInView={{ scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.4, delay: 0.2 }}
+          >
             <Mail className="h-7 w-7 text-primary-foreground" />
-          </div>
+          </motion.div>
           <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-3">
             Stay Updated on Our Mission
           </h2>
@@ -77,7 +96,14 @@ const Newsletter = () => {
             Join our newsletter to receive updates on our programs, success stories, and ways you can help make a difference in communities across Uganda.
           </p>
           
-          <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
+          <motion.form
+            onSubmit={handleSubmit}
+            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
             <div className="flex-1 relative">
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
               <Input
@@ -106,13 +132,13 @@ const Newsletter = () => {
                 </span>
               )}
             </Button>
-          </form>
+          </motion.form>
           
           <p className="text-xs text-primary-foreground/60 mt-4">
             We respect your privacy. Unsubscribe at any time.
           </p>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 };
