@@ -1,9 +1,20 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import heroVideo from "@/assets/hero-video-new.mp4";
 
 const Hero = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+
+  const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   const scrollToSection = (id: string) => {
     const element = document.querySelector(id);
     if (element) {
@@ -35,23 +46,31 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Video Background */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
+    <section ref={sectionRef} id="home" className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Video Background with Parallax */}
+      <motion.div
+        className="absolute inset-0 w-full h-full"
+        style={{ y: videoY }}
       >
-        <source src={heroVideo} type="video/mp4" />
-      </video>
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-[120%] object-cover"
+        >
+          <source src={heroVideo} type="video/mp4" />
+        </video>
+      </motion.div>
 
       {/* Dark Overlay */}
       <div className="absolute inset-0 bg-black/60"></div>
 
-      {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center">
+      {/* Content with Parallax */}
+      <motion.div
+        className="relative z-10 container mx-auto px-4 py-20 md:py-32 text-center"
+        style={{ y: contentY, opacity }}
+      >
         <motion.div 
           className="max-w-4xl mx-auto"
           variants={containerVariants}
@@ -85,7 +104,7 @@ const Hero = () => {
             </Button>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent"></div>

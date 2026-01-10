@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
 import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
@@ -22,6 +23,29 @@ const itemVariants = {
     scale: 1,
     transition: { duration: 0.5 },
   },
+};
+
+const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  return (
+    <div ref={ref} className="relative overflow-hidden rounded-lg shadow-medium hover:shadow-strong transition-smooth group aspect-[4/3]">
+      <motion.img
+        src={src}
+        alt={alt}
+        className="w-full h-[120%] object-cover group-hover:scale-105 transition-smooth"
+        style={{ y }}
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-smooth flex items-end p-6">
+        <p className="text-primary-foreground font-medium">{alt}</p>
+      </div>
+    </div>
+  );
 };
 
 const Gallery = () => {
@@ -57,19 +81,8 @@ const Gallery = () => {
           viewport={{ once: true, margin: "-100px" }}
         >
           {images.map((image, index) => (
-            <motion.div
-              key={index}
-              variants={itemVariants}
-              className="relative overflow-hidden rounded-lg shadow-medium hover:shadow-strong transition-smooth group aspect-[4/3]"
-            >
-              <img
-                src={image.src}
-                alt={image.alt}
-                className="w-full h-full object-cover group-hover:scale-110 transition-smooth"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-smooth flex items-end p-6">
-                <p className="text-primary-foreground font-medium">{image.alt}</p>
-              </div>
+            <motion.div key={index} variants={itemVariants}>
+              <ParallaxImage src={image.src} alt={image.alt} />
             </motion.div>
           ))}
         </motion.div>
