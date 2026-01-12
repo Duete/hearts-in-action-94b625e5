@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link, useLocation } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -16,23 +18,17 @@ const Navigation = () => {
   }, []);
 
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Programs", href: "#programs" },
-    { name: "Get Involved", href: "#get-involved" },
-    { name: "Appeals", href: "#appeals" },
-    { name: "Gallery", href: "#gallery" },
-    { name: "News", href: "#news" },
-    { name: "Contact", href: "#contact" },
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Programs", href: "/programs" },
+    { name: "Get Involved", href: "/get-involved" },
+    { name: "Appeals", href: "/appeals" },
+    { name: "Gallery", href: "/gallery" },
+    { name: "News", href: "/news" },
+    { name: "Contact", href: "/contact" },
   ];
 
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-      setIsMobileMenuOpen(false);
-    }
-  };
+  const isActive = (href: string) => location.pathname === href;
 
   return (
     <nav
@@ -42,27 +38,31 @@ const Navigation = () => {
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
-          <a href="#home" className={`flex items-center gap-2 transition-smooth hover:scale-105`}>
+          <Link to="/" className={`flex items-center gap-2 transition-smooth hover:scale-105`}>
             <img src={logo} alt="Global Hearts Community Logo" className="h-10 w-10 md:h-12 md:w-12" />
             <span className={`text-lg md:text-xl font-bold leading-tight ${isScrolled ? "text-primary-foreground" : "text-white"}`}>Global Hearts Community</span>
-          </a>
+          </Link>
 
           <div className="hidden md:flex items-center gap-5">
             {navLinks.map((link) => (
-              <button
+              <Link
                 key={link.name}
-                onClick={() => scrollToSection(link.href)}
-                className={`text-[0.9rem] font-medium transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:scale-x-0 after:h-0.5 after:bottom-0 after:left-0 after:origin-bottom-right after:transition-transform after:duration-300 hover:after:scale-x-100 hover:after:origin-bottom-left ${
+                to={link.href}
+                className={`text-[0.9rem] font-medium transition-all duration-300 relative after:content-[''] after:absolute after:w-full after:h-0.5 after:bottom-0 after:left-0 after:origin-bottom-right after:transition-transform after:duration-300 ${
+                  isActive(link.href)
+                    ? "after:scale-x-100"
+                    : "after:scale-x-0 hover:after:scale-x-100 hover:after:origin-bottom-left"
+                } ${
                   isScrolled 
                     ? "text-primary-foreground hover:text-primary-foreground/80 after:bg-primary-foreground/80" 
                     : "text-white hover:text-white/80 after:bg-white"
                 }`}
               >
                 {link.name}
-              </button>
+              </Link>
             ))}
-            <Button variant="hero" size="default" onClick={() => scrollToSection("#donate")}>
-              Donate Now
+            <Button variant="hero" size="default" asChild>
+              <Link to="/donate">Donate Now</Link>
             </Button>
           </div>
 
@@ -80,16 +80,19 @@ const Navigation = () => {
         <div className="md:hidden bg-background border-t border-border shadow-strong">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
             {navLinks.map((link) => (
-              <button
+              <Link
                 key={link.name}
-                onClick={() => scrollToSection(link.href)}
-                className="text-left py-2 text-foreground hover:text-primary transition-smooth font-medium"
+                to={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
+                className={`text-left py-2 transition-smooth font-medium ${
+                  isActive(link.href) ? "text-primary" : "text-foreground hover:text-primary"
+                }`}
               >
                 {link.name}
-              </button>
+              </Link>
             ))}
-            <Button variant="hero" size="default" onClick={() => scrollToSection("#donate")} className="w-full">
-              Donate Now
+            <Button variant="hero" size="default" asChild className="w-full">
+              <Link to="/donate" onClick={() => setIsMobileMenuOpen(false)}>Donate Now</Link>
             </Button>
           </div>
         </div>

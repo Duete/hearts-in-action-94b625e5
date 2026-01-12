@@ -2,6 +2,7 @@ import { Droplets, Heart, Moon, Building, BookOpen, TreePine } from "lucide-reac
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const Appeals = () => {
   const appealCategories = [
@@ -128,13 +129,6 @@ const Appeals = () => {
     },
   ];
 
-  const scrollToContact = () => {
-    const element = document.querySelector("#contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const headerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
@@ -233,8 +227,8 @@ const Appeals = () => {
                         </p>
                         <div className="flex items-center justify-between">
                           <span className="text-lg font-bold text-primary">{appeal.amount}</span>
-                          <Button variant="hero" size="sm" onClick={scrollToContact}>
-                            Donate
+                          <Button variant="hero" size="sm" asChild>
+                            <Link to="/donate">Donate</Link>
                           </Button>
                         </div>
                       </CardContent>
@@ -253,8 +247,8 @@ const Appeals = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
         >
-          <Button variant="hero" size="xl" onClick={scrollToContact} className="shadow-medium">
-            Donate Now
+          <Button variant="hero" size="xl" asChild className="shadow-medium">
+            <Link to="/donate">Donate Now</Link>
           </Button>
         </motion.div>
       </div>

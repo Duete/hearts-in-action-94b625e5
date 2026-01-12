@@ -1,24 +1,19 @@
+import { Link } from "react-router-dom";
 import logo from "@/assets/logo.png";
 
 const Footer = () => {
-  const scrollToSection = (href: string) => {
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const footerLinks = {
     quickLinks: [
-      { name: "Home", href: "#home" },
-      { name: "About Us", href: "#about" },
-      { name: "Programs", href: "#programs" },
-      { name: "Get Involved", href: "#get-involved" },
+      { name: "Home", href: "/" },
+      { name: "About Us", href: "/about" },
+      { name: "Programs", href: "/programs" },
+      { name: "Get Involved", href: "/get-involved" },
     ],
     resources: [
-      { name: "Gallery", href: "#gallery" },
-      { name: "News", href: "#news" },
-      { name: "Contact", href: "#contact" },
+      { name: "Appeals", href: "/appeals" },
+      { name: "Gallery", href: "/gallery" },
+      { name: "News", href: "/news" },
+      { name: "Contact", href: "/contact" },
     ],
   };
 
@@ -27,10 +22,10 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2">
-            <div className="flex items-center gap-3 mb-4">
+            <Link to="/" className="flex items-center gap-3 mb-4">
               <img src={logo} alt="Global Hearts Community Logo" className="h-12 w-12" />
               <span className="text-2xl font-bold">Global Hearts Community</span>
-            </div>
+            </Link>
             <p className="text-primary-foreground/80 leading-relaxed mb-4">
               Registered Organization (MC/195) headquartered in Mbale City. Empowering vulnerable groups through education, health programs, and community development initiatives.
             </p>
@@ -41,12 +36,12 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.quickLinks.map((link, index) => (
                 <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(link.href)}
+                  <Link
+                    to={link.href}
                     className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth"
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -57,12 +52,12 @@ const Footer = () => {
             <ul className="space-y-2">
               {footerLinks.resources.map((link, index) => (
                 <li key={index}>
-                  <button
-                    onClick={() => scrollToSection(link.href)}
+                  <Link
+                    to={link.href}
                     className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth"
                   >
                     {link.name}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>
