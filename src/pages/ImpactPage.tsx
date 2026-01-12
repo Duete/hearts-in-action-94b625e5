@@ -1,17 +1,17 @@
 import Navigation from "@/components/Navigation";
-import Donate from "@/components/Donate";
+import Impact from "@/components/Impact";
 import Footer from "@/components/Footer";
 
-const DonatePage = () => {
+const ImpactPage = () => {
   return (
     <div className="min-h-screen">
       <Navigation />
       <main className="pt-20">
-        <Donate />
+        <Impact />
       </main>
       <Footer />
     </div>
   );
 };
 
-export default DonatePage;
+export default ImpactPage;

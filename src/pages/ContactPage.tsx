@@ -1,5 +1,5 @@
 import Navigation from "@/components/Navigation";
-import Contact from "@/components/Contact";
+import ContactUs from "@/components/ContactUs";
 import Footer from "@/components/Footer";
 
 const ContactPage = () => {
@@ -7,7 +7,7 @@ const ContactPage = () => {
     <div className="min-h-screen">
       <Navigation />
       <main className="pt-20">
-        <Contact />
+        <ContactUs />
       </main>
       <Footer />
     </div>
