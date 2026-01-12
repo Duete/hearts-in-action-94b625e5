@@ -17,14 +17,17 @@ const Navigation = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [location.pathname]);
+
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
     { name: "Programs", href: "/programs" },
+    { name: "Impact", href: "/impact" },
     { name: "Get Involved", href: "/get-involved" },
-    { name: "Appeals", href: "/appeals" },
-    { name: "Gallery", href: "/gallery" },
-    { name: "News", href: "/news" },
     { name: "Contact", href: "/contact" },
   ];
 
@@ -39,11 +42,18 @@ const Navigation = () => {
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16 md:h-20">
           <Link to="/" className={`flex items-center gap-2 transition-smooth hover:scale-105`}>
-            <img src={logo} alt="Global Hearts Community Logo" className="h-10 w-10 md:h-12 md:w-12" />
-            <span className={`text-lg md:text-xl font-bold leading-tight ${isScrolled ? "text-primary-foreground" : "text-white"}`}>Global Hearts Community</span>
+            <img 
+              src={logo} 
+              alt="Global Hearts Community Logo" 
+              className="h-10 w-10 md:h-12 md:w-12"
+              loading="eager"
+            />
+            <span className={`text-lg md:text-xl font-bold leading-tight ${isScrolled ? "text-primary-foreground" : "text-white"}`}>
+              Global Hearts Community
+            </span>
           </Link>
 
-          <div className="hidden md:flex items-center gap-5">
+          <div className="hidden lg:flex items-center gap-5">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -67,7 +77,7 @@ const Navigation = () => {
           </div>
 
           <button
-            className="md:hidden text-foreground hover:text-primary transition-smooth"
+            className={`lg:hidden transition-smooth ${isScrolled ? "text-primary-foreground" : "text-white"}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
           >
@@ -77,13 +87,12 @@ const Navigation = () => {
       </div>
 
       {isMobileMenuOpen && (
-        <div className="md:hidden bg-background border-t border-border shadow-strong">
+        <div className="lg:hidden bg-background border-t border-border shadow-strong">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.href}
-                onClick={() => setIsMobileMenuOpen(false)}
                 className={`text-left py-2 transition-smooth font-medium ${
                   isActive(link.href) ? "text-primary" : "text-foreground hover:text-primary"
                 }`}
@@ -92,7 +101,7 @@ const Navigation = () => {
               </Link>
             ))}
             <Button variant="hero" size="default" asChild className="w-full">
-              <Link to="/donate" onClick={() => setIsMobileMenuOpen(false)}>Donate Now</Link>
+              <Link to="/donate">Donate Now</Link>
             </Button>
           </div>
         </div>

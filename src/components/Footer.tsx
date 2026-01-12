@@ -7,13 +7,13 @@ const Footer = () => {
       { name: "Home", href: "/" },
       { name: "About Us", href: "/about" },
       { name: "Programs", href: "/programs" },
-      { name: "Get Involved", href: "/get-involved" },
+      { name: "Impact", href: "/impact" },
     ],
     resources: [
-      { name: "Appeals", href: "/appeals" },
-      { name: "Gallery", href: "/gallery" },
-      { name: "News", href: "/news" },
+      { name: "Get Involved", href: "/get-involved" },
+      { name: "Donate", href: "/donate" },
       { name: "Contact", href: "/contact" },
+      { name: "News", href: "/news" },
     ],
   };
 
@@ -23,7 +23,12 @@ const Footer = () => {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div className="md:col-span-2">
             <Link to="/" className="flex items-center gap-3 mb-4">
-              <img src={logo} alt="Global Hearts Community Logo" className="h-12 w-12" />
+              <img 
+                src={logo} 
+                alt="Global Hearts Community Logo" 
+                className="h-12 w-12"
+                loading="lazy"
+              />
               <span className="text-2xl font-bold">Global Hearts Community</span>
             </Link>
             <p className="text-primary-foreground/80 leading-relaxed mb-4">
