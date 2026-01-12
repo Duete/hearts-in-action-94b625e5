@@ -2,6 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
+import { Link } from "react-router-dom";
 import heroVideo from "@/assets/hero-video-new.mp4";
 
 const Hero = () => {
@@ -14,13 +15,6 @@ const Hero = () => {
   const videoY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
   const contentY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-
-  const scrollToSection = (id: string) => {
-    const element = document.querySelector(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -96,11 +90,13 @@ const Hero = () => {
             <Button 
               variant="warm" 
               size="xl" 
-              onClick={() => scrollToSection("#get-involved")}
+              asChild
               className="group text-lg px-8 py-6"
             >
-              Get Involved
-              <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              <Link to="/get-involved">
+                Get Involved
+                <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
+              </Link>
             </Button>
           </motion.div>
         </motion.div>

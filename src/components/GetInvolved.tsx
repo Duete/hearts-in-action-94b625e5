@@ -1,6 +1,7 @@
 import { HandHeart, DollarSign, Handshake } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Link } from "react-router-dom";
 
 const GetInvolved = () => {
   const ways = [
@@ -27,13 +28,6 @@ const GetInvolved = () => {
     },
   ];
 
-  const scrollToContact = () => {
-    const element = document.querySelector("#contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   return (
     <section id="get-involved" className="py-20 md:py-32 bg-muted">
       <div className="container mx-auto px-4">
@@ -59,10 +53,10 @@ const GetInvolved = () => {
                 <Button
                   variant={way.color === "primary" ? "hero" : way.color === "secondary" ? "warm" : "default"}
                   size="lg"
-                  onClick={scrollToContact}
+                  asChild
                   className="w-full"
                 >
-                  {way.action}
+                  <Link to="/contact">{way.action}</Link>
                 </Button>
               </CardContent>
             </Card>
@@ -74,8 +68,8 @@ const GetInvolved = () => {
           <p className="text-lg mb-6 max-w-2xl mx-auto opacity-90">
             Every contribution, big or small, helps us create lasting change in our community. Join us today.
           </p>
-          <Button variant="warm" size="xl" onClick={scrollToContact} className="shadow-medium">
-            Contact Us Now
+          <Button variant="warm" size="xl" asChild className="shadow-medium">
+            <Link to="/contact">Contact Us Now</Link>
           </Button>
         </div>
       </div>
