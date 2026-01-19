@@ -32,12 +32,9 @@ const Impact = () => {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const impactStats = [
-    { icon: Users, value: "5,000+", label: "Lives Touched", description: "Community members directly impacted by our programs" },
-    { icon: Home, value: "12", label: "Communities Served", description: "Villages and towns across Uganda" },
-    { icon: Droplets, value: "8", label: "Water Projects", description: "Clean water wells and sanitation facilities built" },
-    { icon: BookOpen, value: "350+", label: "Students Supported", description: "Children receiving educational support" },
-    { icon: Apple, value: "2,000+", label: "Meals Provided", description: "Nutritious meals distributed monthly" },
-    { icon: Heart, value: "100+", label: "Volunteers", description: "Dedicated volunteers making a difference" },
+    { icon: BookOpen, value: "75+", label: "Students Supported", description: "Children receiving educational support" },
+    { icon: Apple, value: "1000+", label: "Meals Provided", description: "Nutritious meals distributed to families in need" },
+    { icon: Heart, value: "30+", label: "Volunteers", description: "Dedicated volunteers making a difference" },
   ];
 
   const successStories = [
