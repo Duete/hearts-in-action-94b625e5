@@ -64,22 +64,8 @@ const GetInvolved = () => {
         </div>
 
         <div className="bg-gradient-primary text-white rounded-2xl p-8 md:p-12 text-center shadow-strong">
-          <div className="flex flex-wrap justify-center gap-8 mb-8">
-            <div className="text-center">
-              <span className="text-4xl md:text-5xl font-bold block">75+</span>
-              <span className="text-sm md:text-base">Students Supported</span>
-            </div>
-            <div className="text-center">
-              <span className="text-4xl md:text-5xl font-bold block">1000+</span>
-              <span className="text-sm md:text-base">Meals Provided</span>
-            </div>
-            <div className="text-center">
-              <span className="text-4xl md:text-5xl font-bold block">30+</span>
-              <span className="text-sm md:text-base">Volunteers</span>
-            </div>
-          </div>
           <h3 className="text-3xl md:text-4xl font-bold mb-4">Ready to Make an Impact?</h3>
-          <p className="text-lg mb-6 max-w-2xl mx-auto">
+          <p className="text-lg mb-6 max-w-2xl mx-auto text-blue-300">
             Every contribution, big or small, helps us create lasting change in our community. Join us today.
           </p>
           <Button variant="warm" size="xl" asChild className="shadow-medium">
