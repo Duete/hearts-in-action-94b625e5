@@ -1,5 +1,7 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef, useState } from "react";
+import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment-new.png";
 import healthImg from "@/assets/health-outreach.jpg";
@@ -30,7 +32,15 @@ const itemVariants = {
   },
 };
 
-const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
+const ParallaxImage = ({ 
+  src, 
+  alt, 
+  onClick 
+}: { 
+  src: string; 
+  alt: string; 
+  onClick: () => void;
+}) => {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
@@ -43,16 +53,12 @@ const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
     e.preventDefault();
   };
 
-  // Prevent drag
-  const handleDragStart = (e: React.DragEvent) => {
-    e.preventDefault();
-  };
-
   return (
     <div 
       ref={ref} 
-      className="relative overflow-hidden rounded-lg shadow-medium hover:shadow-strong transition-smooth group aspect-[4/3] select-none"
+      className="relative overflow-hidden rounded-lg shadow-medium hover:shadow-strong transition-smooth group aspect-[4/3] select-none cursor-pointer"
       onContextMenu={handleContextMenu}
+      onClick={onClick}
     >
       <motion.img
         src={src}
@@ -70,7 +76,107 @@ const ParallaxImage = ({ src, alt }: { src: string; alt: string }) => {
   );
 };
 
+interface LightboxProps {
+  images: { src: string; alt: string }[];
+  currentIndex: number;
+  onClose: () => void;
+  onPrev: () => void;
+  onNext: () => void;
+}
+
+const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxProps) => {
+  const handleContextMenu = (e: React.MouseEvent) => {
+    e.preventDefault();
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") onClose();
+    if (e.key === "ArrowLeft") onPrev();
+    if (e.key === "ArrowRight") onNext();
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+      onClick={onClose}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      onContextMenu={handleContextMenu}
+    >
+      {/* Close button */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute top-4 right-4 z-50 text-white hover:bg-white/20 h-12 w-12"
+        onClick={(e) => {
+          e.stopPropagation();
+          onClose();
+        }}
+      >
+        <X className="h-8 w-8" />
+      </Button>
+
+      {/* Previous button */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 h-14 w-14"
+        onClick={(e) => {
+          e.stopPropagation();
+          onPrev();
+        }}
+      >
+        <ChevronLeft className="h-10 w-10" />
+      </Button>
+
+      {/* Next button */}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 h-14 w-14"
+        onClick={(e) => {
+          e.stopPropagation();
+          onNext();
+        }}
+      >
+        <ChevronRight className="h-10 w-10" />
+      </Button>
+
+      {/* Image container */}
+      <motion.div
+        key={currentIndex}
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0, scale: 0.9 }}
+        transition={{ duration: 0.3 }}
+        className="max-w-[90vw] max-h-[85vh] select-none"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <img
+          src={images[currentIndex].src}
+          alt={images[currentIndex].alt}
+          className="max-w-full max-h-[85vh] object-contain pointer-events-none"
+          draggable={false}
+        />
+        <p className="text-white text-center mt-4 text-lg font-medium">
+          {images[currentIndex].alt}
+        </p>
+        <p className="text-white/60 text-center mt-1 text-sm">
+          {currentIndex + 1} / {images.length}
+        </p>
+      </motion.div>
+    </motion.div>
+  );
+};
+
 const Gallery = () => {
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
   const images = [
     { src: heroImg, alt: "Community gathering and unity" },
     { src: educationImg, alt: "Children in classroom learning" },
@@ -84,37 +190,73 @@ const Gallery = () => {
     { src: communityFeedingImg, alt: "Community feeding program" },
   ];
 
-  return (
-    <section id="gallery" className="py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4">
-        <motion.div
-          className="text-center mb-16"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-        >
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Gallery</h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Capturing moments of transformation and hope in our community.
-          </p>
-        </motion.div>
+  const openLightbox = (index: number) => {
+    setCurrentImageIndex(index);
+    setLightboxOpen(true);
+  };
 
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {images.map((image, index) => (
-            <motion.div key={index} variants={itemVariants}>
-              <ParallaxImage src={image.src} alt={image.alt} />
-            </motion.div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+  const closeLightbox = () => {
+    setLightboxOpen(false);
+  };
+
+  const goToPrev = () => {
+    setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
+
+  const goToNext = () => {
+    setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
+
+  return (
+    <>
+      <section id="gallery" className="py-20 md:py-32 bg-background">
+        <div className="container mx-auto px-4">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Gallery</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Capturing moments of transformation and hope in our community.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+          >
+            {images.map((image, index) => (
+              <motion.div key={index} variants={itemVariants}>
+                <ParallaxImage 
+                  src={image.src} 
+                  alt={image.alt} 
+                  onClick={() => openLightbox(index)}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Lightbox */}
+      <AnimatePresence>
+        {lightboxOpen && (
+          <Lightbox
+            images={images}
+            currentIndex={currentImageIndex}
+            onClose={closeLightbox}
+            onPrev={goToPrev}
+            onNext={goToNext}
+          />
+        )}
+      </AnimatePresence>
+    </>
   );
 };
 
