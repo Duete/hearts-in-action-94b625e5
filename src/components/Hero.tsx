@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import heroVideo from "@/assets/hero-video-new.mp4";
+import watermarkImg from "@/assets/watermark.png";
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
@@ -55,6 +56,15 @@ const Hero = () => {
         >
           <source src={heroVideo} type="video/mp4" />
         </video>
+        {/* Centered Watermark */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+          <img 
+            src={watermarkImg} 
+            alt="" 
+            className="w-32 h-32 md:w-48 md:h-48 object-contain opacity-20 pointer-events-none"
+            draggable={false}
+          />
+        </div>
       </motion.div>
 
       {/* Dark Overlay */}

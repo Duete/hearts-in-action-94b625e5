@@ -9,6 +9,7 @@ import waterImg from "@/assets/water_well.webp";
 import elderlyImg from "@/assets/elderly-care.jpg";
 import disabilityImg from "@/assets/pwds.webp";
 import foodImg from "@/assets/lame_being_fed.webp";
+import watermarkImg from "@/assets/watermark.png";
 
 const Programs = () => {
   const programs = [
@@ -136,6 +137,15 @@ const Programs = () => {
                     alt={program.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
                   />
+                  {/* Centered Watermark */}
+                  <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+                    <img 
+                      src={watermarkImg} 
+                      alt="" 
+                      className="w-16 h-16 object-contain opacity-40 pointer-events-none"
+                      draggable={false}
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
                 </div>
                 <CardContent className="p-6">
