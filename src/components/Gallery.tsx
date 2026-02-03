@@ -68,12 +68,12 @@ const ParallaxImage = ({
         style={{ y }}
         draggable={false}
       />
-      {/* Watermark overlay */}
-      <div className="absolute bottom-2 right-2 w-12 h-12 opacity-50 pointer-events-none z-20">
+      {/* Centered Watermark overlay */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
         <img 
           src={watermarkImg} 
           alt="" 
-          className="w-full h-full object-contain pointer-events-none"
+          className="w-16 h-16 object-contain opacity-40 pointer-events-none"
           draggable={false}
         />
       </div>
@@ -191,12 +191,12 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
           className="max-w-full max-h-[75vh] object-contain pointer-events-none"
           draggable={false}
         />
-        {/* Watermark on lightbox image */}
-        <div className="absolute bottom-4 right-4 w-16 h-16 opacity-60 pointer-events-none">
-          <img 
+        {/* Centered Watermark on lightbox image */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <img
             src={watermarkImg} 
             alt="" 
-            className="w-full h-full object-contain pointer-events-none"
+            className="w-24 h-24 object-contain opacity-50 pointer-events-none"
             draggable={false}
           />
         </div>
