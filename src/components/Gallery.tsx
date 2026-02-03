@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, AnimatePresence, PanInfo } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import educationImg from "@/assets/education-program.jpg";
@@ -12,6 +12,7 @@ import childrenFeedingImg from "@/assets/gallery/children-feeding.webp";
 import disabilitySupportImg from "@/assets/gallery/disability-support.webp";
 import waterWellImg from "@/assets/gallery/water-well.webp";
 import communityFeedingImg from "@/assets/gallery/community-feeding.jpg";
+import watermarkImg from "@/assets/watermark.png";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -67,11 +68,20 @@ const ParallaxImage = ({
         style={{ y }}
         draggable={false}
       />
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-smooth flex items-end p-6">
+      {/* Watermark overlay */}
+      <div className="absolute bottom-2 right-2 w-12 h-12 opacity-50 pointer-events-none z-20">
+        <img 
+          src={watermarkImg} 
+          alt="" 
+          className="w-full h-full object-contain pointer-events-none"
+          draggable={false}
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-smooth flex items-end p-6 z-10">
         <p className="text-primary-foreground font-medium">{alt}</p>
       </div>
       {/* Invisible overlay to prevent direct image interaction */}
-      <div className="absolute inset-0 z-10" onContextMenu={handleContextMenu} />
+      <div className="absolute inset-0 z-30" onContextMenu={handleContextMenu} />
     </div>
   );
 };
@@ -93,6 +103,16 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
     if (e.key === "Escape") onClose();
     if (e.key === "ArrowLeft") onPrev();
     if (e.key === "ArrowRight") onNext();
+  };
+
+  // Handle swipe gestures
+  const swipeThreshold = 50;
+  const handleDragEnd = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (info.offset.x > swipeThreshold) {
+      onPrev();
+    } else if (info.offset.x < -swipeThreshold) {
+      onNext();
+    }
   };
 
   return (
@@ -124,7 +144,7 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
       <Button
         variant="ghost"
         size="icon"
-        className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 h-14 w-14"
+        className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 h-14 w-14 hidden md:flex"
         onClick={(e) => {
           e.stopPropagation();
           onPrev();
@@ -137,7 +157,7 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
       <Button
         variant="ghost"
         size="icon"
-        className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 h-14 w-14"
+        className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 h-14 w-14 hidden md:flex"
         onClick={(e) => {
           e.stopPropagation();
           onNext();
@@ -146,22 +166,40 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
         <ChevronRight className="h-10 w-10" />
       </Button>
 
-      {/* Image container */}
+      {/* Swipe hint for mobile */}
+      <div className="absolute bottom-20 left-1/2 -translate-x-1/2 text-white/50 text-sm md:hidden">
+        Swipe left or right to navigate
+      </div>
+
+      {/* Image container with swipe support */}
       <motion.div
         key={currentIndex}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.9 }}
         transition={{ duration: 0.3 }}
-        className="max-w-[90vw] max-h-[85vh] select-none"
+        className="max-w-[90vw] max-h-[85vh] select-none relative"
         onClick={(e) => e.stopPropagation()}
+        drag="x"
+        dragConstraints={{ left: 0, right: 0 }}
+        dragElastic={0.2}
+        onDragEnd={handleDragEnd}
       >
         <img
           src={images[currentIndex].src}
           alt={images[currentIndex].alt}
-          className="max-w-full max-h-[85vh] object-contain pointer-events-none"
+          className="max-w-full max-h-[75vh] object-contain pointer-events-none"
           draggable={false}
         />
+        {/* Watermark on lightbox image */}
+        <div className="absolute bottom-4 right-4 w-16 h-16 opacity-60 pointer-events-none">
+          <img 
+            src={watermarkImg} 
+            alt="" 
+            className="w-full h-full object-contain pointer-events-none"
+            draggable={false}
+          />
+        </div>
         <p className="text-white text-center mt-4 text-lg font-medium">
           {images[currentIndex].alt}
         </p>
