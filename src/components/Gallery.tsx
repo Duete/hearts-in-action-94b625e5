@@ -239,6 +239,11 @@ const Gallery = () => {
     { src: kurbanMeatImg, alt: "Kurban meat preparation for distribution" },
     { src: womenDistributionImg, alt: "Women receiving food packages" },
     { src: schoolChildrenImg, alt: "School children in education program" },
+    { src: childrenMassFeedingImg, alt: "Children mass feeding program" },
+    { src: outdoorChildrenFeedingImg, alt: "Outdoor children feeding event" },
+    { src: foodDistributionImg, alt: "Food distribution to children" },
+    { src: waterWellInstallationImg, alt: "Water well installation project" },
+    { src: waterWellConstructionImg, alt: "Water well construction by volunteers" },
   ];
 
   const openLightbox = (index: number) => {
