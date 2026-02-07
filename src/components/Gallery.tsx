@@ -16,6 +16,11 @@ import waterCollectionImg from "@/assets/gallery/water-collection.jpg";
 import kurbanMeatImg from "@/assets/gallery/kurban-meat.jpg";
 import womenDistributionImg from "@/assets/gallery/women-distribution.jpg";
 import schoolChildrenImg from "@/assets/gallery/school-children.jpg";
+import childrenMassFeedingImg from "@/assets/gallery/children-mass-feeding.jpg";
+import outdoorChildrenFeedingImg from "@/assets/gallery/outdoor-children-feeding.jpg";
+import foodDistributionImg from "@/assets/gallery/food-distribution.jpg";
+import waterWellInstallationImg from "@/assets/gallery/water-well-installation.png";
+import waterWellConstructionImg from "@/assets/gallery/water-well-construction.png";
 import watermarkImg from "@/assets/watermark.png";
 
 const containerVariants = {
@@ -234,6 +239,11 @@ const Gallery = () => {
     { src: kurbanMeatImg, alt: "Kurban meat preparation for distribution" },
     { src: womenDistributionImg, alt: "Women receiving food packages" },
     { src: schoolChildrenImg, alt: "School children in education program" },
+    { src: childrenMassFeedingImg, alt: "Children mass feeding program" },
+    { src: outdoorChildrenFeedingImg, alt: "Outdoor children feeding event" },
+    { src: foodDistributionImg, alt: "Food distribution to children" },
+    { src: waterWellInstallationImg, alt: "Water well installation project" },
+    { src: waterWellConstructionImg, alt: "Water well construction by volunteers" },
   ];
 
   const openLightbox = (index: number) => {
