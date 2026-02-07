@@ -1,7 +1,7 @@
 import { GraduationCap, Users, Heart, Trees, Droplets, HeartHandshake, Accessibility, ShoppingBasket } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
-import educationImg from "@/assets/education-program.jpg";
+import educationImg from "@/assets/education-classroom.jpg";
 import womenImg from "@/assets/women-empowerment-new.png";
 import healthImg from "@/assets/health-outreach.jpg";
 import environmentImg from "@/assets/environment-program.jpg";
