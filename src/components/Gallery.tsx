@@ -2,11 +2,9 @@ import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, PanInfo } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment-new.png";
 import healthImg from "@/assets/health-outreach.jpg";
 import environmentImg from "@/assets/environment-program.jpg";
-import heroImg from "@/assets/hero-community.jpg";
 import kurbanImg from "@/assets/gallery/kurban.png";
 import childrenFeedingImg from "@/assets/gallery/children-feeding.webp";
 import disabilitySupportImg from "@/assets/gallery/disability-support.webp";
@@ -222,8 +220,6 @@ const Gallery = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const images = [
-    { src: heroImg, alt: "Community gathering and unity" },
-    { src: educationImg, alt: "Children in classroom learning" },
     { src: womenImg, alt: "Women empowerment program" },
     { src: healthImg, alt: "Health outreach and medical care" },
     { src: environmentImg, alt: "Environmental conservation activities" },
