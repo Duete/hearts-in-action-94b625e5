@@ -16,6 +16,11 @@ import waterCollectionImg from "@/assets/gallery/water-collection.jpg";
 import kurbanMeatImg from "@/assets/gallery/kurban-meat.jpg";
 import womenDistributionImg from "@/assets/gallery/women-distribution.jpg";
 import schoolChildrenImg from "@/assets/gallery/school-children.jpg";
+import childrenMassFeedingImg from "@/assets/gallery/children-mass-feeding.jpg";
+import outdoorChildrenFeedingImg from "@/assets/gallery/outdoor-children-feeding.jpg";
+import foodDistributionImg from "@/assets/gallery/food-distribution.jpg";
+import waterWellInstallationImg from "@/assets/gallery/water-well-installation.png";
+import waterWellConstructionImg from "@/assets/gallery/water-well-construction.png";
 import watermarkImg from "@/assets/watermark.png";
 
 const containerVariants = {
