@@ -1,5 +1,6 @@
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
+import RamadanAppeal from "@/components/RamadanAppeal";
 import Footer from "@/components/Footer";
 
 const HomePage = () => {
@@ -8,6 +9,7 @@ const HomePage = () => {
       <Navigation />
       <main>
         <Hero />
+        <RamadanAppeal />
       </main>
       <Footer />
     </div>
