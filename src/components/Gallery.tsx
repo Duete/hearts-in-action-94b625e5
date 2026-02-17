@@ -21,6 +21,15 @@ import outdoorChildrenFeedingImg from "@/assets/gallery/outdoor-children-feeding
 import foodDistributionImg from "@/assets/gallery/food-distribution.jpg";
 import waterWellInstallationImg from "@/assets/gallery/water-well-installation.png";
 import waterWellConstructionImg from "@/assets/gallery/water-well-construction.png";
+import ramadanChildrenFeedingImg from "@/assets/gallery/ramadan-children-feeding.png";
+import boreholeConstructionImg from "@/assets/gallery/borehole-construction.png";
+import schoolSuppliesImg from "@/assets/gallery/school-supplies-distribution.png";
+import womenEmpowermentSuppliesImg from "@/assets/gallery/women-empowerment-supplies.png";
+import communityIftarOutdoorImg from "@/assets/gallery/community-iftar-outdoor.png";
+import ramadanIftarMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
+import healthCheckupImg from "@/assets/gallery/health-checkup.png";
+import foodPackageDistributionImg from "@/assets/gallery/food-package-distribution.png";
+import orphanFoodSupportImg from "@/assets/gallery/orphan-food-support.png";
 import watermarkImg from "@/assets/watermark.png";
 
 const containerVariants = {
@@ -244,6 +253,15 @@ const Gallery = () => {
     { src: foodDistributionImg, alt: "Food distribution to children" },
     { src: waterWellInstallationImg, alt: "Water well installation project" },
     { src: waterWellConstructionImg, alt: "Water well construction by volunteers" },
+    { src: ramadanChildrenFeedingImg, alt: "Ramadan iftar feeding for children in Uganda" },
+    { src: boreholeConstructionImg, alt: "Borehole construction bringing clean water to communities" },
+    { src: schoolSuppliesImg, alt: "School supplies and essentials distribution to orphans" },
+    { src: womenEmpowermentSuppliesImg, alt: "Women empowerment essentials and hygiene supplies distribution" },
+    { src: communityIftarOutdoorImg, alt: "Community outdoor iftar gathering during Ramadan" },
+    { src: ramadanIftarMealsImg, alt: "Ramadan iftar meals served to families in need" },
+    { src: healthCheckupImg, alt: "Free health checkup and blood pressure screening outreach" },
+    { src: foodPackageDistributionImg, alt: "Food package distribution to vulnerable families" },
+    { src: orphanFoodSupportImg, alt: "Orphan support through food and essential supplies" },
   ];
 
   const openLightbox = (index: number) => {
