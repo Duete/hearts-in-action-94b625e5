@@ -30,6 +30,16 @@ import ramadanIftarMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
 import healthCheckupImg from "@/assets/gallery/health-checkup.png";
 import foodPackageDistributionImg from "@/assets/gallery/food-package-distribution.png";
 import orphanFoodSupportImg from "@/assets/gallery/orphan-food-support.png";
+import blanketDistributionImg from "@/assets/gallery/blanket-distribution.png";
+import maizeFlourDistributionImg from "@/assets/gallery/maize-flour-distribution.png";
+import wheelchairSupportImg from "@/assets/gallery/wheelchair-support.png";
+import familyFoodReliefImg from "@/assets/gallery/family-food-relief.png";
+import motherBabyFoodAidImg from "@/assets/gallery/mother-baby-food-aid.png";
+import womenFoodCollectionImg from "@/assets/gallery/women-food-collection.png";
+import maizeFlourCloseupImg from "@/assets/gallery/maize-flour-closeup.png";
+import childrenIftarMealImg from "@/assets/gallery/children-iftar-meal.jpg";
+import elderlyWheelchairSupportImg from "@/assets/gallery/elderly-wheelchair-support.png";
+import orphanFeedingProgramImg from "@/assets/gallery/orphan-feeding-program.png";
 import watermarkImg from "@/assets/watermark.png";
 
 const containerVariants = {
@@ -262,6 +272,16 @@ const Gallery = () => {
     { src: healthCheckupImg, alt: "Free health checkup and blood pressure screening outreach" },
     { src: foodPackageDistributionImg, alt: "Food package distribution to vulnerable families" },
     { src: orphanFoodSupportImg, alt: "Orphan support through food and essential supplies" },
+    { src: blanketDistributionImg, alt: "Blanket and bedding distribution to vulnerable families" },
+    { src: maizeFlourDistributionImg, alt: "Maize flour and food staples distribution event" },
+    { src: wheelchairSupportImg, alt: "Wheelchair and mobility support for persons with disabilities" },
+    { src: familyFoodReliefImg, alt: "Families celebrating food relief packages received" },
+    { src: motherBabyFoodAidImg, alt: "Mother and baby receiving food aid and essentials" },
+    { src: womenFoodCollectionImg, alt: "Women collecting food packages at community distribution" },
+    { src: maizeFlourCloseupImg, alt: "Fortified maize flour ready for community distribution" },
+    { src: childrenIftarMealImg, alt: "Children sharing an iftar meal during Ramadan" },
+    { src: elderlyWheelchairSupportImg, alt: "Elderly woman receiving wheelchair and care support" },
+    { src: orphanFeedingProgramImg, alt: "Orphan feeding program providing meals to children" },
   ];
 
   const openLightbox = (index: number) => {
