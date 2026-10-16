@@ -29,7 +29,7 @@ const appeals = [
       "Hunger is a daily reality for far too many families in Mbale. Chronic malnutrition stunts children's growth and limits their ability to learn and thrive.",
       "Food packs include fortified cereal, milk powder, rice, beans, cooking oil, and vitamin-enriched biscuits — supporting healthy growth so children can focus in school.",
     ],
-    tiers: ["$160 – feeds a child for a year", "$2,255 – feeds a classroom of 21 children for a year", "$12,000 – feeds an entire village for a year"],
+    tiers: ["$160 – feeds a child for a year", "$3,360 – feeds a classroom of 21 children for a year", "$12,000 – feeds an entire village for a year"],
   },
   {
     title: "Wheelchairs and Mobility Support: Restore Dignity and Independence",
