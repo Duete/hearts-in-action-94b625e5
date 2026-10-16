@@ -8,6 +8,8 @@ import orphanImg from "@/assets/gallery/orphan-feeding-program.png";
 import schoolImg from "@/assets/gallery/school-supplies-distribution.png";
 import treeImg from "@/assets/environment-program.jpg";
 import foodImg from "@/assets/gallery/food-package-distribution.png";
+import boreImg from "@/assets/gallery/borehole-construction.png";
+import womenImg from "@/assets/gallery/women-empowerment-supplies.png";
 import watermark from "@/assets/watermark.png";
 
 const appeals = [
@@ -19,6 +21,15 @@ const appeals = [
       "Your Ramadan donation provides essential food packs containing rice, maize flour, cooking oil, beans, and nutritious staples that sustain families throughout the holy month. Give the gift of a full stomach and a peaceful heart.",
     ],
     tiers: ["$75 – full food pack and cooking gas for a family", "$10 – a daily Iftar meal for those in urgent need"],
+  },
+  {
+    title: "Food Packs Support: Combat Hunger, Build Health",
+    image: foodImg,
+    body: [
+      "Hunger is a daily reality for far too many families in Mbale. Chronic malnutrition stunts children's growth and limits their ability to learn and thrive.",
+      "Food packs include fortified cereal, milk powder, rice, beans, cooking oil, and vitamin-enriched biscuits — supporting healthy growth so children can focus in school.",
+    ],
+    tiers: ["$160 – feeds a child for a year", "$3,360 – feeds a classroom of 21 children for a year", "$12,000 – feeds an entire village for a year"],
   },
   {
     title: "Wheelchairs and Mobility Support: Restore Dignity and Independence",
@@ -57,13 +68,22 @@ const appeals = [
     tiers: ["$10 – 20 trees", "$25 – 50 trees", "$50 – 100 trees", "$500 – 1,000 trees in a community grove"],
   },
   {
-    title: "Food Packs Support: Combat Hunger, Build Health",
-    image: foodImg,
+    title: "Bore Repair and Construction: Clean Water Changes Everything",
+    image: boreImg,
     body: [
-      "Hunger is a daily reality for far too many families in Mbale. Chronic malnutrition stunts children's growth and limits their ability to learn and thrive.",
-      "Food packs include fortified cereal, milk powder, rice, beans, cooking oil, and vitamin-enriched biscuits — supporting healthy growth so children can focus in school.",
+      "Access to clean and safe water is a basic human right, yet many communities in Mbale still struggle daily to find it. Women and girls often walk long distances to fetch water from unprotected sources, exposing them to disease, danger, and lost opportunities for school and work. When a borehole breaks down, entire villages are forced back to unsafe water.",
+      "Global Hearts Community repairs broken boreholes and constructs new ones so that families can drink clean water, cook safely, improve sanitation, and reduce waterborne diseases. Clean water means healthier children, more time for school, stronger livelihoods, and dignity for families. When you give water, you give life.",
     ],
-    tiers: ["$106 – feeds a child for a year", "$2,255 – feeds a classroom of 21 children for a year", "$12,000 – feeds an entire village for a year"],
+    tiers: ["UGX 1,000,000 – restore a broken borehole through digging and repair", "UGX 2,500,000 – construct a new borehole or complete a major repair"],
+  },
+  {
+    title: "Women Empowerment: Strengthening Families, Building Futures",
+    image: womenImg,
+    body: [
+      "When women are empowered, entire communities rise. In Mbale, many women carry the weight of caring for children, farming, trading, and holding families together, yet they often lack access to education, financial services, skills training, and decision-making power.",
+      "Our program equips women and widows with vocational skills (tailoring, baking, soap making, crafts, agriculture), financial literacy and savings groups, startup kits and small grants, leadership and rights workshops, menstrual health support, GBV referrals, and community support networks. Women's empowerment is a pathway to lasting change for generations.",
+    ],
+    tiers: ["Any amount – helps a woman learn a skill, start a business, feed her family, and pay school fees"],
   },
 ];
 
