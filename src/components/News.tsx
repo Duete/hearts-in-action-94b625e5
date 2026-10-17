@@ -12,6 +12,7 @@ import {
 import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
+import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
 
 const lastUpdated = "October 17, 2026";
 
@@ -36,6 +37,13 @@ const cardVariants = {
 
 const News = () => {
   const articles = [
+    {
+      title: "Global Hearts Community Feeds Over 8,000 During Ramadan, Distributes 200+ Food Packages in Mbale",
+      date: "April 5, 2025",
+      excerpt: "Global Hearts Community has successfully concluded its Ramadan 2025 feeding program, which provided more than 8,000 hot meals and distributed over 200 food packages to vulnerable families across Mbale and surrounding communities.",
+      fullContent: "Global Hearts Community has successfully concluded its Ramadan 2025 feeding program, which provided more than 8,000 hot meals and distributed over 200 food packages to vulnerable families across Mbale and surrounding communities. The initiative, which ran throughout the holy month, brought together volunteers, local leaders, and generous donors to ensure that no family went hungry during Ramadan.\n\nThe hot meals, prepared fresh daily and served at community Iftar gatherings, reached orphans, widows, street children, individuals with disabilities, and low-income households. Each meal included nutritious staples such as rice, beans, maize flour, cooking oil, and fresh vegetables, allowing families to break their fast with dignity and nourishment. In addition to the daily meals, the food packages distributed to households contained essential dry goods to sustain families beyond the Iftar table.\n\n“Ramadan is a time of generosity, and we are overwhelmed by the support we received,” said a spokesperson for Global Hearts Community. “Reaching over 8,000 hot meals and 200 food packages was only possible because of our volunteers, partners, and donors who believe that no one should go hungry. Every meal shared was a moment of hope for a family in need.”\n\nThe program prioritized the most vulnerable members of the community, including female-headed households, elderly residents, and families affected by disability or displacement. Volunteers worked long hours to prepare, package, and deliver meals and food packs, often traveling to remote areas to reach those unable to come to distribution points.\n\nBeneficiaries expressed deep gratitude. “This food came at a time when my children and I had nothing to break our fast with,” said one mother of four in Mbale. “I thank everyone who made this possible. We felt remembered.”\n\nThe success of last Ramadan’s program has set a high bar for this year. Global Hearts Community is now appealing for renewed support as it prepares to expand its feeding efforts, aiming to reach even more families with hot meals, food packs, and essential support.\n\nHow You Can Help: A donation of $10 provides a daily Iftar meal for someone in need, while $75 provides a full food pack and cooking gas for a family throughout Ramadan. Every contribution helps Global Hearts Community continue its mission of compassion and service.\n\nTo support this year’s Ramadan appeal, please visit our Donate page or contact Global Hearts Community directly.\n\nAbout Global Hearts Community: Global Hearts Community is a Mbale-based nonprofit dedicated to empowering vulnerable groups through education support, health outreach, women’s empowerment, clean water access, and environmental initiatives. The organization serves orphans, street children, individuals with disabilities, widows, and marginalized communities across Uganda.",
+      image: ramadanMealsImg,
+    },
     {
       title: "150+ Students Receive Scholarships",
       date: "March 15, 2025",
