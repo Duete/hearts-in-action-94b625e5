@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { MapPin, Mail, Phone, Facebook, Twitter, Instagram, Banknote, MessageCircle } from "lucide-react";
+import { MapPin, Mail, Phone, Banknote } from "lucide-react";
+import { SocialHandleIcons, socialHandlesWithWhatsApp } from "@/components/SocialHandles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -66,13 +67,6 @@ const ContactUs = () => {
       title: "Bank Account",
       content: "Global Hearts Community - 01110017845397 - DFCU Bank Uganda | SWIFT: DFCUUGKA | DFCU Towers, Kampala Road, Kampala, Uganda",
     },
-  ];
-
-  const socialLinks = [
-    { icon: Facebook, href: "https://www.facebook.com/share/17tiYWGKkU/", label: "Facebook" },
-    { icon: Twitter, href: "https://x.com/GHCommunity_Ug", label: "X" },
-    { icon: Instagram, href: "https://www.instagram.com/globalheartscommunity_ug/", label: "Instagram" },
-    { icon: MessageCircle, href: "https://wa.me/256791481089", label: "WhatsApp" },
   ];
 
   return (
@@ -190,20 +184,7 @@ const ContactUs = () => {
               <Card className="shadow-soft h-full">
                 <CardContent className="p-6">
                   <h3 className="font-bold text-xl text-foreground mb-4">Follow Us</h3>
-                  <div className="flex gap-4">
-                    {socialLinks.map((social, index) => (
-                      <a
-                        key={index}
-                        href={social.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        aria-label={social.label}
-                        className="bg-primary/10 hover:bg-primary hover:text-primary-foreground p-3 rounded-full transition-smooth"
-                      >
-                        <social.icon className="h-5 w-5" />
-                      </a>
-                    ))}
-                  </div>
+                  <SocialHandleIcons handles={socialHandlesWithWhatsApp} />
                 </CardContent>
               </Card>
             </motion.div>

@@ -13,6 +13,7 @@ import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
 import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
+import { SocialHandleInline, SocialHandleList } from "@/components/SocialHandles";
 
 const lastUpdated = "October 17, 2026";
 
@@ -36,7 +37,13 @@ const cardVariants = {
 };
 
 const News = () => {
-  const articles = [
+  const articles: {
+    title: string;
+    date: string;
+    excerpt: string;
+    image: string;
+    fullContent?: string;
+  }[] = [
     {
       title: "Global Hearts Community Feeds Over 8,000 During Ramadan, Distributes 200+ Food Packages in Mbale",
       date: "June 12, 2026",
@@ -112,48 +119,67 @@ const News = () => {
                     {article.title}
                   </h3>
                   <p className="text-muted-foreground mb-4 leading-relaxed">{article.excerpt}</p>
-                  {article.fullContent ? (
-                    <Dialog>
-                      <DialogTrigger asChild>
-                        <Button variant="link" className="p-0 h-auto group/btn">
-                          Read More
-                          <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                        </Button>
-                      </DialogTrigger>
-                      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                        <DialogHeader>
-                          <DialogTitle className="text-2xl">{article.title}</DialogTitle>
-                          <div className="flex items-center gap-2 text-muted-foreground">
-                            <Calendar className="h-4 w-4" />
-                            <span className="text-sm">{article.date}</span>
-                          </div>
-                        </DialogHeader>
-                        <div className="mt-4">
-                          <img
-                            src={article.image}
-                            alt={article.title}
-                            className="w-full h-64 object-cover rounded-lg mb-6"
-                          />
-                          <div className="prose prose-sm max-w-none">
-                            {article.fullContent.split('\n\n').map((paragraph, idx) => (
-                              <p key={idx} className="text-muted-foreground leading-relaxed mb-4">
-                                {paragraph}
-                              </p>
-                            ))}
-                          </div>
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <Button variant="link" className="p-0 h-auto group/btn">
+                        Read More
+                        <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                      </Button>
+                    </DialogTrigger>
+                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                      <DialogHeader>
+                        <DialogTitle className="text-2xl">{article.title}</DialogTitle>
+                        <div className="flex items-center gap-2 text-muted-foreground">
+                          <Calendar className="h-4 w-4" />
+                          <span className="text-sm">{article.date}</span>
                         </div>
-                      </DialogContent>
-                    </Dialog>
-                  ) : (
-                    <Button variant="link" className="p-0 h-auto group/btn">
-                      Read More
-                      <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                    </Button>
-                  )}
+                      </DialogHeader>
+                      <div className="mt-4">
+                        <img
+                          src={article.image}
+                          alt={article.title}
+                          className="w-full h-64 object-cover rounded-lg mb-6"
+                        />
+                        <div className="prose prose-sm max-w-none">
+                          {(article.fullContent ?? article.excerpt).split("\n\n").map((paragraph, idx) => (
+                            <p key={idx} className="text-muted-foreground leading-relaxed mb-4">
+                              {paragraph}
+                            </p>
+                          ))}
+                        </div>
+                        <div className="mt-6 pt-6 border-t border-border">
+                          <p className="text-sm font-bold text-foreground mb-3">
+                            Follow Global Hearts Community
+                          </p>
+                          <SocialHandleInline />
+                        </div>
+                      </div>
+                    </DialogContent>
+                  </Dialog>
                 </CardContent>
               </Card>
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          className="mt-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+        >
+          <Card className="shadow-soft">
+            <CardContent className="p-8 md:p-10">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-2">Stay Connected</h3>
+                <p className="text-muted-foreground max-w-2xl mx-auto">
+                  Follow Global Hearts Community for updates straight from the field.
+                </p>
+              </div>
+              <SocialHandleList className="max-w-3xl mx-auto" />
+            </CardContent>
+          </Card>
         </motion.div>
       </div>
     </section>
