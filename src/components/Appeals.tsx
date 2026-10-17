@@ -14,15 +14,6 @@ import watermark from "@/assets/watermark.png";
 
 const appeals = [
   {
-    title: "Ramadan Support: Feed Families, Nourish Souls",
-    image: ramadanImg,
-    body: [
-      "Ramadan is a sacred time of reflection, community, and generosity. Yet for many families in Mbale, the evening Iftar meal is a daily struggle. Rising food costs and economic hardship mean many households break their fast with little more than water and dates.",
-      "Your Ramadan donation provides essential food packs containing rice, maize flour, cooking oil, beans, and nutritious staples that sustain families throughout the holy month. Give the gift of a full stomach and a peaceful heart.",
-    ],
-    tiers: ["$75 – full food pack and cooking gas for a family", "$10 – a daily Iftar meal for those in urgent need"],
-  },
-  {
     title: "Food Packs Support: Combat Hunger, Build Health",
     image: foodImg,
     body: [
@@ -39,6 +30,15 @@ const appeals = [
       "A wheelchair costing around $1,000 in the local market is far beyond what most families can afford. When you give mobility, you give freedom, dignity, and a future.",
     ],
     tiers: ["$251 – a wheelchair for a school-going child with a disability", "$150 – a brand-new wheelchair for someone in need"],
+  },
+  {
+    title: "Ramadan Support: Feed Families, Nourish Souls",
+    image: ramadanImg,
+    body: [
+      "Ramadan is a sacred time of reflection, community, and generosity. Yet for many families in Mbale, the evening Iftar meal is a daily struggle. Rising food costs and economic hardship mean many households break their fast with little more than water and dates.",
+      "Your Ramadan donation provides essential food packs containing rice, maize flour, cooking oil, beans, and nutritious staples that sustain families throughout the holy month. Give the gift of a full stomach and a peaceful heart.",
+    ],
+    tiers: ["$75 – full food pack and cooking gas for a family", "$10 – a daily Iftar meal for those in urgent need"],
   },
   {
     title: "Orphan Support: Be a Lifeline for Vulnerable Children",
