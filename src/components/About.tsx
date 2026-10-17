@@ -1,6 +1,7 @@
 import { Heart, Target, Eye, Sparkles } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { motion } from "framer-motion";
+import { SocialHandleList } from "@/components/SocialHandles";
 
 const About = () => {
   const values = [
@@ -171,6 +172,28 @@ const About = () => {
             </motion.div>
           </motion.div>
         </div>
+
+        <motion.div
+          className="mt-4"
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+        >
+          <Card className="shadow-medium border-t-4 border-t-primary">
+            <CardContent className="p-8 md:p-10">
+              <div className="flex flex-col md:flex-row md:items-center gap-8">
+                <div className="md:max-w-xs">
+                  <h3 className="text-2xl font-bold text-foreground mb-2">Follow Our Journey</h3>
+                  <p className="text-muted-foreground leading-relaxed">
+                    See our latest activities, appeals and community stories on social media.
+                  </p>
+                </div>
+                <SocialHandleList className="flex-1" />
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
     </section>
   );
