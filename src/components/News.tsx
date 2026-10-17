@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Calendar, ArrowRight } from "lucide-react";
+import { Calendar, CalendarClock, ArrowRight } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import {
@@ -12,6 +12,8 @@ import {
 import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
+
+const lastUpdated = "October 17, 2026";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -69,6 +71,10 @@ const News = () => {
           <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Latest News</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Stay updated with our recent activities and community impact stories.
+          </p>
+          <p className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground mt-5 bg-background border border-border rounded-full px-4 py-1.5">
+            <CalendarClock className="h-4 w-4 text-primary" />
+            Last updated: {lastUpdated}
           </p>
         </motion.div>
 
