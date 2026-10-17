@@ -12,6 +12,7 @@ import {
 import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
+import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
 
 const lastUpdated = "October 17, 2026";
 
