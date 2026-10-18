@@ -13,7 +13,8 @@ import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
 import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
-import wheelchairImg from "@/assets/gallery/wheelchair-support.png";
+import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
+import wheelchairFoodPhoto from "@/assets/gallery/wheelchair-donation-namisindwa-food.png.asset.json";
 import { SocialHandleInline, SocialHandleList } from "@/components/SocialHandles";
 
 const lastUpdated = "October 18, 2026";
@@ -44,13 +45,18 @@ const News = () => {
     excerpt: string;
     image: string;
     fullContent?: string;
+    photos?: { image: string; caption: string }[];
   }[] = [
     {
       title: "Global Hearts Community Distributes Over 15 Wheelchairs and Mobility Tools in Three Years, Restoring Dignity and Independence in the Community",
       date: "October 18, 2026",
       excerpt: "Global Hearts Community Uganda has distributed more than 15 wheelchairs and other mobility aids to individuals living with disabilities across Mbale and surrounding communities over the past three years, restoring dignity, independence, and opportunity.",
       fullContent: "MBALE, UGANDA — Global Hearts Community Uganda has distributed more than 15 wheelchairs and other mobility aids to individuals living with disabilities across Mbale and surrounding communities over the past three years. The milestone marks a significant step in the organization’s ongoing mission to restore dignity, independence, and opportunity for persons with mobility challenges in Uganda.\n\nThe distributions, which began in 2023, have reached children and adults alike, many of whom had been confined to their homes for years due to the lack of an affordable wheelchair. In Uganda, a wheelchair that would cost up to $1,000 in the local market remains far beyond the reach of most families. Through partnerships and generous donations, Global Hearts Community has been able to provide wheelchairs and other mobility tools at no cost to recipients.\n\n“For many people with disabilities in our community, a wheelchair is not a luxury; it is the key to education, employment, and social inclusion,” said a spokesperson for Global Hearts Community. “Over the last three years, we have seen firsthand how a single wheelchair can transform a life. Children who could not attend school are now in classrooms. Adults who could not work are now earning a living. Parents who could not move around their own homes are now active members of their communities.”\n\nAmong the recipients are school-going children like Wasswa Kevin in Namisindwa district, who had previously dropped out due to mobility barriers, as well as adults who had been unable to pursue livelihoods. Each distribution event includes not only the handover of mobility tools but also follow-up support to ensure proper fitting, maintenance, and community integration.\n\n“I had not left my house in two years,” said Wamono Shafik, one of the beneficiaries in Manafwa District. “Now I can go to the market, visit my friends, and feel like part of the community again. I thank Global Hearts Community for giving me my freedom back.”\n\nThe organization notes that the need remains great. With thousands of persons with disabilities in the region still waiting for mobility support, Global Hearts Community is appealing for continued donations to expand the program.\n\nHow You Can Help: A gift of $300 can provide a wheelchair to a school-going child living with a disability, while $200 can help deliver a brand-new wheelchair to someone in desperate need of mobility. Every contribution brings freedom, dignity, and a future to a person who has been left behind.\n\nTo support the wheelchair and mobility program, please visit our Donate page or contact Global Hearts Community directly.\n\nAbout Global Hearts Community: Global Hearts Community is a Mbale-based nonprofit dedicated to empowering vulnerable groups through education support, health outreach, women’s empowerment, clean water access, and environmental initiatives. The organization serves orphans, street children, individuals with disabilities, widows, and marginalized communities across Uganda.",
-      image: wheelchairImg,
+      image: wheelchairPhoto.url,
+      photos: [
+        { image: wheelchairPhoto.url, caption: "Wasswa Kevin receives a wheelchair in Namisindwa District." },
+        { image: wheelchairFoodPhoto.url, caption: "Wasswa Kevin and his family with the donated wheelchair and food support in Namisindwa District." },
+      ],
     },
     {
       title: "Global Hearts Community Feeds Over 8,000 During Ramadan, Distributes 200+ Food Packages in Mbale",
@@ -143,11 +149,22 @@ const News = () => {
                         </div>
                       </DialogHeader>
                       <div className="mt-4">
-                        <img
-                          src={article.image}
-                          alt={article.title}
-                          className="w-full h-64 object-cover rounded-lg mb-6"
-                        />
+                        {article.photos ? (
+                          <div className="space-y-6 mb-6">
+                            {article.photos.map((photo) => (
+                              <figure key={photo.image}>
+                                <img src={photo.image} alt={photo.caption} className="w-full h-auto rounded-lg" loading="lazy" />
+                                <figcaption className="mt-2 text-sm text-muted-foreground">{photo.caption}</figcaption>
+                              </figure>
+                            ))}
+                          </div>
+                        ) : (
+                          <img
+                            src={article.image}
+                            alt={article.title}
+                            className="w-full h-64 object-cover rounded-lg mb-6"
+                          />
+                        )}
                         <div className="prose prose-sm max-w-none">
                           {(article.fullContent ?? article.excerpt).split("\n\n").map((paragraph, idx) => (
                             <p key={idx} className="text-muted-foreground leading-relaxed mb-4">

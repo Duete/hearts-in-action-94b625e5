@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Heart, Users, Home, Droplets, BookOpen, Apple } from "lucide-react";
+import { Heart, Accessibility, Stethoscope, Package, BookOpen, Apple } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import heroImg from "@/assets/hero-community.jpg";
+import impact from "@/data/impact.json";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -32,26 +33,39 @@ const Impact = () => {
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
   const impactStats = [
-    { icon: BookOpen, value: "75+", label: "Students Supported", description: "Children receiving educational support" },
-    { icon: Apple, value: "1000+", label: "Meals Provided", description: "Nutritious meals distributed to families in need" },
-    { icon: Heart, value: "30+", label: "Volunteers", description: "Dedicated volunteers making a difference" },
+    { icon: BookOpen, value: `${impact.students}+`, label: "Students Supported", description: "Primary school pupils receiving full scholarships and scholastic materials" },
+    { icon: Apple, value: `${impact.meals.toLocaleString("en-US")}+`, label: "Hot Meals Provided", description: "Meals shared with vulnerable communities during Ramadan 2026" },
+    { icon: Package, value: `${impact.foodPackages}+`, label: "Food Packages Distributed", description: "Essential food packages provided during Ramadan 2026" },
+    { icon: Accessibility, value: `${impact.mobilityAids}+`, label: "Wheelchairs & Mobility Aids", description: "Distributed across Mbale and surrounding communities over three years" },
+    { icon: Stethoscope, value: `${impact.healthFamilies}+`, label: "Families Reached by Health Camp", description: "Screening, health education, and referrals through community outreach" },
+    { icon: Heart, value: `${impact.volunteers}+`, label: "Volunteers", description: "Dedicated volunteers making a difference" },
   ];
 
   const successStories = [
     {
-      title: "Clean Water for Namatala",
-      description: "In 2023, we completed a borehole project that now provides clean water to over 500 families in Namatala village. Before this project, women and children walked over 3 kilometers daily to fetch water.",
-      impact: "500 families now have access to clean water",
+      title: "Restoring Mobility and Independence",
+      description: "Since 2023, Global Hearts Community has provided wheelchairs and mobility tools to children and adults across Mbale and surrounding communities. Recipients include Wasswa Kevin in Namisindwa and Wamono Shafik in Manafwa, supported with fitting, maintenance, and follow-up care.",
+      impact: `${impact.mobilityAids}+ wheelchairs and mobility aids distributed in three years`,
     },
     {
       title: "School Sponsorship Program",
-      description: "Our education initiative has enabled 150 orphaned and vulnerable children to attend school. Many of these children have gone on to complete secondary education and pursue vocational training.",
-      impact: "90% completion rate for sponsored students",
+      description: "Full scholarships and essential scholastic materials help vulnerable primary school pupils stay in school. The program supports orphans and children of teenage mothers, easing the burden of school fees and restoring hope for their families.",
+      impact: `${impact.students}+ primary school pupils receive full scholarships`,
     },
     {
-      title: "Women's Empowerment Groups",
-      description: "We've established 8 women's savings groups across Mbale district. These groups provide microloans and business training, enabling women to start small enterprises and support their families.",
-      impact: "120 women-owned businesses launched",
+      title: "Ramadan 2026 Feeding Program",
+      description: "Volunteers, local leaders, and donors came together to provide fresh hot meals at community Iftar gatherings and essential food packages for vulnerable families across Mbale and surrounding communities.",
+      impact: `${impact.meals.toLocaleString("en-US")}+ hot meals and ${impact.foodPackages}+ food packages provided`,
+    },
+    {
+      title: "Community Health Outreach",
+      description: "Working with nearby health centers, our community health camp provided diabetes, malaria, and blood pressure screening, practical health education, and referrals for follow-up care in a rural community.",
+      impact: `${impact.healthFamilies}+ families reached with essential health services`,
+    },
+    {
+      title: "Women's Cooperative",
+      description: "Our women's empowerment program helped establish a cooperative, providing women with sustainable income through craft production and marketing.",
+      impact: "50 women supported through the cooperative",
     },
   ];
 
