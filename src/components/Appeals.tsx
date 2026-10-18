@@ -29,7 +29,7 @@ const appeals = [
       "Imagine being unable to leave your home, attend school, or earn a living simply because you cannot walk. For many individuals living with disabilities in Uganda, a wheelchair is the key to education, employment, and social inclusion.",
       "A wheelchair costing around $1,000 in the local market is far beyond what most families can afford. When you give mobility, you give freedom, dignity, and a future.",
     ],
-    tiers: ["$251 – a wheelchair for a school-going child with a disability", "$150 – a brand-new wheelchair for someone in need"],
+    tiers: ["$300 – a wheelchair for a school-going child with a disability", "$200 – a brand-new wheelchair for someone in need"],
   },
   {
     title: "Ramadan Support: Feed Families, Nourish Souls",
@@ -74,7 +74,7 @@ const appeals = [
       "Access to clean and safe water is a basic human right, yet many communities in Mbale still struggle daily to find it. Women and girls often walk long distances to fetch water from unprotected sources, exposing them to disease, danger, and lost opportunities for school and work. When a borehole breaks down, entire villages are forced back to unsafe water.",
       "Global Hearts Community repairs broken boreholes and constructs new ones so that families can drink clean water, cook safely, improve sanitation, and reduce waterborne diseases. Clean water means healthier children, more time for school, stronger livelihoods, and dignity for families. When you give water, you give life.",
     ],
-    tiers: ["UGX 1,000,000 – restore a broken borehole through digging and repair", "UGX 2,500,000 – construct a new borehole or complete a major repair"],
+    tiers: ["$270 – restore a broken borehole through digging and repair", "$675 – construct a new borehole or complete a major repair"],
   },
   {
     title: "Women Empowerment: Strengthening Families, Building Futures",
