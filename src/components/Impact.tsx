@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Heart, Accessibility, Stethoscope, Package, BookOpen, Apple } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import heroImg from "@/assets/hero-community.jpg";
+import heroImg from "@/assets/optimized/hero-community.webp";
 import impact from "@/data/impact.json";
 
 const containerVariants = {

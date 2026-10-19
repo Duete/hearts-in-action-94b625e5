@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
-import { useReducedMotion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import communityImg from "@/assets/hero-community.jpg";
-import waterImg from "@/assets/water_well.webp";
+import communityImg from "@/assets/optimized/hero-community.webp";
+import waterImg from "@/assets/optimized/water_well.webp";
 import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
-import womenImg from "@/assets/women-empowerment-new.png";
-import ramadanFoodImage from "@/assets/GlobalHeartsCommunityFoodDistribution.png";
+import womenImg from "@/assets/optimized/women-empowerment-new.webp";
+import ramadanFoodImage from "@/assets/optimized/GlobalHeartsCommunityFoodDistribution.webp";
 
 const slides = [
   { image: ramadanFoodImage, alt: "Global Hearts Community distributing food packages to families in Mbale", label: "Ramadan Appeal 2026", title: "Help Us Serve 10,000 Hot Meals This Ramadan", text: "Last season we delivered 8,000+ hot meals and 200+ food packages. With your help, we can reach further.", cta: "Donate Now", href: "/donate", secondary: "Explore Programs", secondaryHref: "#programs" },
@@ -22,6 +22,7 @@ const Hero = () => {
   const [paused, setPaused] = useState(false);
   const reducedMotion = useReducedMotion();
   const move = (step: number) => setActive(current => (current + step + slides.length) % slides.length);
+
   useEffect(() => {
     if (paused || reducedMotion) return;
     const timer = window.setInterval(() => setActive(current => (current + 1) % slides.length), 7000);
@@ -30,10 +31,26 @@ const Hero = () => {
 
   return (
     <section aria-label="Featured highlights" className="relative h-[520px] md:h-[min(70vh,600px)] md:min-h-[420px] overflow-hidden bg-accent text-accent-foreground" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)}>
+      <div className="absolute inset-0 z-0">
+        <AnimatePresence initial={false}>
+          <motion.img
+            key={active}
+            src={slides[active].image}
+            alt={slides[active].alt}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reducedMotion ? 0 : 0.7 }}
+            className="absolute inset-0 h-full w-full object-cover object-center pointer-events-none"
+            loading="eager"
+            decoding="async"
+            draggable={false}
+          />
+        </AnimatePresence>
+        <div className="absolute inset-0 home-hero-overlay" />
+      </div>
       {slides.map((slide, index) => (
         <div key={slide.title} aria-hidden={index !== active} className={`absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${index === active ? "opacity-100 z-10" : "opacity-0 pointer-events-none"}`}>
-          <img src={slide.image} alt={slide.alt} className="absolute inset-0 h-full w-full object-cover object-center" loading={index === 0 ? "eager" : "lazy"} draggable={false} />
-          <div className="absolute inset-0 home-hero-overlay" />
           <div className="relative max-w-6xl mx-auto px-6 md:px-12 h-full flex flex-col justify-center pb-12">
             <p className="text-secondary font-semibold text-sm mb-5">{slide.label}</p>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight max-w-2xl mb-6">{slide.title}</h1>
@@ -54,4 +71,5 @@ const Hero = () => {
     </section>
   );
 };
+
 export default Hero;

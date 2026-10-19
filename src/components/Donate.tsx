@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import heroImg from "@/assets/hero-community.jpg";
+import heroImg from "@/assets/optimized/hero-community.webp";
 import DonationModal from "./DonationModal";
 
 const Donate = () => {
