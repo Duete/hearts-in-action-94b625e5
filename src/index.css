@@ -7,6 +7,35 @@ All colors MUST be HSL.
 */
 
 @layer base {
+  .home-theme {
+    --background: 0 0% 100%;
+    --foreground: 163 19% 14%;
+    --card: 0 0% 100%;
+    --card-foreground: 163 19% 14%;
+    --primary: 170 72% 21%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 170 65% 27%;
+    --secondary: 36 79% 57%;
+    --secondary-foreground: 39 100% 12%;
+    --secondary-light: 36 70% 65%;
+    --accent: 170 73% 14%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 140 18% 97%;
+    --muted-foreground: 164 8% 39%;
+    --border: 155 18% 88%;
+    --ring: 170 72% 21%;
+    --radius: 0.5rem;
+    --shadow-soft: 0 6px 24px hsl(170 72% 21% / 0.1);
+    --shadow-medium: 0 8px 24px hsl(170 72% 21% / 0.12);
+    --shadow-strong: 0 16px 36px hsl(170 72% 21% / 0.16);
+    --home-hero-overlay: linear-gradient(90deg, hsl(170 73% 14% / 0.92), hsl(170 73% 14% / 0.65) 50%, hsl(170 73% 14% / 0.12));
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+  }
+
+  .home-hero-overlay {
+    background: var(--home-hero-overlay);
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 150 10% 15%;

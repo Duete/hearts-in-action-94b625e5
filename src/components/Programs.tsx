@@ -10,6 +10,9 @@ import elderlyImg from "@/assets/elderly-care.jpg";
 import disabilityImg from "@/assets/pwds.webp";
 import foodImg from "@/assets/lame_being_fed.webp";
 import watermarkImg from "@/assets/watermark.png";
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 const Programs = () => {
   const programs = [
@@ -106,23 +109,24 @@ const Programs = () => {
   };
 
   return (
-    <section id="programs" className="py-20 md:py-32 bg-background">
-      <div className="container mx-auto px-4">
+    <section id="programs" className="py-16 md:py-20 bg-background scroll-mt-24">
+      <div className="max-w-6xl mx-auto px-6">
         <motion.div 
-          className="text-center mb-16"
+          className="text-center mb-10"
           variants={headerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
         >
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Our Programs</h2>
+          <p className="text-sm font-bold text-primary mb-3">WHAT WE DO</p>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">Our Programs</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Comprehensive initiatives designed to create sustainable change in our communities.
+            Eight practical pathways to dignity, health and opportunity for vulnerable communities in Mbale.
           </p>
         </motion.div>
 
         <motion.div 
-          className="grid md:grid-cols-2 gap-8"
+          className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6"
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -131,11 +135,13 @@ const Programs = () => {
           {programs.map((program, index) => (
             <motion.div key={index} variants={itemVariants}>
               <Card className="overflow-hidden shadow-medium hover:shadow-strong transition-smooth group h-full">
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
                   <img
                     src={program.image}
                     alt={program.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
+                    loading="lazy"
+                    draggable={false}
                   />
                   {/* Centered Watermark */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
@@ -146,16 +152,14 @@ const Programs = () => {
                       draggable={false}
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent"></div>
                 </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className={`bg-${program.color}/10 p-3 rounded-lg`}>
-                      <program.icon className={`h-6 w-6 text-${program.color}`} />
-                    </div>
-                    <h3 className="text-2xl font-bold text-foreground">{program.title}</h3>
+                <CardContent className="p-5">
+                  <div className="flex items-start gap-2 mb-3">
+                    <program.icon className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <h3 className="text-lg font-bold text-primary leading-snug">{program.title}</h3>
                   </div>
-                  <p className="text-muted-foreground leading-relaxed">{program.description}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed">{program.description}</p>
+                  <Button variant="link" asChild className="px-0 mt-3 font-semibold"><Link to="/get-involved">Support this program<ArrowRight /></Link></Button>
                 </CardContent>
               </Card>
             </motion.div>

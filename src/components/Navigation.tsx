@@ -8,6 +8,7 @@ const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const location = useLocation();
+  const isHome = location.pathname === "/";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -25,7 +26,6 @@ const Navigation = () => {
   const navLinks = [
     { name: "Home", href: "/" },
     { name: "About", href: "/about" },
-    { name: "Programs", href: "/programs" },
     { name: "Impact", href: "/impact" },
     { name: "Appeals", href: "/appeals" },
     { name: "Gallery", href: "/gallery" },
@@ -38,8 +38,8 @@ const Navigation = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "bg-primary text-primary-foreground shadow-lg" : "bg-transparent"
+      className={`${isHome ? "sticky" : "fixed"} top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isHome ? "bg-background text-foreground border-b border-border" : isScrolled ? "bg-primary text-primary-foreground shadow-lg" : "bg-transparent"
       }`}
     >
       <div className="container mx-auto px-4">
@@ -51,12 +51,12 @@ const Navigation = () => {
               className="h-10 w-10 md:h-12 md:w-12"
               loading="eager"
             />
-            <span className={`text-lg md:text-xl font-bold leading-tight ${isScrolled ? "text-primary-foreground" : "text-white"}`}>
+            <span className={`text-base md:text-lg font-bold leading-tight ${isHome ? "text-primary" : "text-primary-foreground"}`}>
               Global Hearts Community
             </span>
           </Link>
 
-          <div className="hidden lg:flex items-center gap-5">
+          <div className="hidden xl:flex items-center gap-4">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -66,31 +66,34 @@ const Navigation = () => {
                     ? "after:scale-x-100"
                     : "after:scale-x-0 hover:after:scale-x-100 hover:after:origin-bottom-left"
                 } ${
-                  isScrolled 
+                  isHome ? "text-foreground hover:text-primary after:bg-secondary" : isScrolled 
                     ? "text-primary-foreground hover:text-primary-foreground/80 after:bg-primary-foreground/80" 
-                    : "text-white hover:text-white/80 after:bg-white"
+                     : "text-primary-foreground hover:text-primary-foreground/80 after:bg-primary-foreground"
                 }`}
               >
                 {link.name}
               </Link>
             ))}
-            <Button variant="hero" size="default" asChild>
+            <Button variant={isHome ? "warm" : "hero"} size="default" asChild>
               <Link to="/donate">Donate Now</Link>
             </Button>
           </div>
 
-          <button
-            className={`lg:hidden transition-smooth ${isScrolled ? "text-primary-foreground" : "text-white"}`}
+          <Button
+            variant="ghost"
+            size="icon"
+            className={`xl:hidden shrink-0 transition-smooth ${isHome ? "text-primary" : "text-primary-foreground"}`}
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
           >
             {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
+          </Button>
         </div>
       </div>
 
       {isMobileMenuOpen && (
-        <div className="lg:hidden bg-background border-t border-border shadow-strong">
+        <div className="xl:hidden bg-background border-t border-border shadow-strong max-h-[80vh] overflow-y-auto">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-3">
             {navLinks.map((link) => (
               <Link
