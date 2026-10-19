@@ -15,7 +15,7 @@ const HomePage = () => {
   return (
     <div className="home-theme min-h-screen bg-background text-foreground">
       <div className="bg-accent text-accent-foreground/80 text-xs">
-        <div className="max-w-6xl mx-auto px-6 py-2 flex flex-wrap justify-between gap-2"><span>Mbale, Uganda · Hope in action</span><a href="mailto:globalheartscommunity@gmail.com" className="hover:text-accent-foreground">globalheartscommunity@gmail.com</a></div>
+        <div className="max-w-6xl mx-auto px-6 py-2 flex flex-wrap justify-between gap-2"><a href="https://share.google/YcMQcIemKi1Z4L5Ms" target="_blank" rel="noopener noreferrer" aria-label="View Global Hearts Community location on Google Maps" className="hover:text-accent-foreground hover:underline underline-offset-4">Mbale, Uganda · Hope in action</a><a href="mailto:globalheartscommunity@gmail.com" className="hover:text-accent-foreground">globalheartscommunity@gmail.com</a></div>
       </div>
       <Navigation />
       <main>

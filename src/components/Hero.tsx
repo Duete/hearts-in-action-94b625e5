@@ -7,12 +7,14 @@ import communityImg from "@/assets/hero-community.jpg";
 import waterImg from "@/assets/water_well.webp";
 import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
 import womenImg from "@/assets/women-empowerment-new.png";
+import ramadanFoodImage from "@/assets/GlobalHeartsCommunityFoodDistribution.png";
 
 const slides = [
-  { image: communityImg, alt: "Global Hearts Community supporting families in Uganda", label: "Hope in action · Mbale, Uganda", title: "Global Hearts Community", text: "Working alongside vulnerable communities to build a future with food, clean water, education and dignity.", cta: "Make a Difference", href: "/donate" },
-  { image: waterImg, alt: "Community clean water source", label: "Clean water", title: "Safe water. Healthier communities.", text: "Help repair boreholes and protect water sources so families can access clean water close to home.", cta: "Support Clean Water", href: "/appeals" },
-  { image: wheelchairPhoto.url, alt: "Wasswa Kevin with his new wheelchair in Namisindwa", label: "Mobility & independence", title: "Opening doors to independence.", text: "More than 15 wheelchairs and mobility aids have helped children and adults reconnect with community life.", cta: "Give Mobility", href: "/appeals" },
-  { image: womenImg, alt: "Women taking part in community empowerment activities", label: "Women empowerment", title: "Opportunity for women. Hope for families.", text: "Skills training, leadership and livelihood support help women build lasting economic independence.", cta: "Partner With Us", href: "/get-involved" },
+  { image: ramadanFoodImage, alt: "Global Hearts Community distributing food packages to families in Mbale", label: "Ramadan Appeal 2026", title: "Help Us Serve 10,000 Hot Meals This Ramadan", text: "Last season we delivered 8,000+ hot meals and 200+ food packages. With your help, we can reach further.", cta: "Donate Now", href: "/donate", secondary: "Explore Programs", secondaryHref: "#programs" },
+  { image: communityImg, alt: "Global Hearts Community supporting families in Uganda", label: "Hope in action · Mbale, Uganda", title: "Global Hearts Community", text: "Working alongside vulnerable communities to build a future with food, clean water, education and dignity.", cta: "Make a Difference", href: "/donate", secondary: "Our Programs", secondaryHref: "#programs" },
+  { image: waterImg, alt: "Community clean water source", label: "Clean water", title: "Safe water. Healthier communities.", text: "Help repair boreholes and protect water sources so families can access clean water close to home.", cta: "Support Clean Water", href: "/appeals", secondary: "Our Programs", secondaryHref: "#programs" },
+  { image: wheelchairPhoto.url, alt: "Wasswa Kevin with his new wheelchair in Namisindwa", label: "Mobility & independence", title: "Opening doors to independence.", text: "More than 15 wheelchairs and mobility aids have helped children and adults reconnect with community life.", cta: "Give Mobility", href: "/appeals", secondary: "Our Programs", secondaryHref: "#programs" },
+  { image: womenImg, alt: "Women taking part in community empowerment activities", label: "Women empowerment", title: "Opportunity for women. Hope for families.", text: "Skills training, leadership and livelihood support help women build lasting economic independence.", cta: "Partner With Us", href: "/get-involved", secondary: "Our Programs", secondaryHref: "#programs" },
 ];
 
 const Hero = () => {
@@ -38,7 +40,7 @@ const Hero = () => {
             <p className="text-base md:text-lg leading-relaxed text-accent-foreground/90 max-w-xl mb-8">{slide.text}</p>
             <div className="flex flex-wrap gap-3">
               <Button variant="warm" size="lg" asChild><Link tabIndex={index === active ? 0 : -1} to={slide.href}>{slide.cta}<ArrowRight /></Link></Button>
-              <Button variant="outline" size="lg" className="bg-transparent border-accent-foreground/60 text-accent-foreground hover:bg-accent-foreground hover:text-primary" asChild><a tabIndex={index === active ? 0 : -1} href="#programs">Our Programs<ArrowDown /></a></Button>
+              <Button variant="outline" size="lg" className="bg-transparent border-accent-foreground/60 text-accent-foreground hover:bg-accent-foreground hover:text-primary" asChild><a tabIndex={index === active ? 0 : -1} href={slide.secondaryHref}>{slide.secondary}<ArrowDown /></a></Button>
             </div>
           </div>
         </div>
