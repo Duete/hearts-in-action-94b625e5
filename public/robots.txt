@@ -10,5 +10,7 @@ Allow: /
 User-agent: facebookexternalhit
 Allow: /
 
+Sitemap: https://www.globalheartscommunity.org/sitemap.xml
+
 User-agent: *
 Allow: /

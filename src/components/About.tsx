@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { SocialHandleList } from "@/components/SocialHandles";
 import { Link } from "react-router-dom";
-import heroCommunity from "@/assets/hero-community.jpg";
 import impact from "@/data/impact.json";
 
 const impactHighlights = [
@@ -136,13 +135,22 @@ const About = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <div className="overflow-hidden rounded-2xl shadow-medium">
+            <figure className="overflow-hidden rounded-2xl shadow-medium">
               <img
-                src={heroCommunity}
-                alt="Community members joining hands in a circle outdoors"
+                src="/images/about-water-well-1440.webp"
+                srcSet="/images/about-water-well-720.webp 720w, /images/about-water-well-1440.webp 1440w"
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                width={1440}
+                height={810}
+                loading="eager"
+                decoding="async"
+                alt="Children and community members celebrate a Global Hearts Community water well in Mbale, Uganda."
                 className="aspect-video w-full object-cover"
               />
-            </div>
+              <figcaption className="bg-card px-4 py-3 text-sm text-muted-foreground">
+                A community water-well celebration supported by Global Hearts Community.
+              </figcaption>
+            </figure>
           </motion.div>
         </div>
 
@@ -243,6 +251,49 @@ const About = () => {
             </motion.div>
           </motion.div>
         </div>
+
+        <section aria-labelledby="about-answers-heading" className="mb-16">
+          <div className="mb-6 text-center">
+            <p className="mb-2 text-sm font-bold uppercase tracking-[0.16em] text-primary">About Global Hearts Community</p>
+            <h2 id="about-answers-heading" className="text-2xl font-bold text-foreground md:text-3xl">
+              Quick answers about our work
+            </h2>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <Card className="h-full shadow-soft">
+              <CardContent className="p-6">
+                <h3 className="mb-2 text-lg font-bold text-foreground">What is Global Hearts Community?</h3>
+                <p className="leading-relaxed text-muted-foreground">
+                  Global Hearts Community is a registered Ugandan charity based in Mbale. We work alongside communities to support vulnerable people through practical local programs.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="h-full shadow-soft">
+              <CardContent className="p-6">
+                <h3 className="mb-2 text-lg font-bold text-foreground">Where does the organization work?</h3>
+                <p className="leading-relaxed text-muted-foreground">
+                  We are based in Mbale, Uganda, and serve Mbale and surrounding communities.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="h-full shadow-soft">
+              <CardContent className="p-6">
+                <h3 className="mb-2 text-lg font-bold text-foreground">What programs does it run?</h3>
+                <p className="leading-relaxed text-muted-foreground">
+                  Our work includes education support, health outreach, food assistance, women’s empowerment, disability support, and environmental conservation.
+                </p>
+              </CardContent>
+            </Card>
+            <Card className="h-full shadow-soft">
+              <CardContent className="p-6">
+                <h3 className="mb-2 text-lg font-bold text-foreground">How can I support the work?</h3>
+                <p className="leading-relaxed text-muted-foreground">
+                  You can <Link className="font-semibold text-primary underline underline-offset-4" to="/donate">donate</Link>, <Link className="font-semibold text-primary underline underline-offset-4" to="/get-involved">volunteer or partner</Link>, or <Link className="font-semibold text-primary underline underline-offset-4" to="/contact">contact our team</Link>.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </section>
 
         <motion.div
           className="mt-4"
