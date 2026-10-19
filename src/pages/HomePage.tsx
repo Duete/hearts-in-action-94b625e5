@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Programs from "@/components/Programs";
 import HomeHighlights, { HomeImpactStrip } from "@/components/HomeHighlights";
+import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -23,6 +24,7 @@ const HomePage = () => {
         <HomeImpactStrip />
         <Programs />
         <HomeHighlights />
+        <Newsletter />
       </main>
       <Footer />
     </div>

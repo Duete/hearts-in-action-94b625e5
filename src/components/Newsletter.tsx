@@ -11,9 +11,9 @@ const Newsletter = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       toast({
         title: "Invalid Email",
@@ -24,8 +24,7 @@ const Newsletter = () => {
     }
 
     setIsSubmitting(true);
-
-    // Simulate subscription (replace with actual API call when backend is ready)
+    // Replace this demonstration response with the newsletter provider's API when configured.
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubscribed(true);
@@ -37,106 +36,72 @@ const Newsletter = () => {
     }, 1000);
   };
 
-  if (isSubscribed) {
-    return (
-      <section className="py-16 bg-primary">
-        <motion.div
-          className="container mx-auto px-4"
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="max-w-2xl mx-auto text-center">
-            <div className="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center">
-              <CheckCircle className="h-8 w-8 text-primary-foreground" />
-            </div>
-            <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-2">
-              You're Subscribed!
-            </h2>
-            <p className="text-primary-foreground/80">
-              Thank you for joining our community. You'll receive updates about our mission and impact.
-            </p>
-            <Button
-              variant="outline"
-              className="mt-4 bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground hover:text-primary"
-              onClick={() => setIsSubscribed(false)}
-            >
-              Subscribe Another Email
-            </Button>
-          </div>
-        </motion.div>
-      </section>
-    );
-  }
-
   return (
-    <section className="py-16 bg-primary">
+    <section className="bg-primary py-12 md:py-16" aria-labelledby="newsletter-title">
       <motion.div
-        className="container mx-auto px-4"
-        initial={{ opacity: 0, y: 40 }}
+        className="container mx-auto flex flex-col items-start justify-between gap-8 px-4 md:flex-row md:items-center md:px-6"
+        initial={{ opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
+        viewport={{ once: true, margin: "-80px" }}
+        transition={{ duration: 0.5 }}
       >
-        <div className="max-w-2xl mx-auto text-center">
-          <motion.div
-            className="w-14 h-14 mx-auto mb-4 bg-white/20 rounded-full flex items-center justify-center"
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4, delay: 0.2 }}
-          >
-            <Mail className="h-7 w-7 text-primary-foreground" />
-          </motion.div>
-          <h2 className="text-2xl md:text-3xl font-bold text-primary-foreground mb-3">
-            Stay Updated on Our Mission
+        <div className="max-w-xl">
+          <h2 id="newsletter-title" className="mb-2 text-2xl font-bold text-primary-foreground md:text-3xl">
+            Get Updates From the Field
           </h2>
-          <p className="text-primary-foreground/80 mb-6 leading-relaxed">
-            Join our newsletter to receive updates on our programs, success stories, and ways you can help make a difference in communities across Uganda.
+          <p className="leading-relaxed text-primary-foreground/80">
+            Impact stories, distribution reports and appeals — straight to your inbox.
           </p>
-          
-          <motion.form
-            onSubmit={handleSubmit}
-            className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-          >
-            <div className="flex-1 relative">
-              <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-muted-foreground" />
-              <Input
-                type="email"
-                placeholder="Enter your email address"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="pl-10 h-12 bg-white text-foreground border-0"
-                required
-              />
+        </div>
+
+        <div className="w-full md:max-w-lg">
+          {isSubscribed ? (
+            <div className="flex items-center gap-3 rounded-lg bg-white/10 p-4 text-primary-foreground" role="status">
+              <CheckCircle className="h-6 w-6 shrink-0" aria-hidden="true" />
+              <div>
+                <p className="font-semibold">You’re subscribed!</p>
+                <p className="text-sm text-primary-foreground/80">Thank you for joining our community.</p>
+              </div>
+              <Button
+                variant="outline"
+                className="ml-auto border-primary-foreground/70 bg-transparent text-primary-foreground hover:bg-primary-foreground hover:text-primary"
+                onClick={() => setIsSubscribed(false)}
+              >
+                Add another
+              </Button>
             </div>
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="h-12 px-6 bg-accent text-accent-foreground hover:bg-accent/90 font-semibold"
-            >
-              {isSubmitting ? (
-                <span className="flex items-center gap-2">
-                  <span className="h-4 w-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                  Subscribing...
-                </span>
-              ) : (
-                <span className="flex items-center gap-2">
-                  <Send className="h-4 w-4" />
-                  Subscribe
-                </span>
-              )}
-            </Button>
-          </motion.form>
-          
-          <p className="text-xs text-primary-foreground/60 mt-4">
-            We respect your privacy. Unsubscribe at any time.
-          </p>
+          ) : (
+            <form onSubmit={handleSubmit} className="flex flex-col gap-3 sm:flex-row" aria-label="Newsletter subscription">
+              <div className="relative min-w-0 flex-1">
+                <Mail className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+                <Input
+                  type="email"
+                  name="email"
+                  aria-label="Email address"
+                  placeholder="Email address"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="h-12 border-0 bg-white pl-10 text-foreground"
+                  autoComplete="email"
+                  required
+                />
+              </div>
+              <Button
+                type="submit"
+                disabled={isSubmitting}
+                className="h-12 shrink-0 bg-secondary px-6 font-semibold text-secondary-foreground hover:bg-secondary/90"
+              >
+                {isSubmitting ? (
+                  <span>Subscribing...</span>
+                ) : (
+                  <span className="flex items-center gap-2">
+                    <Send className="h-4 w-4" aria-hidden="true" />
+                    Subscribe
+                  </span>
+                )}
+              </Button>
+            </form>
+          )}
         </div>
       </motion.div>
     </section>
