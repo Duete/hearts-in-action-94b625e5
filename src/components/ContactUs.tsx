@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import heroImg from "@/assets/hero-community.jpg";
+import heroImg from "@/assets/optimized/hero-community.webp";
 
 const containerVariants = {
   hidden: { opacity: 0 },

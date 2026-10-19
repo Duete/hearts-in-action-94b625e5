@@ -11,8 +11,8 @@ import {
 } from "@/components/ui/dialog";
 import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
-import healthImg from "@/assets/health-outreach.jpg";
-import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
+import healthImg from "@/assets/optimized/health-outreach.webp";
+import ramadanMealsImg from "@/assets/optimized/gallery/ramadan-iftar-meals.webp";
 import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
 import wheelchairFoodPhoto from "@/assets/gallery/wheelchair-donation-namisindwa-food.png.asset.json";
 import orphanSupportImg from "@/assets/gallery/orphan-support.webp";

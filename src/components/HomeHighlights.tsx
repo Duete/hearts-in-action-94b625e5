@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import impact from "@/data/impact.json";
 import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
-import ramadanPhoto from "@/assets/gallery/ramadan-iftar-meals.png";
+import ramadanPhoto from "@/assets/optimized/gallery/ramadan-iftar-meals.webp";
 import educationPhoto from "@/assets/education-program.jpg";
 
 const stats = [

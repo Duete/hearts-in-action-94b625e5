@@ -2,15 +2,15 @@ import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { Heart, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import ramadanImg from "@/assets/gallery/ramadan-iftar-meals.png";
-import wheelchairImg from "@/assets/gallery/wheelchair-support.png";
-import orphanImg from "@/assets/gallery/orphan-feeding-program.png";
-import schoolImg from "@/assets/gallery/school-supplies-distribution.png";
-import treeImg from "@/assets/environment-program.jpg";
-import foodImg from "@/assets/gallery/food-package-distribution.png";
-import boreImg from "@/assets/gallery/borehole-construction.png";
-import womenImg from "@/assets/gallery/women-empowerment-supplies.png";
-import watermark from "@/assets/watermark.png";
+import ramadanImg from "@/assets/optimized/gallery/ramadan-iftar-meals.webp";
+import wheelchairImg from "@/assets/optimized/gallery/wheelchair-support.webp";
+import orphanImg from "@/assets/optimized/gallery/orphan-feeding-program.webp";
+import schoolImg from "@/assets/optimized/gallery/school-supplies-distribution.webp";
+import treeImg from "@/assets/optimized/environment-program.webp";
+import foodImg from "@/assets/optimized/gallery/food-package-distribution.webp";
+import boreImg from "@/assets/optimized/gallery/borehole-construction.webp";
+import womenImg from "@/assets/optimized/gallery/women-empowerment-supplies.webp";
+import watermark from "@/assets/optimized/watermark.webp";
 
 const appeals = [
   {

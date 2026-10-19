@@ -2,45 +2,45 @@ import { useRef, useState } from "react";
 import { motion, useScroll, useTransform, AnimatePresence, PanInfo } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import womenImg from "@/assets/women-empowerment-new.png";
-import healthImg from "@/assets/health-outreach.jpg";
-import environmentImg from "@/assets/environment-program.jpg";
-import kurbanImg from "@/assets/gallery/kurban.png";
-import childrenFeedingImg from "@/assets/gallery/children-feeding.webp";
+import womenImg from "@/assets/optimized/women-empowerment-new.webp";
+import healthImg from "@/assets/optimized/health-outreach.webp";
+import environmentImg from "@/assets/optimized/environment-program.webp";
+import kurbanImg from "@/assets/optimized/gallery/kurban.webp";
+import childrenFeedingImg from "@/assets/optimized/gallery/children-feeding.webp";
 import disabilitySupportImg from "@/assets/gallery/disability-support.webp";
-import waterWellImg from "@/assets/gallery/water-well.webp";
-import communityFeedingImg from "@/assets/gallery/community-feeding.jpg";
-import foodPlatesImg from "@/assets/gallery/food-plates.jpg";
-import communityMealImg from "@/assets/gallery/community-meal.jpg";
-import waterCollectionImg from "@/assets/gallery/water-collection.jpg";
-import kurbanMeatImg from "@/assets/gallery/kurban-meat.jpg";
-import womenDistributionImg from "@/assets/gallery/women-distribution.jpg";
-import schoolChildrenImg from "@/assets/gallery/school-children.jpg";
+import waterWellImg from "@/assets/optimized/gallery/water-well.webp";
+import communityFeedingImg from "@/assets/optimized/gallery/community-feeding.webp";
+import foodPlatesImg from "@/assets/optimized/gallery/food-plates.webp";
+import communityMealImg from "@/assets/optimized/gallery/community-meal.webp";
+import waterCollectionImg from "@/assets/optimized/gallery/water-collection.webp";
+import kurbanMeatImg from "@/assets/optimized/gallery/kurban-meat.webp";
+import womenDistributionImg from "@/assets/optimized/gallery/women-distribution.webp";
+import schoolChildrenImg from "@/assets/optimized/gallery/school-children.webp";
 import childrenMassFeedingImg from "@/assets/gallery/children-mass-feeding.jpg";
 import outdoorChildrenFeedingImg from "@/assets/gallery/outdoor-children-feeding.jpg";
 import foodDistributionImg from "@/assets/gallery/food-distribution.jpg";
-import waterWellInstallationImg from "@/assets/gallery/water-well-installation.png";
-import waterWellConstructionImg from "@/assets/gallery/water-well-construction.png";
-import ramadanChildrenFeedingImg from "@/assets/gallery/ramadan-children-feeding.png";
-import boreholeConstructionImg from "@/assets/gallery/borehole-construction.png";
-import schoolSuppliesImg from "@/assets/gallery/school-supplies-distribution.png";
-import womenEmpowermentSuppliesImg from "@/assets/gallery/women-empowerment-supplies.png";
-import communityIftarOutdoorImg from "@/assets/gallery/community-iftar-outdoor.png";
-import ramadanIftarMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
-import healthCheckupImg from "@/assets/gallery/health-checkup.png";
-import foodPackageDistributionImg from "@/assets/gallery/food-package-distribution.png";
-import orphanFoodSupportImg from "@/assets/gallery/orphan-food-support.png";
-import blanketDistributionImg from "@/assets/gallery/blanket-distribution.png";
-import maizeFlourDistributionImg from "@/assets/gallery/maize-flour-distribution.png";
-import wheelchairSupportImg from "@/assets/gallery/wheelchair-support.png";
-import familyFoodReliefImg from "@/assets/gallery/family-food-relief.png";
-import motherBabyFoodAidImg from "@/assets/gallery/mother-baby-food-aid.png";
-import womenFoodCollectionImg from "@/assets/gallery/women-food-collection.png";
-import maizeFlourCloseupImg from "@/assets/gallery/maize-flour-closeup.png";
-import childrenIftarMealImg from "@/assets/gallery/children-iftar-meal.jpg";
-import elderlyWheelchairSupportImg from "@/assets/gallery/elderly-wheelchair-support.png";
-import orphanFeedingProgramImg from "@/assets/gallery/orphan-feeding-program.png";
-import watermarkImg from "@/assets/watermark.png";
+import waterWellInstallationImg from "@/assets/optimized/gallery/water-well-installation.webp";
+import waterWellConstructionImg from "@/assets/optimized/gallery/water-well-construction.webp";
+import ramadanChildrenFeedingImg from "@/assets/optimized/gallery/ramadan-children-feeding.webp";
+import boreholeConstructionImg from "@/assets/optimized/gallery/borehole-construction.webp";
+import schoolSuppliesImg from "@/assets/optimized/gallery/school-supplies-distribution.webp";
+import womenEmpowermentSuppliesImg from "@/assets/optimized/gallery/women-empowerment-supplies.webp";
+import communityIftarOutdoorImg from "@/assets/optimized/gallery/community-iftar-outdoor.webp";
+import ramadanIftarMealsImg from "@/assets/optimized/gallery/ramadan-iftar-meals.webp";
+import healthCheckupImg from "@/assets/optimized/gallery/health-checkup.webp";
+import foodPackageDistributionImg from "@/assets/optimized/gallery/food-package-distribution.webp";
+import orphanFoodSupportImg from "@/assets/optimized/gallery/orphan-food-support.webp";
+import blanketDistributionImg from "@/assets/optimized/gallery/blanket-distribution.webp";
+import maizeFlourDistributionImg from "@/assets/optimized/gallery/maize-flour-distribution.webp";
+import wheelchairSupportImg from "@/assets/optimized/gallery/wheelchair-support.webp";
+import familyFoodReliefImg from "@/assets/optimized/gallery/family-food-relief.webp";
+import motherBabyFoodAidImg from "@/assets/optimized/gallery/mother-baby-food-aid.webp";
+import womenFoodCollectionImg from "@/assets/optimized/gallery/women-food-collection.webp";
+import maizeFlourCloseupImg from "@/assets/optimized/gallery/maize-flour-closeup.webp";
+import childrenIftarMealImg from "@/assets/optimized/gallery/children-iftar-meal.webp";
+import elderlyWheelchairSupportImg from "@/assets/optimized/gallery/elderly-wheelchair-support.webp";
+import orphanFeedingProgramImg from "@/assets/optimized/gallery/orphan-feeding-program.webp";
+import watermarkImg from "@/assets/optimized/watermark.webp";
 import foodDistributionBannerImg from "@/assets/gallery/food-distribution-banner.webp.asset.json";
 import nabukwasiJaneWheelchairImg from "@/assets/gallery/nabukwasi-jane-wheelchair.webp.asset.json";
 import waterwellCelebrationImg from "@/assets/gallery/waterwell-celebration.webp.asset.json";
@@ -103,6 +103,8 @@ const ParallaxImage = ({
         alt={alt}
         className="w-full h-[120%] object-cover group-hover:scale-105 transition-smooth pointer-events-none"
         style={{ y }}
+        loading="lazy"
+        decoding="async"
         draggable={false}
       />
       {/* Centered Watermark overlay */}
@@ -111,6 +113,8 @@ const ParallaxImage = ({
           src={watermarkImg} 
           alt="" 
           className="w-16 h-16 object-contain opacity-40 pointer-events-none"
+          loading="lazy"
+          decoding="async"
           draggable={false}
         />
       </div>
@@ -226,6 +230,8 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
           src={images[currentIndex].src}
           alt={images[currentIndex].alt}
           className="max-w-full max-h-[75vh] object-contain pointer-events-none"
+          loading="eager"
+          decoding="async"
           draggable={false}
         />
         {/* Centered Watermark on lightbox image */}
