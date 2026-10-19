@@ -14,10 +14,27 @@ const stats = [
 ];
 
 export const HomeImpactStrip = () => (
-  <div className="bg-secondary text-secondary-foreground">
-    <div className="max-w-6xl mx-auto px-6 py-4 flex flex-wrap justify-center gap-x-10 gap-y-2 text-sm font-semibold">
-      {stats.map(stat => <span key={stat.label}>{stat.value.toLocaleString()}+ {stat.label.toLowerCase()}</span>)}
+  <div
+    className="impact-marquee border-b-4 border-secondary/80 bg-secondary text-black"
+    role="region"
+    aria-label="Community impact statistics"
+    tabIndex={0}
+  >
+    <div className="impact-marquee-track" aria-hidden="true">
+      {[0, 1].map(copy => (
+        <div className="impact-marquee-group" key={copy}>
+          {stats.map(stat => (
+            <span className="impact-marquee-item" key={stat.label}>
+              <span><strong>{stat.value.toLocaleString()}+</strong> {stat.label.toLowerCase()}</span>
+              <span className="impact-marquee-separator">•</span>
+            </span>
+          ))}
+        </div>
+      ))}
     </div>
+    <span className="sr-only">
+      {stats.map(stat => `${stat.value.toLocaleString()}+ ${stat.label.toLowerCase()}`).join("; ")}
+    </span>
   </div>
 );
 
