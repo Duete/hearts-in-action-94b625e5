@@ -76,7 +76,7 @@ type Props = {
 
 /** Circular icon buttons, e.g. the Contact page "Follow Us" card. */
 export const SocialHandleIcons = ({ handles = socialHandles, className }: Props) => (
-  <div className={cn("flex flex-wrap gap-4", className)}>
+  <div className={cn("flex flex-nowrap gap-4 overflow-x-auto whitespace-nowrap pb-1", className)}>
     {handles.map((social) => (
       <a
         key={social.label}
@@ -84,7 +84,7 @@ export const SocialHandleIcons = ({ handles = socialHandles, className }: Props)
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${social.label} — ${social.handle}`}
-        className="bg-primary/10 hover:bg-primary hover:text-primary-foreground p-3 rounded-full transition-smooth"
+        className="shrink-0 bg-primary/10 hover:bg-primary hover:text-primary-foreground p-3 rounded-full transition-smooth"
       >
         <social.icon className="h-5 w-5" />
       </a>
@@ -94,22 +94,20 @@ export const SocialHandleIcons = ({ handles = socialHandles, className }: Props)
 
 /** Labeled cards showing platform name and handle, e.g. About / News sections. */
 export const SocialHandleList = ({ handles = socialHandles, className }: Props) => (
-  <ul className={cn("grid gap-3 sm:grid-cols-2", className)}>
+  <ul tabIndex={0} className={cn("flex w-full flex-nowrap items-center gap-3 overflow-x-auto whitespace-nowrap pb-1", className)}>
     {handles.map((social) => (
-      <li key={social.label}>
+      <li key={social.label} className="shrink-0">
         <a
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
-          className="group flex items-center gap-3 rounded-lg border border-border bg-background px-4 py-3 hover:border-primary hover:shadow-soft transition-smooth"
+          className="group inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-border bg-background px-3 py-2 hover:border-primary hover:shadow-soft transition-smooth"
         >
           <span className="bg-primary/10 group-hover:bg-primary group-hover:text-primary-foreground p-2 rounded-md transition-smooth">
             <social.icon className="h-4 w-4" />
           </span>
-          <span className="min-w-0">
-            <span className="block text-sm font-bold text-foreground">{social.label}</span>
-            <span className="block truncate text-sm text-muted-foreground">{social.handle}</span>
-          </span>
+          <span className="text-sm font-bold text-foreground">{social.label}:</span>
+          <span className="text-sm text-muted-foreground">{social.handle}</span>
         </a>
       </li>
     ))}
@@ -118,14 +116,14 @@ export const SocialHandleList = ({ handles = socialHandles, className }: Props) 
 
 /** Compact text row of handles, e.g. the end of a news article. */
 export const SocialHandleInline = ({ handles = socialHandles, className }: Props) => (
-  <div className={cn("flex flex-wrap items-center gap-x-5 gap-y-2", className)}>
+  <div tabIndex={0} className={cn("flex flex-nowrap items-center gap-x-5 overflow-x-auto whitespace-nowrap pb-1", className)}>
     {handles.map((social) => (
       <a
         key={social.label}
         href={social.href}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center gap-2 text-sm font-medium text-primary hover:underline"
+        className="inline-flex shrink-0 items-center gap-2 whitespace-nowrap text-sm font-medium text-primary hover:underline"
       >
         <social.icon className="h-4 w-4" />
         {social.handle}
