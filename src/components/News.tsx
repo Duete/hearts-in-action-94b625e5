@@ -18,8 +18,9 @@ import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisin
 import wheelchairFoodPhoto from "@/assets/gallery/wheelchair-donation-namisindwa-food.png.asset.json";
 import orphanSupportImg from "@/assets/gallery/orphan-support.webp";
 import { SocialHandleInline, SocialHandleList } from "@/components/SocialHandles";
+import { Link } from "react-router-dom";
 
-const lastUpdated = "October 19, 2026";
+const lastUpdated = "October 20, 2026";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -46,7 +47,10 @@ const News = () => {
     date: string;
     excerpt: string;
     image: string;
+    imageAlt?: string;
     fullContent?: string;
+    ctaText?: string;
+    ctaHref?: string;
     photos?: { image: string; caption: string }[];
   }[] = [
     {
@@ -82,10 +86,32 @@ const News = () => {
       image: educationImg,
     },
     {
-      title: "Women's Cooperative Launches Successfully",
-      date: "March 8, 2025",
-      excerpt: "Our women empowerment program has helped establish a thriving cooperative, providing 50 women with sustainable income through craft production and marketing.",
+      title: "Over 50 Women Complete Skills Training in Shampoo and Liquid Soap Making in Bukonde, Mbale",
+      date: "October 20, 2026",
+      excerpt: "Global Hearts Community trained more than 50 women and widows in Bukonde, Mbale, to make shampoo and liquid soap—practical skills they can turn into income within weeks.",
+      fullContent: `MBALE, UGANDA — Global Hearts Community has trained more than 50 women and widows in shampoo and liquid soap production, giving them practical skills they can turn into income within weeks. The training forms part of the organisation’s Women Empowerment programme, which supports vulnerable women to build sustainable livelihoods and provide for their families.
+
+Many participants are widows, single mothers, or women caring for orphans and children with disabilities. Through hands-on sessions, they learned the full process: sourcing affordable local raw materials, safe mixing and measuring, quality control, bottling, labelling, and pricing. Participants left with their own finished products.
+
+Shampoo and liquid soap were chosen deliberately: both are in constant demand in households, schools, shops, and salons across Mbale, require modest startup capital, and can be made at home with basic equipment.
+
+Alongside production skills, the programme covered financial literacy, group savings, record keeping, customer care, and pricing. Participants were encouraged to form savings groups for small loans and bulk purchasing.
+
+“Before this training, I did not know I could make something people would pay for,” said one participant. “Now I can make soap for my family and sell the rest to my neighbours. I have started saving for my children’s school fees.”
+
+“Skills alone do not change lives; skills plus markets plus confidence do,” said a spokesperson for Global Hearts Community. “Over 50 women now have a way to earn that did not exist for them before.”
+
+Demand for the training exceeds available places. Many graduates still need startup kits—raw materials, containers, labels, and measuring equipment—before they can begin earning.
+
+How You Can Help
+
+Donations fund training, raw materials, and startup kits so graduates can begin production immediately.
+
+Editors’ Note: High-resolution photos from the training sessions are available upon request.`,
       image: womenImg,
+      imageAlt: "Illustrative image of women gathered at a community activity, representing Global Hearts Community’s Women Empowerment programme.",
+      ctaText: "Donate Now",
+      ctaHref: "/donate",
     },
     {
       title: "Community Health Camp Serves 200+ Families",
@@ -141,7 +167,7 @@ const News = () => {
                   <div className="flex h-48 gap-1 overflow-hidden">
                     <img
                       src={article.image}
-                      alt={article.title}
+                      alt={article.imageAlt ?? article.title}
                       className="h-full min-w-0 flex-1 object-cover group-hover:scale-105 transition-smooth"
                       loading="lazy"
                       decoding="async"
@@ -193,17 +219,31 @@ const News = () => {
                           ) : (
                             <img
                               src={article.image}
-                              alt={article.title}
+                              alt={article.imageAlt ?? article.title}
                               className="w-full h-64 object-cover rounded-lg mb-6"
                             />
                           )}
                           <div className="prose prose-sm max-w-none">
                             {(article.fullContent ?? article.excerpt).split("\n\n").map((paragraph, idx) => (
-                              <p key={idx} className="text-muted-foreground leading-relaxed mb-4">
-                                {paragraph}
-                              </p>
+                              paragraph === "How You Can Help" ? (
+                                <h3 key={idx} className="mt-6 mb-2 text-lg font-semibold text-foreground">
+                                  {paragraph}
+                                </h3>
+                              ) : (
+                                <p key={idx} className="text-muted-foreground leading-relaxed mb-4">
+                                  {paragraph}
+                                </p>
+                              )
                             ))}
                           </div>
+                          {article.ctaText && article.ctaHref && (
+                            <Button asChild className="mt-3">
+                              <Link to={article.ctaHref}>
+                                {article.ctaText}
+                                <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" />
+                              </Link>
+                            </Button>
+                          )}
                           <div className="mt-6 pt-6 border-t border-border">
                             <p className="text-sm font-bold text-foreground mb-3">
                               Follow Global Hearts Community
