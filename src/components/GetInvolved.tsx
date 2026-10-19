@@ -7,6 +7,7 @@ import {
   Heart,
   UsersRound,
 } from "lucide-react";
+import togetherWeCanImage from "@/assets/together-we-can.webp";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
@@ -78,9 +79,20 @@ const GetInvolved = () => (
           </div>
         </div>
 
-        <aside className="relative overflow-hidden rounded-3xl bg-gradient-primary p-7 text-primary-foreground shadow-strong sm:p-10" aria-label="Our community approach">
-          <div className="absolute -right-12 -top-12 h-44 w-44 rounded-full border-[24px] border-white/10" aria-hidden="true" />
-          <div className="relative">
+        <aside className="relative overflow-hidden rounded-3xl gradient-primary text-primary-foreground shadow-strong" aria-label="Our community approach">
+          <figure className="relative h-52 sm:h-60">
+            <img
+              src={togetherWeCanImage}
+              alt="Illustrative photo of volunteers and neighbours preparing food parcels and school supplies together in Mbale."
+              className="h-full w-full object-cover"
+              loading="eager"
+              decoding="async"
+            />
+            <figcaption className="absolute bottom-3 left-3 rounded-full bg-black/60 px-3 py-1 text-xs font-semibold text-white">
+              Illustrative image
+            </figcaption>
+          </figure>
+          <div className="relative p-7 sm:p-10">
             <div className="mb-8 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15">
               <HandHeart className="h-7 w-7" aria-hidden="true" />
             </div>

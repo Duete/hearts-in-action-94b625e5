@@ -12,6 +12,7 @@ import {
 import educationImg from "@/assets/education-program.jpg";
 import womenImg from "@/assets/women-empowerment.jpg";
 import healthImg from "@/assets/health-outreach.jpg";
+import healthCheckupImg from "@/assets/gallery/health-checkup-news.webp";
 import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
 import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
 import wheelchairFoodPhoto from "@/assets/gallery/wheelchair-donation-namisindwa-food.png.asset.json";
@@ -92,6 +93,16 @@ const News = () => {
       excerpt: "Global Hearts Community recently held a community health camp that reached more than 200 families in a rural setting where access to basic healthcare remains limited. For many residents, this was not just an outreach activity,",
       fullContent: "Global Hearts Community recently held a community health camp that reached more than 200 families in a rural setting where access to basic healthcare remains limited. For many residents, this was not just an outreach activity, but a rare chance to receive essential health services close to home.\n\nThe camp was organized in partnership with nearby local health centers, a deliberate approach to ensure both quality care and continuity after the event. Through this collaboration, trained health workers provided screening and testing for some of the most common but often neglected conditions in rural communities. These included diabetes, malaria, high blood pressure, and other preventable or manageable diseases that silently affect many families.\n\nThroughout the day, community members received blood sugar checks, malaria tests, and blood pressure measurements. Those found with abnormal results were counseled on next steps and formally referred to partner health facilities for follow-up care. This link between outreach and the formal health system helped bridge a gap that many rural families struggle with, knowing where to go and what to do after a diagnosis.\n\nBeyond testing, the camp placed strong emphasis on health education. Volunteers and health professionals spoke with families about early warning signs of chronic illnesses, the importance of regular check-ups, proper nutrition, and simple lifestyle changes that can reduce long-term health risks. These conversations were practical and relatable, grounded in everyday realities of rural life.\n\nFor Global Hearts Community, the goal was not only to treat illness but to strengthen prevention and awareness. Many attendees shared that it was their first time being screened for conditions like hypertension or diabetes, despite experiencing symptoms for years. Moments like these highlight how much impact even a single well-organized health camp can have.\n\nThis initiative was made possible through the support of donors and partners who believe that access to healthcare should not depend on location or income. Every test conducted, every referral made, and every conversation held was a step toward healthier, more resilient communities.\n\nAs Global Hearts Community looks ahead, there are plans to expand these health camps to reach more villages and to include additional services based on local needs. Continued donor support will be crucial in scaling this work, strengthening partnerships with health centers, and ensuring that no family is left behind simply because they live far from a hospital.\n\nInvesting in community health is investing in dignity, productivity, and hope. Through initiatives like this, Global Hearts Community is turning compassion into action and making measurable change where it matters most.",
       image: healthImg,
+      photos: [
+        {
+          image: healthImg,
+          caption: "Global Hearts Community health-camp outreach serving families in a rural community.",
+        },
+        {
+          image: healthCheckupImg,
+          caption: "Additional photo from Global Hearts Community’s health outreach gallery: a local health worker checks a community member’s blood pressure.",
+        },
+      ],
     },
   ];
 
@@ -122,77 +133,91 @@ const News = () => {
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
         >
-          {articles.map((article, index) => (
-            <motion.div key={index} variants={cardVariants}>
-              <Card className="overflow-hidden shadow-medium hover:shadow-strong transition-smooth group h-full">
-                <div className="relative h-48 overflow-hidden">
-                  <img
-                    src={article.image}
-                    alt={article.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-smooth"
-                  />
-                </div>
-                <CardContent className="p-6">
-                  <div className="flex items-center gap-2 text-muted-foreground mb-3">
-                    <Calendar className="h-4 w-4" />
-                    <span className="text-sm">{article.date}</span>
+          {articles.map((article, index) => {
+            const additionalPhoto = article.photos?.find((photo) => photo.image !== article.image);
+            return (
+              <motion.div key={index} variants={cardVariants}>
+                <Card className="overflow-hidden shadow-medium hover:shadow-strong transition-smooth group h-full">
+                  <div className="flex h-48 gap-1 overflow-hidden">
+                    <img
+                      src={article.image}
+                      alt={article.title}
+                      className="h-full min-w-0 flex-1 object-cover group-hover:scale-105 transition-smooth"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                    {additionalPhoto && (
+                      <img
+                        src={additionalPhoto.image}
+                        alt={additionalPhoto.caption}
+                        className="h-full min-w-0 flex-1 object-cover group-hover:scale-105 transition-smooth"
+                        loading="lazy"
+                        decoding="async"
+                      />
+                    )}
                   </div>
-                  <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-smooth">
-                    {article.title}
-                  </h3>
-                  <p className="text-muted-foreground mb-4 leading-relaxed">{article.excerpt}</p>
-                  <Dialog>
-                    <DialogTrigger asChild>
-                      <Button variant="link" className="p-0 h-auto group/btn">
-                        Read More
-                        <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
-                      </Button>
-                    </DialogTrigger>
-                    <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-                      <DialogHeader>
-                        <DialogTitle className="text-2xl">{article.title}</DialogTitle>
-                        <div className="flex items-center gap-2 text-muted-foreground">
-                          <Calendar className="h-4 w-4" />
-                          <span className="text-sm">{article.date}</span>
-                        </div>
-                      </DialogHeader>
-                      <div className="mt-4">
-                        {article.photos ? (
-                          <div className="space-y-6 mb-6">
-                            {article.photos.map((photo) => (
-                              <figure key={photo.image}>
-                                <img src={photo.image} alt={photo.caption} className="w-full h-auto rounded-lg" loading="lazy" />
-                                <figcaption className="mt-2 text-sm text-muted-foreground">{photo.caption}</figcaption>
-                              </figure>
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-2 text-muted-foreground mb-3">
+                      <Calendar className="h-4 w-4" />
+                      <span className="text-sm">{article.date}</span>
+                    </div>
+                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-smooth">
+                      {article.title}
+                    </h3>
+                    <p className="text-muted-foreground mb-4 leading-relaxed">{article.excerpt}</p>
+                    <Dialog>
+                      <DialogTrigger asChild>
+                        <Button variant="link" className="p-0 h-auto group/btn">
+                          Read More
+                          <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
+                        </Button>
+                      </DialogTrigger>
+                      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                        <DialogHeader>
+                          <DialogTitle className="text-2xl">{article.title}</DialogTitle>
+                          <div className="flex items-center gap-2 text-muted-foreground">
+                            <Calendar className="h-4 w-4" />
+                            <span className="text-sm">{article.date}</span>
+                          </div>
+                        </DialogHeader>
+                        <div className="mt-4">
+                          {article.photos ? (
+                            <div className="space-y-6 mb-6">
+                              {article.photos.map((photo) => (
+                                <figure key={photo.image}>
+                                  <img src={photo.image} alt={photo.caption} className="w-full h-auto rounded-lg" loading="lazy" />
+                                  <figcaption className="mt-2 text-sm text-muted-foreground">{photo.caption}</figcaption>
+                                </figure>
+                              ))}
+                            </div>
+                          ) : (
+                            <img
+                              src={article.image}
+                              alt={article.title}
+                              className="w-full h-64 object-cover rounded-lg mb-6"
+                            />
+                          )}
+                          <div className="prose prose-sm max-w-none">
+                            {(article.fullContent ?? article.excerpt).split("\n\n").map((paragraph, idx) => (
+                              <p key={idx} className="text-muted-foreground leading-relaxed mb-4">
+                                {paragraph}
+                              </p>
                             ))}
                           </div>
-                        ) : (
-                          <img
-                            src={article.image}
-                            alt={article.title}
-                            className="w-full h-64 object-cover rounded-lg mb-6"
-                          />
-                        )}
-                        <div className="prose prose-sm max-w-none">
-                          {(article.fullContent ?? article.excerpt).split("\n\n").map((paragraph, idx) => (
-                            <p key={idx} className="text-muted-foreground leading-relaxed mb-4">
-                              {paragraph}
+                          <div className="mt-6 pt-6 border-t border-border">
+                            <p className="text-sm font-bold text-foreground mb-3">
+                              Follow Global Hearts Community
                             </p>
-                          ))}
+                            <SocialHandleInline />
+                          </div>
                         </div>
-                        <div className="mt-6 pt-6 border-t border-border">
-                          <p className="text-sm font-bold text-foreground mb-3">
-                            Follow Global Hearts Community
-                          </p>
-                          <SocialHandleInline />
-                        </div>
-                      </div>
-                    </DialogContent>
-                  </Dialog>
-                </CardContent>
-              </Card>
-            </motion.div>
-          ))}
+                      </DialogContent>
+                    </Dialog>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
         </motion.div>
 
         <motion.div
