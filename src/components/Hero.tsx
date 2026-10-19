@@ -27,7 +27,7 @@ const Hero = () => {
   }, [paused, reducedMotion]);
 
   return (
-    <section aria-label="Featured highlights" className="relative h-[560px] md:h-[600px] overflow-hidden bg-accent text-accent-foreground" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)}>
+    <section aria-label="Featured highlights" className="relative h-[520px] md:h-[min(70vh,600px)] md:min-h-[420px] overflow-hidden bg-accent text-accent-foreground" onMouseEnter={() => setPaused(true)} onMouseLeave={() => setPaused(false)} onFocusCapture={() => setPaused(true)}>
       {slides.map((slide, index) => (
         <div key={slide.title} aria-hidden={index !== active} className={`absolute inset-0 transition-opacity duration-700 motion-reduce:transition-none ${index === active ? "opacity-100 z-10" : "opacity-0 pointer-events-none"}`}>
           <img src={slide.image} alt={slide.alt} className="absolute inset-0 h-full w-full object-cover object-center" loading={index === 0 ? "eager" : "lazy"} draggable={false} />
