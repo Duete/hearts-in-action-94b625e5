@@ -1,0 +1,17 @@
+Options -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Use the canonical HTTPS www host.
+  RewriteCond %{HTTPS} !=on [OR]
+  RewriteCond %{HTTP_HOST} !^www\.globalheartscommunity\.org$ [NC]
+  RewriteRule ^ https://www.globalheartscommunity.org%{REQUEST_URI} [R=301,L]
+
+  # Match the prerendered directory URLs used in the sitemap.
+  RewriteRule ^(about|impact|get-involved|donate|contact|appeals|gallery|news)$ /$1/ [R=301,L]
+
+  # The in-app Programs link anchors to the homepage section.
+  RewriteRule ^programs/?$ https://www.globalheartscommunity.org/#programs [R=301,L]
+</IfModule>
