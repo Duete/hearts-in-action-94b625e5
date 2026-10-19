@@ -41,6 +41,55 @@ All colors MUST be HSL.
     background-color: hsl(var(--newsletter-background));
   }
 
+  .impact-marquee {
+    overflow: hidden;
+  }
+
+  .impact-marquee-track {
+    display: flex;
+    width: max-content;
+    animation: impact-marquee-scroll 34s linear infinite;
+  }
+
+  .impact-marquee-group {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: space-around;
+    gap: 1.75rem;
+    min-width: 100vw;
+    padding: 0.8rem 1.25rem;
+    white-space: nowrap;
+    font-weight: 750;
+  }
+
+  .impact-marquee-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 1.75rem;
+  }
+
+  .impact-marquee-separator {
+    opacity: 0.45;
+  }
+
+  .impact-marquee:hover .impact-marquee-track,
+  .impact-marquee:focus-within .impact-marquee-track {
+    animation-play-state: paused;
+  }
+
+  @keyframes impact-marquee-scroll {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .impact-marquee-track {
+      animation: none;
+    }
+  }
+
   :root {
     --background: 0 0% 100%;
     --foreground: 150 10% 15%;
