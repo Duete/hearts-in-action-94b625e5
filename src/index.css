@@ -28,12 +28,17 @@ All colors MUST be HSL.
     --shadow-soft: 0 6px 24px hsl(170 72% 21% / 0.1);
     --shadow-medium: 0 8px 24px hsl(170 72% 21% / 0.12);
     --shadow-strong: 0 16px 36px hsl(170 72% 21% / 0.16);
+    --newsletter-background: 165 40% 35%;
     --home-hero-overlay: linear-gradient(90deg, hsl(170 73% 14% / 0.92), hsl(170 73% 14% / 0.65) 50%, hsl(170 73% 14% / 0.12));
     font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
   }
 
   .home-hero-overlay {
     background: var(--home-hero-overlay);
+  }
+
+  .newsletter-section {
+    background-color: hsl(var(--newsletter-background));
   }
 
   :root {
