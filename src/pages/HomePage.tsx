@@ -3,8 +3,14 @@ import Hero from "@/components/Hero";
 import Programs from "@/components/Programs";
 import HomeHighlights, { HomeImpactStrip } from "@/components/HomeHighlights";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const HomePage = () => {
+  const { hash } = useLocation();
+  useEffect(() => {
+    if (hash === "#programs") document.getElementById("programs")?.scrollIntoView();
+  }, [hash]);
   return (
     <div className="home-theme min-h-screen bg-background text-foreground">
       <div className="bg-accent text-accent-foreground/80 text-xs">
