@@ -32,7 +32,7 @@ const Footer = () => {
               <span className="text-2xl font-bold">Global Hearts Community</span>
             </Link>
             <p className="text-primary-foreground/80 leading-relaxed mb-4">
-              Registered Charity Organization (MC/195) headquartered in Mbale City and also Registered as a company limited by guarantee Company Number 80034932237372. Empowering vulnerable groups through education, health programs, and community development initiatives.
+              Registered Charity Organization (MC/195) headquartered in <a href="https://share.google/YcMQcIemKi1Z4L5Ms" target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-primary-foreground">Mbale City</a> and also Registered as a company limited by guarantee Company Number 80034932237372. Empowering vulnerable groups through education, health programs, and community development initiatives.
             </p>
           </div>
 
