@@ -74,9 +74,9 @@ type Props = {
   className?: string;
 };
 
-/** Horizontal icon-and-handle links, e.g. the Contact page "Follow Us" card. */
+/** Wrapping icon-and-handle links, e.g. the Contact page "Follow Us" card. */
 export const SocialHandleIcons = ({ handles = socialHandles, className }: Props) => (
-  <div className={cn("flex flex-nowrap gap-4 overflow-x-auto whitespace-nowrap pb-1", className)}>
+  <div className={cn("flex min-w-0 flex-wrap items-center gap-2", className)}>
     {handles.map((social) => (
       <a
         key={social.label}
@@ -84,42 +84,42 @@ export const SocialHandleIcons = ({ handles = socialHandles, className }: Props)
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${social.label} — ${social.handle}`}
-        className="group inline-flex h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-md bg-primary/10 px-3 text-sm font-medium transition-smooth hover:bg-primary hover:text-primary-foreground"
+        className="group inline-flex min-h-11 max-w-full min-w-0 items-center gap-2 rounded-md bg-primary/10 px-3 py-1.5 text-sm font-medium transition-smooth hover:bg-primary hover:text-primary-foreground"
       >
         <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-background/70 transition-smooth group-hover:bg-primary-foreground/15">
           <social.icon className="h-4 w-4" aria-hidden="true" />
         </span>
-        <span>{social.handle}</span>
+        <span className="min-w-0 break-words">{social.handle}</span>
       </a>
     ))}
   </div>
 );
 
-/** Single-row icon-and-handle links, e.g. About / News sections. */
+/** Wrapping icon-and-handle links, e.g. About / News sections. */
 export const SocialHandleList = ({ handles = socialHandles, className }: Props) => (
-  <ul tabIndex={0} className={cn("flex w-full flex-nowrap items-center gap-3 overflow-x-auto whitespace-nowrap pb-1", className)}>
+  <ul className={cn("flex w-full min-w-0 flex-wrap items-center gap-3", className)}>
     {handles.map((social) => (
-      <li key={social.label} className="shrink-0">
+      <li key={social.label} className="max-w-full min-w-0">
         <a
           href={social.href}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${social.label} — ${social.handle}`}
-          className="group inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-lg border border-border bg-background px-3 py-2 transition-smooth hover:border-primary hover:bg-primary/10 hover:shadow-soft"
+          className="group inline-flex min-h-11 max-w-full min-w-0 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 transition-smooth hover:border-primary hover:bg-primary/10 hover:shadow-soft"
         >
           <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10 transition-smooth group-hover:bg-primary group-hover:text-primary-foreground">
             <social.icon className="h-4 w-4" aria-hidden="true" />
           </span>
-          <span className="text-sm text-foreground">{social.handle}</span>
+          <span className="min-w-0 break-words text-sm text-foreground">{social.handle}</span>
         </a>
       </li>
     ))}
   </ul>
 );
 
-/** Compact single-row icon-and-handle links, e.g. the end of a news article. */
+/** Compact wrapping icon-and-handle links, e.g. the end of a news article. */
 export const SocialHandleInline = ({ handles = socialHandles, className }: Props) => (
-  <div tabIndex={0} className={cn("flex flex-nowrap items-center gap-x-5 overflow-x-auto whitespace-nowrap pb-1", className)}>
+  <div className={cn("flex min-w-0 flex-wrap items-center gap-2", className)}>
     {handles.map((social) => (
       <a
         key={social.label}
@@ -127,12 +127,12 @@ export const SocialHandleInline = ({ handles = socialHandles, className }: Props
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${social.label} — ${social.handle}`}
-        className="group inline-flex h-10 shrink-0 items-center gap-2 whitespace-nowrap rounded-md bg-primary/10 px-3 text-sm font-medium text-primary transition-smooth hover:bg-primary hover:text-primary-foreground"
+        className="group inline-flex min-h-10 max-w-full min-w-0 items-center gap-2 rounded-md bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary transition-smooth hover:bg-primary hover:text-primary-foreground"
       >
         <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-background/70 transition-smooth group-hover:bg-primary-foreground/15">
           <social.icon className="h-4 w-4" aria-hidden="true" />
         </span>
-        <span>{social.handle}</span>
+        <span className="min-w-0 break-words">{social.handle}</span>
       </a>
     ))}
   </div>
