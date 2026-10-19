@@ -13,6 +13,25 @@ const stats = [
   { value: impact.students, label: "Students supported" },
 ];
 
+const commitments = [
+  {
+    title: "Registered & Accountable",
+    description: "Registered Ugandan NGO — MC/195. Annual reports and financial summaries available on request.",
+  },
+  {
+    title: "Donor Feedback",
+    description: "Every donation is acknowledged. We share distribution photos, beneficiary numbers and a financial report with our supporters.",
+  },
+  {
+    title: "Safeguarding First",
+    description: "We operate a child protection and safeguarding policy across all our programs and field activities.",
+  },
+  {
+    title: "Community-Led",
+    description: "Our programs are designed with local leaders, women’s groups and disability advocates — not imposed on them.",
+  },
+];
+
 export const HomeImpactStrip = () => (
   <div
     className="impact-marquee border-b-4 border-secondary/80 bg-secondary text-black"
@@ -46,15 +65,21 @@ const HomeHighlights = () => (
         <Button variant="warm" size="lg" asChild><Link to="/appeals">Explore Our Appeals<ArrowRight /></Link></Button>
       </div>
     </section>
-    <section className="bg-muted py-16 md:py-20">
-      <div className="max-w-6xl mx-auto px-6 text-center">
-        <p className="text-sm text-primary font-bold mb-3">OUR IMPACT</p>
-        <h2 className="text-3xl md:text-4xl font-bold mb-4">Real people. Lasting change.</h2>
-        <p className="text-muted-foreground max-w-2xl mx-auto">Behind every number is a person, a family and a community moving forward.</p>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-8 mt-10">
-          {stats.map(stat => <div key={stat.label} className="px-4"><p className="text-4xl font-bold text-primary mb-3">{stat.value.toLocaleString()}+</p><p className="text-sm text-muted-foreground font-medium">{stat.label}</p></div>)}
+    <section className="bg-muted py-16 md:py-20" id="trust">
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="mx-auto mb-10 max-w-3xl text-center md:mb-12">
+          <p className="text-sm text-primary font-bold mb-3">ACCOUNTABILITY</p>
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Commitment to You</h2>
+          <p className="text-muted-foreground leading-relaxed">We are committed to transparency, safeguarding and responsible stewardship of every shilling and dollar entrusted to us.</p>
         </div>
-        <Button variant="link" asChild className="mt-8"><Link to="/impact">See our impact<ArrowRight /></Link></Button>
+        <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          {commitments.map(item => (
+            <article key={item.title} className="h-full rounded-lg border-l-4 border-secondary bg-card p-6 shadow-soft">
+              <h3 className="mb-3 text-lg font-bold text-card-foreground">{item.title}</h3>
+              <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
     <section className="py-16 md:py-20">

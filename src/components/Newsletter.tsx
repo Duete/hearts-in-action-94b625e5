@@ -37,7 +37,7 @@ const Newsletter = () => {
   };
 
   return (
-    <section className="newsletter-section py-12 md:py-16" aria-labelledby="newsletter-title">
+    <section className="newsletter-section py-8 md:py-10" aria-labelledby="newsletter-title">
       <motion.div
         className="container mx-auto flex flex-col items-start justify-between gap-8 px-4 md:flex-row md:items-center md:px-6"
         initial={{ opacity: 0, y: 24 }}
