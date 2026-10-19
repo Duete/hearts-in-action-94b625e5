@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { lazy, Suspense } from "react";
 
 // Eager load critical pages
@@ -11,7 +11,6 @@ import NotFound from "./pages/NotFound";
 
 // Lazy load other pages for better performance
 const AboutPage = lazy(() => import("./pages/AboutPage"));
-const ProgramsPage = lazy(() => import("./pages/ProgramsPage"));
 const ImpactPage = lazy(() => import("./pages/ImpactPage"));
 const GetInvolvedPage = lazy(() => import("./pages/GetInvolvedPage"));
 const DonatePage = lazy(() => import("./pages/DonatePage"));
@@ -39,7 +38,7 @@ const App = () => (
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
-            <Route path="/programs" element={<ProgramsPage />} />
+            <Route path="/programs" element={<Navigate to="/#programs" replace />} />
             <Route path="/impact" element={<ImpactPage />} />
             <Route path="/get-involved" element={<GetInvolvedPage />} />
             <Route path="/donate" element={<DonatePage />} />
