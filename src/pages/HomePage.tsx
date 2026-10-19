@@ -2,6 +2,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import Programs from "@/components/Programs";
 import HomeHighlights, { HomeImpactStrip } from "@/components/HomeHighlights";
+import FindUs from "@/components/FindUs";
 import Newsletter from "@/components/Newsletter";
 import Footer from "@/components/Footer";
 import { MapPin } from "lucide-react";
@@ -12,6 +13,7 @@ const HomePage = () => {
   const { hash } = useLocation();
   useEffect(() => {
     if (hash === "#programs") document.getElementById("programs")?.scrollIntoView();
+    if (hash === "#find-us") document.getElementById("find-us")?.scrollIntoView();
   }, [hash]);
   return (
     <div className="home-theme min-h-screen bg-background text-foreground">
@@ -25,6 +27,7 @@ const HomePage = () => {
         <HomeImpactStrip />
         <Programs />
         <HomeHighlights />
+        <FindUs />
         <Newsletter />
       </main>
       <Footer />
