@@ -74,7 +74,7 @@ type Props = {
   className?: string;
 };
 
-/** Square icon buttons, e.g. the Contact page "Follow Us" card. */
+/** Horizontal icon-and-handle links, e.g. the Contact page "Follow Us" card. */
 export const SocialHandleIcons = ({ handles = socialHandles, className }: Props) => (
   <div className={cn("flex flex-nowrap gap-4 overflow-x-auto whitespace-nowrap pb-1", className)}>
     {handles.map((social) => (
@@ -84,15 +84,18 @@ export const SocialHandleIcons = ({ handles = socialHandles, className }: Props)
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${social.label} — ${social.handle}`}
-        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-primary/10 transition-smooth hover:bg-primary hover:text-primary-foreground"
+        className="group inline-flex h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-md bg-primary/10 px-3 text-sm font-medium transition-smooth hover:bg-primary hover:text-primary-foreground"
       >
-        <social.icon className="h-5 w-5" />
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-background/70 transition-smooth group-hover:bg-primary-foreground/15">
+          <social.icon className="h-4 w-4" aria-hidden="true" />
+        </span>
+        <span>{social.handle}</span>
       </a>
     ))}
   </div>
 );
 
-/** Single-row square icon links, e.g. About / News sections. */
+/** Single-row icon-and-handle links, e.g. About / News sections. */
 export const SocialHandleList = ({ handles = socialHandles, className }: Props) => (
   <ul tabIndex={0} className={cn("flex w-full flex-nowrap items-center gap-3 overflow-x-auto whitespace-nowrap pb-1", className)}>
     {handles.map((social) => (
@@ -102,16 +105,19 @@ export const SocialHandleList = ({ handles = socialHandles, className }: Props) 
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${social.label} — ${social.handle}`}
-          className="group flex h-12 w-12 items-center justify-center rounded-md border border-border bg-background transition-smooth hover:border-primary hover:bg-primary/10 hover:shadow-soft"
+          className="group inline-flex min-h-11 shrink-0 items-center gap-2 whitespace-nowrap rounded-lg border border-border bg-background px-3 py-2 transition-smooth hover:border-primary hover:bg-primary/10 hover:shadow-soft"
         >
-          <social.icon className="h-5 w-5" aria-hidden="true" />
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10 transition-smooth group-hover:bg-primary group-hover:text-primary-foreground">
+            <social.icon className="h-4 w-4" aria-hidden="true" />
+          </span>
+          <span className="text-sm text-foreground">{social.handle}</span>
         </a>
       </li>
     ))}
   </ul>
 );
 
-/** Compact single-row square icon links, e.g. the end of a news article. */
+/** Compact single-row icon-and-handle links, e.g. the end of a news article. */
 export const SocialHandleInline = ({ handles = socialHandles, className }: Props) => (
   <div tabIndex={0} className={cn("flex flex-nowrap items-center gap-x-5 overflow-x-auto whitespace-nowrap pb-1", className)}>
     {handles.map((social) => (
@@ -121,9 +127,12 @@ export const SocialHandleInline = ({ handles = socialHandles, className }: Props
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${social.label} — ${social.handle}`}
-        className="flex h-12 w-12 shrink-0 items-center justify-center rounded-md bg-primary/10 transition-smooth hover:bg-primary hover:text-primary-foreground"
+        className="group inline-flex h-10 shrink-0 items-center gap-2 whitespace-nowrap rounded-md bg-primary/10 px-3 text-sm font-medium text-primary transition-smooth hover:bg-primary hover:text-primary-foreground"
       >
-        <social.icon className="h-5 w-5" aria-hidden="true" />
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-background/70 transition-smooth group-hover:bg-primary-foreground/15">
+          <social.icon className="h-4 w-4" aria-hidden="true" />
+        </span>
+        <span>{social.handle}</span>
       </a>
     ))}
   </div>
