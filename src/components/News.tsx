@@ -15,9 +15,10 @@ import healthImg from "@/assets/health-outreach.jpg";
 import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
 import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
 import wheelchairFoodPhoto from "@/assets/gallery/wheelchair-donation-namisindwa-food.png.asset.json";
+import orphanSupportImg from "@/assets/gallery/orphan-support.webp";
 import { SocialHandleInline, SocialHandleList } from "@/components/SocialHandles";
 
-const lastUpdated = "October 18, 2026";
+const lastUpdated = "October 19, 2026";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -47,6 +48,13 @@ const News = () => {
     fullContent?: string;
     photos?: { image: string; caption: string }[];
   }[] = [
+    {
+      title: "Global Hearts Community Supports Over 100 Orphaned Children",
+      date: "October 19, 2026",
+      excerpt: "More than 100 orphaned children have received food packages, scholastic materials, school fees, clothing, and bedding through Global Hearts Community.",
+      fullContent: "Global Hearts Community has supported over 100 orphaned children with food packages, scholastic materials, school fees, clothing, and bedding.\n\nThis practical assistance helps address essential needs and support children’s education and day-to-day well-being.",
+      image: orphanSupportImg,
+    },
     {
       title: "Global Hearts Community Distributes Over 15 Wheelchairs and Mobility Tools in Three Years, Restoring Dignity and Independence in the Community",
       date: "October 18, 2026",
