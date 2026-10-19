@@ -3,6 +3,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Heart, Accessibility, Stethoscope, Package, BookOpen, Apple } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import heroImg from "@/assets/hero-community.jpg";
+import distributionBackground from "@/assets/contact-impact-background.webp";
 import impact from "@/data/impact.json";
 
 const containerVariants = {
@@ -77,12 +78,24 @@ const Impact = () => {
         className="relative h-[300px] flex items-center justify-center overflow-hidden"
       >
         <motion.div 
-          className="absolute inset-0 w-full h-[140%] bg-cover bg-center"
-          style={{ 
-            backgroundImage: `url(${heroImg})`,
-            y: bgY
-          }}
+          className="absolute inset-0 w-full h-[140%] overflow-hidden"
+          style={{ y: bgY }}
         >
+          <img
+            src={distributionBackground}
+            alt=""
+            aria-hidden="true"
+            className="absolute inset-0 h-full w-full object-cover object-center"
+            loading="eager"
+            decoding="async"
+            draggable={false}
+            onError={(event) => {
+              const image = event.currentTarget;
+              if (image.dataset.fallbackApplied) return;
+              image.dataset.fallbackApplied = "true";
+              image.src = heroImg;
+            }}
+          />
           <div className="absolute inset-0 bg-foreground/60"></div>
         </motion.div>
         <motion.div
