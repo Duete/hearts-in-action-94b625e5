@@ -67,6 +67,12 @@ export const socialHandlesWithWhatsApp: SocialHandle[] = [
     href: "https://wa.me/256791481089",
     icon: MessageCircle,
   },
+  {
+    label: "WhatsApp",
+    handle: "+256784330284",
+    href: "https://wa.me/256784330284",
+    icon: MessageCircle,
+  },
 ];
 
 type Props = {
@@ -75,11 +81,11 @@ type Props = {
 };
 
 /** Wrapping icon-and-handle links, e.g. the Contact page "Follow Us" card. */
-export const SocialHandleIcons = ({ handles = socialHandles, className }: Props) => (
+export const SocialHandleIcons = ({ handles = socialHandlesWithWhatsApp, className }: Props) => (
   <div className={cn("flex min-w-0 flex-wrap items-center gap-2", className)}>
     {handles.map((social) => (
       <a
-        key={social.label}
+        key={`${social.label}-${social.handle}`}
         href={social.href}
         target="_blank"
         rel="noopener noreferrer"
@@ -96,10 +102,10 @@ export const SocialHandleIcons = ({ handles = socialHandles, className }: Props)
 );
 
 /** Wrapping icon-and-handle links, e.g. About / News sections. */
-export const SocialHandleList = ({ handles = socialHandles, className }: Props) => (
+export const SocialHandleList = ({ handles = socialHandlesWithWhatsApp, className }: Props) => (
   <ul className={cn("flex w-full min-w-0 flex-wrap items-center gap-3", className)}>
     {handles.map((social) => (
-      <li key={social.label} className="max-w-full min-w-0">
+      <li key={`${social.label}-${social.handle}`} className="max-w-full min-w-0">
         <a
           href={social.href}
           target="_blank"
@@ -118,11 +124,11 @@ export const SocialHandleList = ({ handles = socialHandles, className }: Props) 
 );
 
 /** Compact wrapping icon-and-handle links, e.g. the end of a news article. */
-export const SocialHandleInline = ({ handles = socialHandles, className }: Props) => (
+export const SocialHandleInline = ({ handles = socialHandlesWithWhatsApp, className }: Props) => (
   <div className={cn("flex min-w-0 flex-wrap items-center gap-2", className)}>
     {handles.map((social) => (
       <a
-        key={social.label}
+        key={`${social.label}-${social.handle}`}
         href={social.href}
         target="_blank"
         rel="noopener noreferrer"
