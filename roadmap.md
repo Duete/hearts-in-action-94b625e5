@@ -1,5 +1,9 @@
 # Roadmap
 
+- [ ] Redesign Home with the uploaded green-and-gold reference and integrate all Programs.
+- [ ] Preserve all other pages and redirect the former Programs address to Home.
+- [ ] Verify the combined page, navigation, and existing Impact/news photo updates.
+
 - [ ] Update Impact figures and stories to reflect the published news articles.
 - [ ] Add both uploaded Namisindwa photos to the wheelchair news article.
 
