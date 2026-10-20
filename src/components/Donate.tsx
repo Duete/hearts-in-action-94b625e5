@@ -281,7 +281,7 @@ const Donate = () => {
           alt="Children holding new school bags and gift packages at a Global Hearts Community handover in Mbale"
           className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-foreground/92 via-foreground/80 to-foreground/50" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-foreground/95 via-foreground/85 to-foreground/55" />
         <motion.div
           className="container mx-auto px-4 py-16 md:px-6"
           initial={{ opacity: 0, y: 18 }}
