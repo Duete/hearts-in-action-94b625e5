@@ -62,7 +62,9 @@ This project is built with:
 
 ## How can I deploy this project?
 
-Simply open [Lovable](https://lovable.dev/projects/a19af8ba-85a5-4862-9607-c5130692f357) and click on Share -> Publish.
+This repository includes PHP API endpoints for PayPal donations and newsletter subscriptions. A static/Lovable-only publish will not execute those endpoints. For live donation and newsletter functionality, build the site and deploy the complete `dist/` directory—including `dist/api/`—to a PHP-capable HTTPS host with PHP 8.1+, cURL, PDO MySQL, and a configured MySQL/MariaDB database. Follow the [backend deployment guide](backend/README.md) for private credentials, provider setup, webhook registration, and sandbox testing.
+
+The frontend currently calls relative `/api/...` paths. You may publish the frontend through [Lovable](https://lovable.dev/projects/a19af8ba-85a5-4862-9607-c5130692f357) only if the separately hosted PHP API is exposed through a same-origin `/api` reverse proxy, or if the frontend is updated with a configurable API base URL and matching CORS policy. Do not treat a static publish as production-ready for donations or subscriptions.
 
 ## Can I connect a custom domain to my Lovable project?
 
