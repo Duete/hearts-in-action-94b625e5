@@ -12,6 +12,13 @@ dist
 dist-ssr
 *.local
 
+# Backend secrets and local-only configuration
+/backend/private-config.php
+/backend/private-config.local.php
+/.env
+/.env.*
+!/.env.example
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
