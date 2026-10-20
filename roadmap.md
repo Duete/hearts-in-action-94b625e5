@@ -12,3 +12,4 @@
 - [x] Appeals: wheelchair tiers $251→$300, $150→$200
 - [x] Appeals: bore hole tiers from UGX to US dollars ($270 / $675 at ~UGX 3,700 = $1 — rate not user-confirmed)
 - [x] Home hero: swap the "Global Hearts Community" slide photo for the widows food-package distribution photo
+- [x] Donate page: replace the header background photo with the school-bag handover photo

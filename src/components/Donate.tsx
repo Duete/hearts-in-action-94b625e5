@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import heroImg from "@/assets/hero-community.jpg";
+import donateHeroImg from "@/assets/donate-school-bags.png.asset.json";
 import DonationModal from "./DonationModal";
 
 interface CaptureResponse {
@@ -277,11 +277,11 @@ const Donate = () => {
     <section className="bg-background">
       <header className="relative isolate flex min-h-[320px] items-center overflow-hidden md:min-h-[390px]">
         <img
-          src={heroImg}
-          alt="Community members working together in Mbale"
-          className="absolute inset-0 -z-20 h-full w-full object-cover"
+          src={donateHeroImg.url}
+          alt="Children holding new school bags and gift packages at a Global Hearts Community handover in Mbale"
+          className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-foreground/85 via-foreground/65 to-foreground/25" />
+        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-foreground/95 via-foreground/85 to-foreground/55" />
         <motion.div
           className="container mx-auto px-4 py-16 md:px-6"
           initial={{ opacity: 0, y: 18 }}
