@@ -16,6 +16,7 @@ interface DonationModalProps {
   isOpen: boolean;
   onClose: () => void;
   amount: number | null;
+  gateway: "paypal" | "pesapal";
 }
 
 interface CreateOrderResponse {
@@ -25,9 +26,10 @@ interface CreateOrderResponse {
   orderId?: string;
   approvalUrl?: string;
   captureToken?: string;
+  reference?: string;
 }
 
-const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
+const DonationModal = ({ isOpen, onClose, amount, gateway }: DonationModalProps) => {
   const { toast } = useToast();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -64,13 +66,13 @@ const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
     }
 
     try {
-      const storageProbeKey = `ghc-paypal-storage-probe:${Date.now()}`;
+      const storageProbeKey = `ghc-${gateway}-storage-probe:${Date.now()}`;
       window.sessionStorage.setItem(storageProbeKey, "1");
       window.sessionStorage.removeItem(storageProbeKey);
     } catch {
       toast({
         title: "Secure checkout unavailable",
-        description: "This browser is blocking the temporary storage needed to verify a PayPal return. No payment was started. Enable site storage or use bank transfer.",
+        description: "This browser is blocking the temporary storage needed to verify the payment return. No payment was started. Enable site storage or use bank transfer.",
         variant: "destructive",
       });
       return;
@@ -78,12 +80,14 @@ const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
 
     setIsProcessing(true);
     try {
-      const response = await fetch("/api/paypal-create-order.php", {
+      const currency = gateway === "pesapal" ? "UGX" : "USD";
+      const response = await fetch(`/api/${gateway}-create-order.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "same-origin",
         body: JSON.stringify({
           amount,
+          currency,
           firstName: firstName.trim(),
           lastName: lastName.trim(),
           email: email.trim(),
@@ -94,15 +98,17 @@ const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
       if (!response.ok || !result.ok || !result.orderId || !result.approvalUrl || !result.captureToken) {
         const message = result.code === "amount_out_of_range"
           ? "That amount is above the current online checkout limit. Choose a smaller amount or contact us about a larger gift."
-          : result.message || "PayPal checkout could not be started. Please try again or use bank transfer.";
+          : result.message || `${gateway === "pesapal" ? "Pesapal" : "PayPal"} checkout could not be started. Please try again or use bank transfer.`;
         throw new Error(message);
       }
 
       // The one-time token is not placed in the URL; it is needed to verify capture after PayPal returns.
       try {
-        window.sessionStorage.setItem(`ghc-paypal-capture:${result.orderId}`, result.captureToken);
+      const tokenKey = gateway === "pesapal" ? result.reference : result.orderId;
+      if (!tokenKey) throw new Error("The payment reference was missing. No payment was opened.");
+      window.sessionStorage.setItem(`ghc-${gateway}-capture:${tokenKey}`, result.captureToken);
       } catch {
-        throw new Error("The secure return token could not be saved, so PayPal was not opened and no payment was taken. Enable site storage or use bank transfer.");
+        throw new Error(`The secure return token could not be saved, so ${gateway === "pesapal" ? "Pesapal" : "PayPal"} was not opened and no payment was taken. Enable site storage or use bank transfer.`);
       }
       window.location.assign(result.approvalUrl);
     } catch (error) {
@@ -115,10 +121,12 @@ const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
     }
   };
 
-  const formattedAmount = new Intl.NumberFormat("en-US", {
+  const currency = gateway === "pesapal" ? "UGX" : "USD";
+  const providerName = gateway === "pesapal" ? "Pesapal" : "PayPal";
+  const formattedAmount = new Intl.NumberFormat(currency === "UGX" ? "en-UG" : "en-US", {
     style: "currency",
-    currency: "USD",
-    minimumFractionDigits: 2,
+    currency,
+    minimumFractionDigits: currency === "UGX" ? 0 : 2,
   }).format(amount ?? 0);
 
   return (
@@ -135,7 +143,7 @@ const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
               </DialogTitle>
             </div>
             <p className="text-sm leading-relaxed text-primary-foreground/85">
-              Your gift to Global Hearts Community will be processed through PayPal’s hosted checkout.
+              Your gift to Global Hearts Community will be processed through {providerName}’s hosted checkout.
             </p>
           </DialogHeader>
         </div>
@@ -144,7 +152,7 @@ const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
           <div className="flex items-center justify-between rounded-xl border border-primary/20 bg-primary/5 p-4">
             <div>
               <p className="text-sm text-muted-foreground">One-time donation</p>
-              <p className="text-2xl font-bold text-primary">{formattedAmount} USD</p>
+              <p className="text-2xl font-bold text-primary">{formattedAmount}</p>
             </div>
             <ShieldCheck className="h-7 w-7 text-primary" aria-hidden="true" />
           </div>
@@ -213,19 +221,19 @@ const DonationModal = ({ isOpen, onClose, amount }: DonationModalProps) => {
             {isProcessing ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" aria-hidden="true" />
-                Connecting to PayPal…
+                Connecting to {providerName}…
               </>
             ) : (
               <>
                 <LockKeyhole className="mr-2 h-4 w-4" aria-hidden="true" />
-                Continue to PayPal
+                Continue to {providerName}
                 <ArrowUpRight className="ml-2 h-4 w-4" aria-hidden="true" />
               </>
             )}
           </Button>
 
           <p className="text-center text-xs leading-relaxed text-muted-foreground">
-            Payment is completed on PayPal. This website does not request or store your card details. You will only see a success message after PayPal confirms the payment.
+            Payment is completed on {providerName}. This website does not request or store your card details. You will only see a success message after {providerName} confirms the payment.
           </p>
         </form>
       </DialogContent>

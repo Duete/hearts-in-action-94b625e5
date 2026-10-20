@@ -256,8 +256,8 @@ try {
         $lookup->execute([':reference' => $reference]);
         $donation = $lookup->fetch();
     }
-    if (!$donation) {
-        ghc_mark_webhook_review($db, $eventId, $resourceId, 'Verified capture event had no local order reference.');
+    if (!$donation || (string) ($donation['payment_provider'] ?? 'paypal') !== 'paypal') {
+        ghc_mark_webhook_review($db, $eventId, $resourceId, 'Verified PayPal capture event had no matching PayPal donation record.');
         error_log('GHC backend: verified PayPal capture event had no order reference.');
         ghc_json(200, ['ok' => true, 'reviewRequired' => true]);
     }

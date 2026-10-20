@@ -3,8 +3,11 @@ CREATE TABLE donations (
     public_reference CHAR(27) NOT NULL,
     capture_token_hash CHAR(64) NOT NULL,
     capture_token_expires_at DATETIME NOT NULL,
+    payment_provider ENUM('paypal', 'pesapal') NOT NULL DEFAULT 'paypal',
     paypal_order_id VARCHAR(64) NULL,
     paypal_capture_id VARCHAR(64) NULL,
+    pesapal_tracking_id VARCHAR(64) NULL,
+    pesapal_confirmation_code VARCHAR(100) NULL,
     currency CHAR(3) NOT NULL,
     amount DECIMAL(12, 2) NOT NULL,
     donor_first_name VARCHAR(100) NOT NULL,
@@ -27,6 +30,7 @@ CREATE TABLE donations (
     UNIQUE KEY uq_donations_public_reference (public_reference),
     UNIQUE KEY uq_donations_paypal_order (paypal_order_id),
     UNIQUE KEY uq_donations_paypal_capture (paypal_capture_id),
+    UNIQUE KEY uq_donations_pesapal_tracking (pesapal_tracking_id),
     KEY idx_donations_status_created (status, created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 

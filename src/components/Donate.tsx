@@ -4,11 +4,13 @@ import {
   Banknote,
   CheckCircle2,
   Clock3,
+  CreditCard,
   ExternalLink,
   Heart,
   LockKeyhole,
   Mail,
   MapPin,
+  Smartphone,
   ShieldCheck,
   TriangleAlert,
   XCircle,
@@ -36,9 +38,12 @@ type PaymentNotice = {
   receiptRetryAllowed?: boolean;
 };
 
-type ReceiptRetry = { orderId: string; captureToken: string };
+type ReceiptRetry =
+  | { gateway: "paypal"; orderId: string; captureToken: string }
+  | { gateway: "pesapal"; orderTrackingId: string; merchantReference: string; captureToken: string };
 
-const donationAmounts = [10, 25, 50, 100, 250, 500];
+const paypalDonationAmounts = [10, 25, 50, 100, 250, 500];
+const pesapalDonationAmounts = [10000, 25000, 50000, 100000, 250000, 500000];
 
 const getReceiptMessage = (receiptStatus?: string, retryAllowed = false) => {
   if (receiptStatus === "sent") return "Your payment is confirmed and a receipt email has been sent.";
@@ -52,7 +57,8 @@ const getReceiptMessage = (receiptStatus?: string, retryAllowed = false) => {
 
 const Donate = () => {
   const { toast } = useToast();
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(25);
+  const [gateway, setGateway] = useState<"paypal" | "pesapal">("pesapal");
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(25000);
   const [customAmount, setCustomAmount] = useState("");
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
   const [paymentNotice, setPaymentNotice] = useState<PaymentNotice | null>(null);
@@ -60,6 +66,9 @@ const Donate = () => {
   const [isRetryingReceipt, setIsRetryingReceipt] = useState(false);
   const handledReturn = useRef(false);
 
+  const currency = gateway === "pesapal" ? "UGX" : "USD";
+  const donationAmounts = gateway === "pesapal" ? pesapalDonationAmounts : paypalDonationAmounts;
+  const currencySymbol = currency === "UGX" ? "UGX " : "$";
   const donationAmount = customAmount.trim() !== "" ? Number(customAmount) : selectedAmount;
 
   useEffect(() => {
@@ -72,24 +81,71 @@ const Donate = () => {
       params.delete("payment");
       params.delete("token");
       params.delete("PayerID");
+      params.delete("OrderTrackingId");
+      params.delete("OrderMerchantReference");
       const query = params.toString();
       const cleanUrl = `${window.location.pathname}${query ? `?${query}` : ""}${window.location.hash}`;
       window.history.replaceState({}, "", cleanUrl);
     };
 
-    if (paymentState === "cancelled") {
+    if (paymentState === "cancelled" || paymentState === "pesapal-cancelled") {
       handledReturn.current = true;
       setPaymentNotice({
         kind: "cancelled",
-        message: "You returned from PayPal without completing checkout. No payment has been confirmed.",
+        message: "You returned without completing hosted checkout. No payment has been confirmed.",
       });
       cleanPaymentQuery();
       return;
     }
 
+    if (paymentState === "pesapal-return") {
+      const orderTrackingId = params.get("OrderTrackingId") || "";
+      const merchantReference = params.get("OrderMerchantReference") || "";
+      handledReturn.current = true;
+      setPaymentNotice({ kind: "checking", message: "Checking the payment status securely with Pesapal…" });
+      let captureToken: string | null = null;
+      try {
+        captureToken = merchantReference ? window.sessionStorage.getItem(`ghc-pesapal-capture:${merchantReference}`) : null;
+      } catch {
+        captureToken = null;
+      }
+      if (!captureToken) {
+        setPaymentNotice({ kind: "error", message: "This browser could not verify the Pesapal checkout session. Do not pay again; contact our team so we can check the payment." });
+        cleanPaymentQuery();
+        return;
+      }
+      let cancelled = false;
+      const verifyPesapal = async () => {
+        try {
+          const response = await fetch("/api/pesapal-verify-order.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            credentials: "same-origin",
+            body: JSON.stringify({ orderTrackingId, merchantReference, captureToken }),
+          });
+          const result = (await response.json().catch(() => ({}))) as CaptureResponse;
+          if (!response.ok || !result.ok || result.status !== "paid") throw new Error(result.message || "Pesapal has not confirmed this payment yet. Do not pay again; contact our team for help.");
+          if (cancelled) return;
+          const retryAllowed = result.receiptRetryAllowed === true && result.receiptStatus !== "sent";
+          if (retryAllowed) setReceiptRetry({ gateway: "pesapal", orderTrackingId, merchantReference, captureToken });
+          else {
+            setReceiptRetry(null);
+            try { window.sessionStorage.removeItem(`ghc-pesapal-capture:${merchantReference}`); } catch { /* Payment is confirmed; storage cleanup is non-critical. */ }
+          }
+          cleanPaymentQuery();
+          setPaymentNotice({ kind: "success", message: getReceiptMessage(result.receiptStatus, retryAllowed), reference: result.reference, receiptRetryAllowed: retryAllowed });
+        } catch (error) {
+          if (cancelled) return;
+          setPaymentNotice({ kind: "error", message: error instanceof Error ? error.message : "We could not verify this payment yet. Do not pay again; contact our team for help." });
+        }
+      };
+      void verifyPesapal();
+      return () => { cancelled = true; handledReturn.current = false; };
+    }
+
     if (!orderId || paymentState !== "return") return;
     handledReturn.current = true;
-    setPaymentNotice({ kind: "checking", message: "Checking the payment status with PayPal…" });
+    setPaymentNotice({ kind: "checking", message: "Checking the payment status securely with PayPal…" });
 
     let captureToken: string | null = null;
     try {
@@ -122,7 +178,7 @@ const Donate = () => {
         if (cancelled) return;
         const retryAllowed = result.receiptRetryAllowed === true && result.receiptStatus !== "sent";
         if (retryAllowed) {
-          setReceiptRetry({ orderId, captureToken });
+          setReceiptRetry({ gateway: "paypal", orderId, captureToken });
         } else {
           setReceiptRetry(null);
           try {
@@ -160,11 +216,15 @@ const Donate = () => {
     if (!receiptRetry || isRetryingReceipt) return;
     setIsRetryingReceipt(true);
     try {
-      const response = await fetch("/api/paypal-capture-order.php", {
+      const endpoint = receiptRetry.gateway === "pesapal" ? "/api/pesapal-verify-order.php" : "/api/paypal-capture-order.php";
+      const body = receiptRetry.gateway === "pesapal"
+        ? { orderTrackingId: receiptRetry.orderTrackingId, merchantReference: receiptRetry.merchantReference, captureToken: receiptRetry.captureToken }
+        : { orderId: receiptRetry.orderId, captureToken: receiptRetry.captureToken };
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "same-origin",
-        body: JSON.stringify(receiptRetry),
+        body: JSON.stringify(body),
       });
       const result = (await response.json().catch(() => ({}))) as CaptureResponse;
       if (!response.ok || !result.ok || result.status !== "paid") {
@@ -181,7 +241,8 @@ const Donate = () => {
       if (!retryAllowed) {
         setReceiptRetry(null);
         try {
-          window.sessionStorage.removeItem(`ghc-paypal-capture:${receiptRetry.orderId}`);
+          const storageKey = receiptRetry.gateway === "pesapal" ? `ghc-pesapal-capture:${receiptRetry.merchantReference}` : `ghc-paypal-capture:${receiptRetry.orderId}`;
+          window.sessionStorage.removeItem(storageKey);
         } catch {
           // Failure to clear local session state does not affect the confirmed payment.
         }
@@ -200,10 +261,11 @@ const Donate = () => {
   };
 
   const handleProceedToDonate = () => {
-    if (donationAmount === null || !Number.isFinite(donationAmount) || donationAmount < 1 || donationAmount > 100000) {
+    const maxAmount = currency === "UGX" ? 100000000 : 100000;
+    if (donationAmount === null || !Number.isFinite(donationAmount) || donationAmount < 1 || donationAmount > maxAmount || (currency === "UGX" && !Number.isInteger(donationAmount))) {
       toast({
         title: "Choose a valid amount",
-        description: "Select or enter a donation between $1 and $100,000 USD.",
+        description: currency === "UGX" ? "Enter a whole-number donation between UGX 1 and UGX 100,000,000." : "Select or enter a donation between $1 and $100,000 USD.",
         variant: "destructive",
       });
       return;
@@ -276,7 +338,7 @@ const Donate = () => {
                   {isRetryingReceipt ? "Checking receipt…" : "Retry receipt email"}
                 </Button>
               )}
-              {paymentNotice.kind === "error" && new URLSearchParams(window.location.search).has("token") && (
+              {paymentNotice.kind === "error" && (new URLSearchParams(window.location.search).has("token") || new URLSearchParams(window.location.search).get("payment") === "pesapal-return") && (
                 <Button type="button" variant="outline" className="mt-3" onClick={() => window.location.reload()}>
                   Retry payment verification
                 </Button>
@@ -295,10 +357,35 @@ const Donate = () => {
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
+              <fieldset>
+                <legend className="mb-3 text-sm font-medium text-foreground">Choose a secure payment provider</legend>
+                <div className="grid gap-3 sm:grid-cols-2">
+                  <Button
+                    type="button"
+                    variant={gateway === "pesapal" ? "default" : "outline"}
+                    className="h-auto min-h-20 justify-start whitespace-normal p-4 text-left"
+                    aria-pressed={gateway === "pesapal"}
+                    onClick={() => { setGateway("pesapal"); setSelectedAmount(25000); setCustomAmount(""); }}
+                  >
+                    <Smartphone className="mr-3 h-5 w-5 shrink-0" aria-hidden="true" />
+                    <span><span className="block font-semibold">Pesapal · UGX</span><span className="mt-1 block text-xs font-normal opacity-80">Uganda-focused hosted checkout</span></span>
+                  </Button>
+                  <Button
+                    type="button"
+                    variant={gateway === "paypal" ? "default" : "outline"}
+                    className="h-auto min-h-20 justify-start whitespace-normal p-4 text-left"
+                    aria-pressed={gateway === "paypal"}
+                    onClick={() => { setGateway("paypal"); setSelectedAmount(25); setCustomAmount(""); }}
+                  >
+                    <CreditCard className="mr-3 h-5 w-5 shrink-0" aria-hidden="true" />
+                    <span><span className="block font-semibold">PayPal · USD</span><span className="mt-1 block text-xs font-normal opacity-80">International hosted checkout</span></span>
+                  </Button>
+                </div>
+              </fieldset>
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className="text-sm font-medium text-foreground">Donation amount</label>
-                  <span className="text-sm text-muted-foreground">USD</span>
+                  <span className="text-sm font-medium text-muted-foreground">{currency}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
                   {donationAmounts.map((amount) => (
@@ -313,21 +400,21 @@ const Donate = () => {
                         setCustomAmount("");
                       }}
                     >
-                      ${amount}
+                      {currencySymbol}{new Intl.NumberFormat(currency === "UGX" ? "en-UG" : "en-US", { maximumFractionDigits: 0 }).format(amount)}
                     </Button>
                   ))}
                 </div>
                 <div className="mt-3 space-y-2">
                   <label htmlFor="custom-donation-amount" className="text-sm font-medium text-foreground">Or enter another amount</label>
                   <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">$</span>
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">{currencySymbol}</span>
                     <Input
                       id="custom-donation-amount"
                       type="number"
                       inputMode="decimal"
                       min="1"
-                      max="100000"
-                      step="0.01"
+                      max={currency === "UGX" ? "100000000" : "100000"}
+                      step={currency === "UGX" ? "1" : "0.01"}
                       value={customAmount}
                       onChange={(event) => {
                         setCustomAmount(event.target.value);
@@ -344,9 +431,9 @@ const Donate = () => {
                 <div className="flex items-start gap-3">
                   <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
                   <div>
-                    <p className="font-semibold text-foreground">PayPal hosted checkout</p>
+                    <p className="font-semibold text-foreground">{gateway === "pesapal" ? "Pesapal hosted checkout" : "PayPal hosted checkout"}</p>
                     <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
-                      You will leave this site to complete payment on PayPal. Your card details are entered on PayPal, not on this website.
+                      You will leave this site to complete payment securely with {gateway === "pesapal" ? "Pesapal" : "PayPal"}. Payment details are entered on the provider’s page, not stored on this website.
                     </p>
                   </div>
                 </div>
@@ -354,10 +441,10 @@ const Donate = () => {
 
               <Button type="button" size="lg" className="h-12 w-full text-base font-semibold" onClick={handleProceedToDonate}>
                 <Heart className="mr-2 h-4 w-4" aria-hidden="true" />
-                Continue with {donationAmount && Number.isFinite(donationAmount) ? `$${donationAmount.toFixed(2)}` : "your gift"}
+                Continue with {donationAmount && Number.isFinite(donationAmount) ? new Intl.NumberFormat(currency === "UGX" ? "en-UG" : "en-US", { style: "currency", currency, maximumFractionDigits: currency === "UGX" ? 0 : 2 }).format(donationAmount) : "your gift"}
               </Button>
               <p className="text-center text-xs leading-relaxed text-muted-foreground">
-                A payment receipt is emailed only after PayPal confirms the donation. No success message is generated for an unverified payment.
+                A payment receipt is emailed only after {gateway === "pesapal" ? "Pesapal" : "PayPal"} confirms the donation. No success message is generated for an unverified payment.
               </p>
             </CardContent>
           </Card>
@@ -411,6 +498,7 @@ const Donate = () => {
           isOpen={isDonationModalOpen}
           onClose={() => setIsDonationModalOpen(false)}
           amount={donationAmount}
+          gateway={gateway}
         />
       </div>
     </section>

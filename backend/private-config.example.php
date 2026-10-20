@@ -25,6 +25,17 @@ return [
         'currency' => 'USD',
         'max_amount' => '100000.00',
     ],
+    'pesapal' => [
+        // Use sandbox first. Request the consumer key/secret from your Pesapal merchant account.
+        'mode' => 'sandbox',
+        'consumer_key' => '',
+        'consumer_secret' => '',
+        // Register https://www.globalheartscommunity.org/api/pesapal-ipn.php once per environment
+        // and paste the returned ipn_id here.
+        'ipn_id' => '',
+        'currency' => 'UGX',
+        'max_amount' => '100000000.00',
+    ],
     'mailerlite' => [
         'api_key' => '',
         'group_id' => '',

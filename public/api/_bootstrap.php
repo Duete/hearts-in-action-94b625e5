@@ -282,6 +282,55 @@ function ghc_paypal_request(array $config, string $method, string $path, ?array 
     return $response;
 }
 
+function ghc_pesapal_base(array $config): string
+{
+    $mode = strtolower((string) ($config['pesapal']['mode'] ?? 'sandbox'));
+    return $mode === 'live' ? 'https://pay.pesapal.com/v3/api' : 'https://cybqa.pesapal.com/pesapalv3/api';
+}
+
+function ghc_pesapal_token(array $config): string
+{
+    $pesapal = $config['pesapal'] ?? [];
+    $consumerKey = (string) ($pesapal['consumer_key'] ?? '');
+    $consumerSecret = (string) ($pesapal['consumer_secret'] ?? '');
+    if ($consumerKey === '' || $consumerSecret === '') {
+        throw new RuntimeException('pesapal_not_configured');
+    }
+
+    $base = ghc_pesapal_base($config);
+    $cacheKey = 'ghc_pesapal_token_' . hash('sha256', $base . '|' . $consumerKey);
+    if (function_exists('apcu_enabled') && apcu_enabled()) {
+        $cached = apcu_fetch($cacheKey, $cacheHit);
+        if ($cacheHit && is_string($cached) && $cached !== '') return $cached;
+    }
+
+    $response = ghc_http_json('POST', $base . '/Auth/RequestToken', [
+        'Accept: application/json', 'Content-Type: application/json',
+    ], ['consumer_key' => $consumerKey, 'consumer_secret' => $consumerSecret]);
+    $token = (string) ($response['json']['token'] ?? '');
+    if ($response['status'] < 200 || $response['status'] >= 300 || $token === '') {
+        error_log('GHC backend: Pesapal authentication failed with HTTP ' . $response['status'] . '.');
+        throw new RuntimeException('pesapal_auth_failed');
+    }
+
+    // Pesapal tokens are valid for up to five minutes; cache for four to avoid using an expired token.
+    if (function_exists('apcu_enabled') && apcu_enabled()) apcu_store($cacheKey, $token, 240);
+    return $token;
+}
+
+function ghc_pesapal_request(array $config, string $method, string $path, ?array $body = null): array
+{
+    $response = ghc_http_json($method, ghc_pesapal_base($config) . $path, [
+        'Authorization: Bearer ' . ghc_pesapal_token($config),
+        'Accept: application/json',
+        'Content-Type: application/json',
+    ], $body);
+    if ($response['status'] < 200 || $response['status'] >= 300) {
+        error_log('GHC backend: Pesapal API returned HTTP ' . $response['status'] . ' for ' . $method . ' ' . $path . '.');
+    }
+    return $response;
+}
+
 function ghc_send_resend(array $config, string $to, string $subject, string $html, string $text, ?string $idempotencyKey = null): array
 {
     $resend = $config['resend'] ?? [];
@@ -347,7 +396,7 @@ function ghc_send_donation_receipt(PDO $db, array $config, int $donationId): str
         return (string) ($current->fetchColumn() ?: 'failed');
     }
 
-    $select = $db->prepare('SELECT public_reference, currency, amount, donor_first_name, donor_last_name, donor_email, paid_at FROM donations WHERE id = :id');
+    $select = $db->prepare('SELECT public_reference, payment_provider, currency, amount, donor_first_name, donor_last_name, donor_email, paid_at FROM donations WHERE id = :id');
     $select->execute([':id' => $donationId]);
     $donation = $select->fetch();
     if (!$donation) {
@@ -366,16 +415,17 @@ function ghc_send_donation_receipt(PDO $db, array $config, int $donationId): str
         $receiptDate = new DateTimeImmutable('now', $utc);
     }
     $safeDate = htmlspecialchars($receiptDate->format('F j, Y'), ENT_QUOTES, 'UTF-8');
+    $providerName = (string) ($donation['payment_provider'] ?? 'paypal') === 'pesapal' ? 'Pesapal' : 'PayPal';
 
     $subject = 'Thank you for your donation to Global Hearts Community';
     $html = '<p>Dear ' . $safeName . ',</p>'
-        . '<p>Thank you for your donation to Global Hearts Community. PayPal has confirmed your payment.</p>'
+        . '<p>Thank you for your donation to Global Hearts Community. ' . $providerName . ' has confirmed your payment.</p>'
         . '<p><strong>Amount:</strong> ' . $safeAmount . '<br>'
         . '<strong>Date:</strong> ' . $safeDate . '<br>'
         . '<strong>Reference:</strong> ' . $safeReference . '</p>'
         . '<p>This email confirms the payment received. It is not a statement about tax deductibility.</p>'
         . '<p>With gratitude,<br>Global Hearts Community</p>';
-    $text = "Dear {$fullName},\n\nThank you for your donation to Global Hearts Community. PayPal has confirmed your payment.\n\n"
+    $text = "Dear {$fullName},\n\nThank you for your donation to Global Hearts Community. {$providerName} has confirmed your payment.\n\n"
         . "Amount: {$donation['currency']} " . number_format((float) $donation['amount'], 2, '.', ',') . "\n"
         . "Date: {$date}\nReference: {$donation['public_reference']}\n\n"
         . "This email confirms the payment received. It is not a statement about tax deductibility.\n\nWith gratitude,\nGlobal Hearts Community";
@@ -396,8 +446,8 @@ function ghc_send_donation_receipt(PDO $db, array $config, int $donationId): str
                 $config,
                 $notifyEmail,
                 'Confirmed donation received — ' . (string) $donation['public_reference'],
-                '<p>A PayPal donation was confirmed.</p><p><strong>Donor:</strong> ' . $safeName . '<br><strong>Email:</strong> ' . $safeEmail . '<br><strong>Amount:</strong> ' . $safeAmount . '<br><strong>Reference:</strong> ' . $safeReference . '</p>',
-                "A PayPal donation was confirmed.\nDonor: {$fullName}\nEmail: {$donation['donor_email']}\nAmount: {$safeAmount}\nReference: {$donation['public_reference']}",
+                '<p>A ' . $providerName . ' donation was confirmed.</p><p><strong>Donor:</strong> ' . $safeName . '<br><strong>Email:</strong> ' . $safeEmail . '<br><strong>Amount:</strong> ' . $safeAmount . '<br><strong>Reference:</strong> ' . $safeReference . '</p>',
+                "A {$providerName} donation was confirmed.\nDonor: {$fullName}\nEmail: {$donation['donor_email']}\nAmount: {$safeAmount}\nReference: {$donation['public_reference']}",
                 'donation-notification/' . (string) $donation['public_reference']
             );
             if (!$notification['ok']) {
@@ -446,7 +496,7 @@ function ghc_mark_verified_donation(PDO $db, array $config, array $donation, str
 
     $update = $db->prepare(
         "UPDATE donations SET status = 'paid', paypal_capture_id = :capture_id, paid_at = COALESCE(paid_at, UTC_TIMESTAMP())
-         WHERE id = :id AND status IN ('pending', 'paid')"
+         WHERE id = :id AND payment_provider = 'paypal' AND status IN ('pending', 'paid')"
     );
     $update->execute([':capture_id' => $captureId, ':id' => (int) $donation['id']]);
     if ($update->rowCount() === 0) {
@@ -462,5 +512,66 @@ function ghc_mark_verified_donation(PDO $db, array $config, array $donation, str
     return [
         'reference' => (string) $donation['public_reference'],
         'receipt_status' => $receiptStatus,
+    ];
+}
+
+function ghc_verify_pesapal_donation(PDO $db, array $config, array $donation, string $trackingId, string $merchantReference): array
+{
+    if (!hash_equals((string) $donation['public_reference'], $merchantReference)
+        || !hash_equals((string) ($donation['pesapal_tracking_id'] ?? ''), $trackingId)) {
+        throw new RuntimeException('pesapal_reference_mismatch');
+    }
+
+    $response = ghc_pesapal_request($config, 'GET', '/Transactions/GetTransactionStatus?orderTrackingId=' . rawurlencode($trackingId));
+    if ($response['status'] < 200 || $response['status'] >= 300) throw new RuntimeException('pesapal_status_unavailable');
+    $remote = $response['json'];
+    $remoteReference = (string) ($remote['merchant_reference'] ?? '');
+    $remoteAmount = ghc_canonical_money((string) ($remote['amount'] ?? ''));
+    $localAmount = ghc_canonical_money((string) $donation['amount']);
+    $remoteCurrency = strtoupper((string) ($remote['currency'] ?? ''));
+    $localCurrency = strtoupper((string) $donation['currency']);
+    if ($remoteReference === '' || !hash_equals($merchantReference, $remoteReference)
+        || $remoteAmount === null || $localAmount === null || $remoteAmount !== $localAmount
+        || $remoteCurrency !== $localCurrency) {
+        error_log('GHC backend: Pesapal transaction identifiers, amount, or currency did not match local donation.');
+        throw new RuntimeException('pesapal_transaction_mismatch');
+    }
+
+    $paymentStatus = strtoupper(trim((string) ($remote['payment_status_description'] ?? '')));
+    if ($paymentStatus === 'REVERSED') {
+        $reverse = $db->prepare("UPDATE donations SET status = 'reversed', reversed_at = COALESCE(reversed_at, UTC_TIMESTAMP()) WHERE id = :id AND payment_provider = 'pesapal' AND status IN ('pending', 'paid', 'reversed')");
+        $reverse->execute([':id' => (int) $donation['id']]);
+        return ['status' => 'reversed'];
+    }
+    if ($paymentStatus !== 'COMPLETED') {
+        if ($paymentStatus === 'FAILED') {
+            $fail = $db->prepare("UPDATE donations SET status = 'failed' WHERE id = :id AND payment_provider = 'pesapal' AND status IN ('creating', 'pending', 'failed')");
+            $fail->execute([':id' => (int) $donation['id']]);
+            return ['status' => 'failed'];
+        }
+        return ['status' => 'pending'];
+    }
+
+    $confirmationCode = substr((string) ($remote['confirmation_code'] ?? ''), 0, 100);
+    $update = $db->prepare(
+        "UPDATE donations SET status = 'paid', pesapal_confirmation_code = :confirmation_code, paid_at = COALESCE(paid_at, UTC_TIMESTAMP())
+         WHERE id = :id AND payment_provider = 'pesapal' AND status IN ('pending', 'failed', 'paid')"
+    );
+    $update->execute([':confirmation_code' => $confirmationCode !== '' ? $confirmationCode : null, ':id' => (int) $donation['id']]);
+    if ($update->rowCount() === 0) {
+        $check = $db->prepare("SELECT status, payment_provider FROM donations WHERE id = :id");
+        $check->execute([':id' => (int) $donation['id']]);
+        $current = $check->fetch();
+        if (!$current || $current['status'] !== 'paid' || $current['payment_provider'] !== 'pesapal') {
+            throw new RuntimeException('donation_not_pending');
+        }
+    }
+
+    $receiptStatus = ghc_send_donation_receipt($db, $config, (int) $donation['id']);
+    return [
+        'status' => 'paid',
+        'reference' => (string) $donation['public_reference'],
+        'receipt_status' => $receiptStatus,
+        'receipt_retry_allowed' => ghc_receipt_retry_allowed($db, (int) $donation['id']),
     ];
 }
