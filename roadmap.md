@@ -14,3 +14,5 @@
 - [x] Home hero: swap the "Global Hearts Community" slide photo for the widows food-package distribution photo
 - [x] Donate page: replace the header background photo with the school-bag handover photo
 - [x] Get Involved: replace the "Together, we can" card photo with the food-distribution team photo (pads handout)
+- [x] News: add the Bukonde starter-kit handover photo to the women's skills training article (replaces the illustrative image)
+- [x] Confirm all 13 CDN-hosted site photos (including the nine Gallery additions) return 200 on the live preview
