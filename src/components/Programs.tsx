@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import educationImg from "@/assets/education-classroom.jpg";
 import womenImg from "@/assets/women-empowerment-new.png";
 import healthImg from "@/assets/health-outreach.jpg";
-import environmentImg from "@/assets/environment-program.jpg";
+import environmentImg from "@/assets/tree-planting-mbale.png.asset.json";
 import waterImg from "@/assets/water_well.webp";
 import elderlyImg from "@/assets/elderly-care.jpg";
 import disabilityImg from "@/assets/pwds.webp";
@@ -41,7 +41,7 @@ const Programs = () => {
       icon: Trees,
       title: "Environmental Conservation",
       description: "Tree planting initiatives, sustainable farming practices, and environmental education to protect our natural resources for future generations.",
-      image: environmentImg,
+      image: environmentImg.url,
       color: "primary",
     },
     {

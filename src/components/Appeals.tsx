@@ -6,7 +6,7 @@ import ramadanImg from "@/assets/gallery/ramadan-iftar-meals.png";
 import wheelchairImg from "@/assets/gallery/wheelchair-support.png";
 import orphanImg from "@/assets/gallery/orphan-feeding-program.png";
 import schoolImg from "@/assets/gallery/school-supplies-distribution.png";
-import treeImg from "@/assets/environment-program.jpg";
+import treeImg from "@/assets/tree-planting-mbale.png.asset.json";
 import foodImg from "@/assets/gallery/food-package-distribution.png";
 import boreImg from "@/assets/gallery/borehole-construction.png";
 import womenImg from "@/assets/gallery/women-empowerment-supplies.png";
@@ -60,7 +60,7 @@ const appeals = [
   },
   {
     title: "Tree Planting Support: Grow a Greener, Resilient Future",
-    image: treeImg,
+    image: treeImg.url,
     body: [
       "Deforestation, soil erosion, and climate change are making farming harder, water scarcer, and life more precarious across Uganda.",
       "Your support plants indigenous and fruit trees in community groves, school compounds, and degraded landscapes. What we do for trees today, we do for the children of tomorrow.",

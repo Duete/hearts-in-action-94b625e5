@@ -4,7 +4,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import womenImg from "@/assets/women-empowerment-new.png";
 import healthImg from "@/assets/health-outreach.jpg";
-import environmentImg from "@/assets/environment-program.jpg";
+import environmentImg from "@/assets/tree-planting-mbale.png.asset.json";
 import kurbanImg from "@/assets/gallery/kurban.png";
 import childrenFeedingImg from "@/assets/gallery/children-feeding.webp";
 import disabilitySupportImg from "@/assets/gallery/disability-support.webp";
@@ -255,7 +255,7 @@ const Gallery = () => {
   const images = [
     { src: womenImg, alt: "Women empowerment program" },
     { src: healthImg, alt: "Health outreach and medical care" },
-    { src: environmentImg, alt: "Environmental conservation activities" },
+    { src: environmentImg.url, alt: "Volunteers planting tree saplings along a roadside in Mbale" },
     { src: kurbanImg, alt: "Qurban meat distribution program" },
     { src: childrenFeedingImg, alt: "Children enjoying nutritious meals" },
     { src: disabilitySupportImg, alt: "Supporting persons with disabilities" },
