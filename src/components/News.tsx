@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import educationImg from "@/assets/education-program.jpg";
-import womenImg from "@/assets/women-empowerment.jpg";
+import skillsTrainingImg from "@/assets/gallery/women-skills-training-starter-kit.webp.asset.json";
 import healthImg from "@/assets/health-outreach.jpg";
 import healthCheckupImg from "@/assets/gallery/health-checkup-news.webp";
 import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
@@ -108,8 +108,14 @@ How You Can Help
 Donations fund training, raw materials, and startup kits so graduates can begin production immediately.
 
 Editors’ Note: High-resolution photos from the training sessions are available upon request.`,
-      image: womenImg,
-      imageAlt: "Illustrative image of women gathered at a community activity, representing Global Hearts Community’s Women Empowerment programme.",
+      image: skillsTrainingImg.url,
+      imageAlt: "Women unpacking starter-kit supplies — hair dryers, styling tools and containers of finished liquid soap — at a Global Hearts Community handover in Bukonde, Mbale.",
+      photos: [
+        {
+          image: skillsTrainingImg.url,
+          caption: "Participants unpack starter-kit supplies — hair dryers, styling tools and containers of finished liquid soap — after the shampoo and liquid soap making training in Bukonde, Mbale.",
+        },
+      ],
       ctaText: "Donate Now",
       ctaHref: "/donate",
     },
