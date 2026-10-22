@@ -5,28 +5,24 @@ import { Link } from "react-router-dom";
 
 const ways = [
   {
-    number: "01",
     title: "Donate",
     description: "Your gift helps provide meals, mobility support, school supplies, and clean water to people who need them most.",
     action: "Make a donation",
     href: "/donate",
   },
   {
-    number: "02",
     title: "Volunteer",
     description: "Bring your skills, energy, or a few hours to community activities in Mbale.",
     action: "Talk to our team",
     href: "/contact",
   },
   {
-    number: "03",
     title: "Partner with us",
     description: "Work alongside Global Hearts Community as a business, community group, or organization.",
     action: "Ask about partnership",
     href: "/contact",
   },
   {
-    number: "04",
     title: "Support a child’s education",
     description: "Help children stay in school with support for fees, uniforms, books, and learning materials.",
     action: "Ask about sponsorship",
@@ -83,8 +79,7 @@ const GetInvolved = () => (
 
         <div className="grid gap-x-8 gap-y-7 sm:grid-cols-2 lg:grid-cols-4">
           {ways.map((way) => (
-            <article key={way.number} className="flex min-h-full flex-col border-t border-border pt-4">
-              <p className="mb-5 font-serif text-sm text-secondary">{way.number}</p>
+            <article key={way.title} className="flex min-h-full flex-col border-t border-border pt-4">
               <h3 className="mb-3 text-xl font-semibold text-foreground">{way.title}</h3>
               <p className="mb-6 flex-1 text-sm leading-relaxed text-muted-foreground">{way.description}</p>
               <Link
