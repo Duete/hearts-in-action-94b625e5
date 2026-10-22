@@ -9,7 +9,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import educationImg from "@/assets/education-program.jpg";
+import scholarshipHandoverImg from "@/assets/gallery/scholarship-school-bag-handover.png.asset.json";
+import scholarshipAidImg from "@/assets/gallery/scholarship-school-aid-event.png.asset.json";
+import scholarshipClassroomImg from "@/assets/gallery/scholarship-classroom.jpg.asset.json";
 import skillsTrainingImg from "@/assets/gallery/women-skills-training-starter-kit.webp.asset.json";
 import healthImg from "@/assets/health-outreach.jpg";
 import healthCheckupImg from "@/assets/gallery/health-checkup-news.webp";
@@ -20,7 +22,7 @@ import orphanSupportImg from "@/assets/gallery/orphan-support.webp";
 import { SocialHandleInline, SocialHandleList } from "@/components/SocialHandles";
 import { Link } from "react-router-dom";
 
-const lastUpdated = "October 20, 2026";
+const lastUpdated = "October 22, 2026";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -48,6 +50,7 @@ const News = () => {
     excerpt: string;
     image: string;
     imageAlt?: string;
+    photoFeature?: boolean;
     fullContent?: string;
     ctaText?: string;
     ctaHref?: string;
@@ -83,7 +86,14 @@ const News = () => {
       date: "March 15, 2025",
       excerpt: "Global Hearts Community continues to make a quiet but meaningful impact through its education support project aimed at vulnerable children.",
       fullContent: "Global Hearts Community continues to make a quiet but meaningful impact through its education support project aimed at vulnerable children. So far, more than 150 primary school pupils have received full scholarships, giving them a real chance to stay in school and learn without the burden of school fees.\n\nThe beneficiaries are mainly orphans and children born from unintended pregnancies to teenage mothers, groups that often face the highest risk of dropping out of school. Through this project, Global Hearts Community covers school fees and provides essential scholastic materials, helping to create a stable learning environment for each child.\n\nBeyond financial support, the initiative restores hope to families and children who might otherwise see education as unreachable. For many of these learners, the scholarship is more than assistance. It is a lifeline that allows them to focus on their studies, grow in confidence, and imagine a better future.\n\nGlobal Hearts Community remains committed to expanding this program and reaching even more children in need, guided by the belief that access to education can break cycles of poverty and change lives in lasting ways.",
-      image: educationImg,
+      image: scholarshipHandoverImg.url,
+      imageAlt: "Children holding school bags and support packages at a Global Hearts Community handover.",
+      photoFeature: true,
+      photos: [
+        { image: scholarshipHandoverImg.url, caption: "Children with school bags and support packages at a Global Hearts Community handover." },
+        { image: scholarshipAidImg.url, caption: "A pupil with a school bag, shoes and scholastic materials at a school-aid event." },
+        { image: scholarshipClassroomImg.url, caption: "Primary school pupils working in their classroom." },
+      ],
     },
     {
       title: "Over 50 Women Complete Skills Training in Shampoo and Liquid Soap Making in Bukonde, Mbale",
@@ -168,8 +178,20 @@ Editors’ Note: High-resolution photos from the training sessions are available
           {articles.map((article, index) => {
             const additionalPhoto = article.photos?.find((photo) => photo.image !== article.image);
             return (
-              <motion.div key={index} variants={cardVariants}>
+              <motion.div key={index} variants={cardVariants} className={article.photoFeature ? "md:col-span-3" : undefined}>
                 <Card className="overflow-hidden shadow-medium hover:shadow-strong transition-smooth group h-full">
+                  {article.photoFeature ? (
+                    <div className="grid sm:grid-cols-3 gap-4 bg-background p-4 md:p-6 border-b border-border">
+                      {article.photos?.map((photo) => (
+                        <figure key={photo.image} className="min-w-0">
+                          <div className="aspect-[4/3] bg-muted overflow-hidden rounded-md">
+                            <img src={photo.image} alt={photo.caption} className="w-full h-full object-contain" loading="lazy" decoding="async" />
+                          </div>
+                          <figcaption className="mt-3 text-sm text-muted-foreground leading-relaxed">{photo.caption}</figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  ) : (
                   <div className="flex h-48 gap-1 overflow-hidden">
                     <img
                       src={article.image}
@@ -188,23 +210,26 @@ Editors’ Note: High-resolution photos from the training sessions are available
                       />
                     )}
                   </div>
-                  <CardContent className="p-6">
+                  )}
+                  <CardContent className={article.photoFeature ? "p-6 md:p-8 grid md:grid-cols-[1fr_auto] gap-x-10 items-end" : "p-6"}>
+                    <div>
                     <div className="flex items-center gap-2 text-muted-foreground mb-3">
                       <Calendar className="h-4 w-4" />
                       <span className="text-sm">{article.date}</span>
                     </div>
-                    <h3 className="text-xl font-bold text-foreground mb-3 group-hover:text-primary transition-smooth">
+                    <h3 className={`${article.photoFeature ? "text-2xl md:text-3xl" : "text-xl"} font-bold text-foreground mb-3 group-hover:text-primary transition-smooth`}>
                       {article.title}
                     </h3>
                     <p className="text-muted-foreground mb-4 leading-relaxed">{article.excerpt}</p>
+                    </div>
                     <Dialog>
                       <DialogTrigger asChild>
-                        <Button variant="link" className="p-0 h-auto group/btn">
+                        <Button variant={article.photoFeature ? "default" : "link"} className={article.photoFeature ? "group/btn mb-4 justify-self-start" : "p-0 h-auto group/btn"}>
                           Read More
                           <ArrowRight className="ml-2 h-4 w-4 group-hover/btn:translate-x-1 transition-transform" />
                         </Button>
                       </DialogTrigger>
-                      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+                      <DialogContent className={`${article.photoFeature ? "max-w-4xl" : "max-w-2xl"} max-h-[85vh] overflow-y-auto`}>
                         <DialogHeader>
                           <DialogTitle className="text-2xl">{article.title}</DialogTitle>
                           <div className="flex items-center gap-2 text-muted-foreground">
@@ -214,9 +239,9 @@ Editors’ Note: High-resolution photos from the training sessions are available
                         </DialogHeader>
                         <div className="mt-4">
                           {article.photos ? (
-                            <div className="space-y-6 mb-6">
-                              {article.photos.map((photo) => (
-                                <figure key={photo.image}>
+                            <div className={article.photoFeature ? "grid sm:grid-cols-2 gap-6 mb-8" : "space-y-6 mb-6"}>
+                              {article.photos.map((photo, photoIndex) => (
+                                <figure key={photo.image} className={article.photoFeature && photoIndex === 0 ? "sm:col-span-2" : undefined}>
                                   <img src={photo.image} alt={photo.caption} className="w-full h-auto rounded-lg" loading="lazy" />
                                   <figcaption className="mt-2 text-sm text-muted-foreground">{photo.caption}</figcaption>
                                 </figure>
