@@ -16,3 +16,4 @@
 - [x] Get Involved: replace the "Together, we can" card photo with the food-distribution team photo (pads handout)
 - [x] News: add the Bukonde starter-kit handover photo to the women's skills training article (replaces the illustrative image)
 - [x] Confirm all 13 CDN-hosted site photos (including the nine Gallery additions) return 200 on the live preview
+- [x] Replace the scholarship news images with all three uploaded photos and verify the refreshed story layout.
