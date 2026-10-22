@@ -14,19 +14,28 @@ $firstName = $cleanName($data['firstName'] ?? '');
 $lastName = $cleanName($data['lastName'] ?? '');
 $email = strtolower(trim((string) ($data['email'] ?? '')));
 $amountInput = trim((string) ($data['amount'] ?? ''));
+$requestedCurrency = strtoupper(trim((string) ($data['currency'] ?? '')));
 $privacyAcknowledged = ($data['privacyAcknowledged'] ?? false) === true;
 if ($firstName === '' || $lastName === '') ghc_json(422, ['ok' => false, 'code' => 'invalid_name', 'message' => 'Enter your first and last name.']);
 if (strlen($email) > 254 || !filter_var($email, FILTER_VALIDATE_EMAIL)) ghc_json(422, ['ok' => false, 'code' => 'invalid_email', 'message' => 'Enter a valid email address.']);
 if (!$privacyAcknowledged) ghc_json(422, ['ok' => false, 'code' => 'notice_required', 'message' => 'Please acknowledge how your contact details will be used.']);
-if (!preg_match('/\A(?:0|[1-9][0-9]{0,8})\z/D', $amountInput)) ghc_json(422, ['ok' => false, 'code' => 'invalid_amount', 'message' => 'Enter a whole-number donation amount in UGX.']);
-
-$amountValue = (float) $amountInput;
 $pesapal = $config['pesapal'] ?? [];
-$maxAmount = (float) ($pesapal['max_amount'] ?? 100000000);
-$currency = strtoupper((string) ($pesapal['currency'] ?? 'UGX'));
+$configuredCurrencies = $pesapal['currencies'] ?? [$pesapal['currency'] ?? 'UGX'];
+$configuredCurrencies = array_map(static fn ($item): string => strtoupper((string) $item), is_array($configuredCurrencies) ? $configuredCurrencies : []);
+$currency = $requestedCurrency !== '' ? $requestedCurrency : strtoupper((string) ($pesapal['currency'] ?? 'UGX'));
+if (!in_array($currency, ['UGX', 'USD'], true) || !in_array($currency, $configuredCurrencies, true)) {
+    ghc_json(422, ['ok' => false, 'code' => 'unsupported_currency', 'message' => 'That Pesapal currency is not enabled for this donation. Choose another currency or payment method.']);
+}
+$amountPattern = $currency === 'UGX' ? '/\A(?:0|[1-9][0-9]{0,8})\z/D' : '/\A(?:0|[1-9][0-9]{0,8})(?:\.[0-9]{1,2})?\z/D';
+if (!preg_match($amountPattern, $amountInput)) {
+    ghc_json(422, ['ok' => false, 'code' => 'invalid_amount', 'message' => $currency === 'UGX' ? 'Enter a whole-number donation amount in UGX.' : 'Enter a donation amount in USD with no more than two decimal places.']);
+}
+$amountValue = (float) $amountInput;
+$defaultMax = $currency === 'UGX' ? 100000000 : 100000;
+$maxAmount = (float) (($pesapal['max_amount_by_currency'][$currency] ?? null) ?? ($pesapal['max_amount'] ?? $defaultMax));
 $siteOrigin = rtrim((string) ($config['site_origin'] ?? ''), '/');
 if (!in_array(strtolower((string) ($pesapal['mode'] ?? 'sandbox')), ['sandbox', 'live'], true)
-    || $currency !== 'UGX' || $siteOrigin === '' || empty($pesapal['consumer_key'])
+    || $siteOrigin === '' || empty($pesapal['consumer_key'])
     || empty($pesapal['consumer_secret']) || empty($pesapal['ipn_id'])) {
     ghc_json(503, ['ok' => false, 'code' => 'pesapal_not_configured', 'message' => 'Pesapal checkout is not configured yet. Please use PayPal or bank transfer.']);
 }

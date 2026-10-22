@@ -17,6 +17,7 @@ interface DonationModalProps {
   onClose: () => void;
   amount: number | null;
   gateway: "paypal" | "pesapal";
+  currency: "USD" | "UGX";
 }
 
 interface CreateOrderResponse {
@@ -29,7 +30,7 @@ interface CreateOrderResponse {
   reference?: string;
 }
 
-const DonationModal = ({ isOpen, onClose, amount, gateway }: DonationModalProps) => {
+const DonationModal = ({ isOpen, onClose, amount, gateway, currency }: DonationModalProps) => {
   const { toast } = useToast();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -51,7 +52,7 @@ const DonationModal = ({ isOpen, onClose, amount, gateway }: DonationModalProps)
     if (!amount || !Number.isFinite(amount) || amount < 1) {
       toast({
         title: "Choose a valid amount",
-        description: gateway === "pesapal" ? "Enter a whole-number donation of at least UGX 1." : "Select or enter a donation of at least $1.00 USD.",
+        description: currency === "UGX" ? "Enter a whole-number donation of at least UGX 1." : "Select or enter a donation of at least $1.00 USD.",
         variant: "destructive",
       });
       return;
@@ -80,7 +81,6 @@ const DonationModal = ({ isOpen, onClose, amount, gateway }: DonationModalProps)
 
     setIsProcessing(true);
     try {
-      const currency = gateway === "pesapal" ? "UGX" : "USD";
       const response = await fetch(`/api/${gateway}-create-order.php`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -121,7 +121,6 @@ const DonationModal = ({ isOpen, onClose, amount, gateway }: DonationModalProps)
     }
   };
 
-  const currency = gateway === "pesapal" ? "UGX" : "USD";
   const providerName = gateway === "pesapal" ? "Pesapal" : "PayPal";
   const formattedAmount = new Intl.NumberFormat(currency === "UGX" ? "en-UG" : "en-US", {
     style: "currency",

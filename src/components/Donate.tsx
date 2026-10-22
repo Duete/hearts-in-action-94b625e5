@@ -43,7 +43,10 @@ type ReceiptRetry =
   | { gateway: "pesapal"; orderTrackingId: string; merchantReference: string; captureToken: string };
 
 const paypalDonationAmounts = [10, 25, 50, 100, 250, 500];
-const pesapalDonationAmounts = [10000, 25000, 50000, 100000, 250000, 500000];
+const pesapalUsdDonationAmounts = [10, 25, 50, 100, 250, 500];
+const pesapalUgxDonationAmounts = [10000, 25000, 50000, 100000, 250000, 500000];
+type EstimateCurrency = "EUR" | "GBP" | "CAD" | "AUD";
+type FxEstimate = { date: string; rates: Partial<Record<EstimateCurrency, number>> };
 
 const getReceiptMessage = (receiptStatus?: string, retryAllowed = false) => {
   if (receiptStatus === "sent") return "Your payment is confirmed and a receipt email has been sent.";
@@ -58,18 +61,42 @@ const getReceiptMessage = (receiptStatus?: string, retryAllowed = false) => {
 const Donate = () => {
   const { toast } = useToast();
   const [gateway, setGateway] = useState<"paypal" | "pesapal">("pesapal");
-  const [selectedAmount, setSelectedAmount] = useState<number | null>(25000);
+  const [pesapalCurrency, setPesapalCurrency] = useState<"USD" | "UGX">("USD");
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(25);
   const [customAmount, setCustomAmount] = useState("");
+  const [estimateCurrency, setEstimateCurrency] = useState<EstimateCurrency>("EUR");
+  const [fxEstimate, setFxEstimate] = useState<FxEstimate | null>(null);
+  const [fxEstimateUnavailable, setFxEstimateUnavailable] = useState(false);
   const [isDonationModalOpen, setIsDonationModalOpen] = useState(false);
   const [paymentNotice, setPaymentNotice] = useState<PaymentNotice | null>(null);
   const [receiptRetry, setReceiptRetry] = useState<ReceiptRetry | null>(null);
   const [isRetryingReceipt, setIsRetryingReceipt] = useState(false);
   const handledReturn = useRef(false);
 
-  const currency = gateway === "pesapal" ? "UGX" : "USD";
-  const donationAmounts = gateway === "pesapal" ? pesapalDonationAmounts : paypalDonationAmounts;
+  const currency = gateway === "pesapal" ? pesapalCurrency : "USD";
+  const donationAmounts = gateway === "paypal" ? paypalDonationAmounts : currency === "USD" ? pesapalUsdDonationAmounts : pesapalUgxDonationAmounts;
   const currencySymbol = currency === "UGX" ? "UGX " : "$";
   const donationAmount = customAmount.trim() !== "" ? Number(customAmount) : selectedAmount;
+
+  useEffect(() => {
+    if (gateway !== "pesapal" || currency !== "USD") return;
+    const controller = new AbortController();
+    setFxEstimateUnavailable(false);
+    fetch("https://api.frankfurter.dev/v1/latest?base=USD&symbols=EUR,GBP,CAD,AUD", { signal: controller.signal })
+      .then((response) => {
+        if (!response.ok) throw new Error("Exchange-rate service unavailable");
+        return response.json() as Promise<FxEstimate>;
+      })
+      .then((estimate) => {
+        if (typeof estimate.date !== "string" || !estimate.rates) throw new Error("Invalid exchange-rate response");
+        setFxEstimate(estimate);
+      })
+      .catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === "AbortError") return;
+        setFxEstimateUnavailable(true);
+      });
+    return () => controller.abort();
+  }, [gateway, currency]);
 
   useEffect(() => {
     if (handledReturn.current) return;
@@ -295,7 +322,7 @@ const Donate = () => {
             Support programs in Mbale.
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
-            Choose Pesapal in Ugandan shillings or PayPal in US dollars. Payment is completed on the provider’s hosted checkout.
+            Choose Pesapal in US dollars or Ugandan shillings, or PayPal in US dollars. Payment is completed on the provider’s hosted checkout.
           </p>
         </motion.div>
       </header>
@@ -365,10 +392,10 @@ const Donate = () => {
                     variant={gateway === "pesapal" ? "default" : "outline"}
                     className="h-auto min-h-20 justify-start whitespace-normal p-4 text-left"
                     aria-pressed={gateway === "pesapal"}
-                    onClick={() => { setGateway("pesapal"); setSelectedAmount(25000); setCustomAmount(""); }}
+                    onClick={() => { setGateway("pesapal"); setPesapalCurrency("USD"); setSelectedAmount(25); setCustomAmount(""); }}
                   >
                     <Smartphone className="mr-3 h-5 w-5 shrink-0" aria-hidden="true" />
-                    <span><span className="block font-semibold">Pesapal · UGX</span><span className="mt-1 block text-xs font-normal opacity-80">Uganda-focused hosted checkout</span></span>
+                    <span><span className="block font-semibold">Pesapal · USD or UGX</span><span className="mt-1 block text-xs font-normal opacity-80">International cards and local payment options</span></span>
                   </Button>
                   <Button
                     type="button"
@@ -382,9 +409,22 @@ const Donate = () => {
                   </Button>
                 </div>
               </fieldset>
+              {gateway === "pesapal" && (
+                <fieldset>
+                  <legend className="mb-3 text-sm font-medium text-foreground">Pesapal charge currency</legend>
+                  <div className="grid grid-cols-2 gap-3">
+                    <Button type="button" variant={currency === "USD" ? "default" : "outline"} aria-pressed={currency === "USD"} onClick={() => { setPesapalCurrency("USD"); setSelectedAmount(25); setCustomAmount(""); }}>
+                      US dollars · USD
+                    </Button>
+                    <Button type="button" variant={currency === "UGX" ? "default" : "outline"} aria-pressed={currency === "UGX"} onClick={() => { setPesapalCurrency("UGX"); setSelectedAmount(25000); setCustomAmount(""); }}>
+                      Uganda shillings · UGX
+                    </Button>
+                  </div>
+                </fieldset>
+              )}
               <div>
                 <div className="mb-3 flex items-center justify-between">
-                  <label className="text-sm font-medium text-foreground">Donation amount</label>
+                  <span className="text-sm font-medium text-foreground">Donation amount</span>
                   <span className="text-sm font-medium text-muted-foreground">{currency}</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
@@ -425,6 +465,27 @@ const Donate = () => {
                     />
                   </div>
                 </div>
+                {gateway === "pesapal" && currency === "USD" && (
+                  <div className="mt-4 border-t border-border pt-4">
+                    <label htmlFor="estimate-currency" className="text-sm font-medium text-foreground">Show an approximate amount in</label>
+                    <select id="estimate-currency" value={estimateCurrency} onChange={(event) => setEstimateCurrency(event.target.value as EstimateCurrency)} className="ml-2 rounded-sm border border-border bg-background px-2 py-1 text-sm text-foreground">
+                      <option value="EUR">EUR · euros</option>
+                      <option value="GBP">GBP · pounds</option>
+                      <option value="CAD">CAD · Canadian dollars</option>
+                      <option value="AUD">AUD · Australian dollars</option>
+                    </select>
+                    {donationAmount !== null && Number.isFinite(donationAmount) && fxEstimate?.rates[estimateCurrency] ? (
+                      <p className="mt-2 text-sm text-muted-foreground">
+                        Approx. {new Intl.NumberFormat("en", { style: "currency", currency: estimateCurrency, maximumFractionDigits: 2 }).format(donationAmount * fxEstimate.rates[estimateCurrency]!)} · reference rate dated {fxEstimate.date}.
+                      </p>
+                    ) : fxEstimateUnavailable ? (
+                      <p className="mt-2 text-sm text-muted-foreground">Exchange estimate unavailable right now; you can still donate in USD.</p>
+                    ) : (
+                      <p className="mt-2 text-sm text-muted-foreground">Loading the latest reference exchange rate…</p>
+                    )}
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">Estimate only. Pesapal will charge the USD amount shown above. Your bank or card issuer may use a different exchange rate or add fees.</p>
+                  </div>
+                )}
               </div>
 
               <div className="border-l-2 border-primary bg-primary/5 p-4">
@@ -499,6 +560,7 @@ const Donate = () => {
           onClose={() => setIsDonationModalOpen(false)}
           amount={donationAmount}
           gateway={gateway}
+          currency={currency}
         />
       </div>
     </section>
