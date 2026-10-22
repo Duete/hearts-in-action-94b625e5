@@ -1,75 +1,40 @@
-# Welcome to your Lovable project
+# Global Hearts Community
 
-## Project info
+Website for Global Hearts Community, a charity serving Mbale and surrounding communities in Uganda.
 
-**URL**: https://lovable.dev/projects/a19af8ba-85a5-4862-9607-c5130692f357
+## Stack
 
-## How can I edit this code?
+- React, TypeScript, and Vite
+- Tailwind CSS and shadcn/ui
+- PHP 8.1+ API for donations and newsletter subscriptions
+- MySQL/MariaDB for donation records and API rate limits
 
-There are several ways of editing your application.
+## Local development
 
-**Use Lovable**
-
-Simply visit the [Lovable Project](https://lovable.dev/projects/a19af8ba-85a5-4862-9607-c5130692f357) and start prompting.
-
-Changes made via Lovable will be committed automatically to this repo.
-
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
+Requirements: Node.js and npm.
 
 ```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+npm ci
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+Create a production build with prerendered routes:
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+```sh
+npm run build
+```
 
-**Use GitHub Codespaces**
+The complete deployable site is written to `dist/`.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+## Production hosting
 
-## What technologies are used for this project?
+The site’s online donation and newsletter flows require PHP-capable HTTPS hosting. Deploy the complete `dist/` directory, including `dist/api/`, to a server with PHP 8.1+, PHP cURL, PDO MySQL, and MySQL/MariaDB. Configure the private server credentials outside the public document root. Do not deploy the frontend alone if you need working payment and subscription endpoints.
 
-This project is built with:
+See [backend/README.md](backend/README.md) for database setup, private configuration, PayPal and Pesapal setup, MailerLite double opt-in, Resend receipts, and sandbox testing.
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+## Repository conventions
 
-## How can I deploy this project?
-
-This repository includes PHP API endpoints for PayPal donations and newsletter subscriptions. A static/Lovable-only publish will not execute those endpoints. For live donation and newsletter functionality, build the site and deploy the complete `dist/` directory—including `dist/api/`—to a PHP-capable HTTPS host with PHP 8.1+, cURL, PDO MySQL, and a configured MySQL/MariaDB database. Follow the [backend deployment guide](backend/README.md) for private credentials, provider setup, webhook registration, and sandbox testing.
-
-The frontend currently calls relative `/api/...` paths. You may publish the frontend through [Lovable](https://lovable.dev/projects/a19af8ba-85a5-4862-9607-c5130692f357) only if the separately hosted PHP API is exposed through a same-origin `/api` reverse proxy, or if the frontend is updated with a configurable API base URL and matching CORS policy. Do not treat a static publish as production-ready for donations or subscriptions.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+- Keep impact figures in `src/data/impact.json` and verify them against published reporting.
+- Keep new images in the project asset directory, prefer existing organization photography, and optimize files for the web.
+- The Home page owns the Programs section; `/programs` redirects to `/#programs`.
+- Keep shared impact figures consistent across homepage highlights and news reporting.
