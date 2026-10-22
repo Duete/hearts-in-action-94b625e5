@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { Heart, CheckCircle2 } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import ramadanImg from "@/assets/gallery/ramadan-iftar-meals.png";
 import wheelchairImg from "@/assets/gallery/wheelchair-support.png";
@@ -10,11 +10,10 @@ import treeImg from "@/assets/tree-planting-mbale.png.asset.json";
 import foodImg from "@/assets/gallery/food-package-distribution.png";
 import boreImg from "@/assets/gallery/borehole-construction.png";
 import womenImg from "@/assets/gallery/women-empowerment-supplies.png";
-import watermark from "@/assets/watermark.png";
 
 const appeals = [
   {
-    title: "Food Packs Support: Combat Hunger, Build Health",
+    title: "Food packages for families",
     image: foodImg,
     body: [
       "Hunger is a daily reality for far too many families in Mbale. Chronic malnutrition stunts children's growth and limits their ability to learn and thrive.",
@@ -23,7 +22,7 @@ const appeals = [
     tiers: ["$160 – feeds a child for a year", "$3,360 – feeds a classroom of 21 children for a year", "$12,000 – feeds an entire village for a year"],
   },
   {
-    title: "Wheelchairs and Mobility Support: Restore Dignity and Independence",
+    title: "Wheelchairs and mobility support",
     image: wheelchairImg,
     body: [
       "Imagine being unable to leave your home, attend school, or earn a living simply because you cannot walk. For many individuals living with disabilities in Uganda, a wheelchair is the key to education, employment, and social inclusion.",
@@ -32,7 +31,7 @@ const appeals = [
     tiers: ["$300 – a wheelchair for a school-going child with a disability", "$200 – a brand-new wheelchair for someone in need"],
   },
   {
-    title: "Ramadan Support: Feed Families, Nourish Souls",
+    title: "Ramadan meals and food packages",
     image: ramadanImg,
     body: [
       "Ramadan is a sacred time of reflection, community, and generosity. Yet for many families in Mbale, the evening Iftar meal is a daily struggle. Rising food costs and economic hardship mean many households break their fast with little more than water and dates.",
@@ -41,7 +40,7 @@ const appeals = [
     tiers: ["$75 – full food pack and cooking gas for a family", "$10 – a daily Iftar meal for those in urgent need"],
   },
   {
-    title: "Orphan Support: Be a Lifeline for Vulnerable Children",
+    title: "Food and support for orphaned children",
     image: orphanImg,
     body: [
       "Uganda is home to countless orphaned and abandoned children facing hunger, lack of healthcare, and the constant threat of exploitation. Without intervention, many end up on the streets or in child labor.",
@@ -50,7 +49,7 @@ const appeals = [
     tiers: ["Any monthly amount – steady, life-changing support for an orphan and their family"],
   },
   {
-    title: "School Fees and Scholastic Support: Open the Door to Education",
+    title: "School fees and learning materials",
     image: schoolImg,
     body: [
       "Education is the most powerful tool for breaking the cycle of poverty. Yet school fees remain the single greatest barrier for thousands of Ugandan children, and rising costs push education further out of reach.",
@@ -59,7 +58,7 @@ const appeals = [
     tiers: ["$30 – one month of education", "$50 – one term of school", "$150 – a full year of fees, supplies, and uniform"],
   },
   {
-    title: "Tree Planting Support: Grow a Greener, Resilient Future",
+    title: "Tree planting with schools and communities",
     image: treeImg.url,
     body: [
       "Deforestation, soil erosion, and climate change are making farming harder, water scarcer, and life more precarious across Uganda.",
@@ -68,7 +67,7 @@ const appeals = [
     tiers: ["$10 – 20 trees", "$25 – 50 trees", "$50 – 100 trees", "$500 – 1,000 trees in a community grove"],
   },
   {
-    title: "Bore Repair and Construction: Clean Water Changes Everything",
+    title: "Repair and build community boreholes",
     image: boreImg,
     body: [
       "Access to clean and safe water is a basic human right, yet many communities in Mbale still struggle daily to find it. Women and girls often walk long distances to fetch water from unprotected sources, exposing them to disease, danger, and lost opportunities for school and work. When a borehole breaks down, entire villages are forced back to unsafe water.",
@@ -77,11 +76,11 @@ const appeals = [
     tiers: ["$270 – restore a broken borehole through digging and repair", "$675 – construct a new borehole or complete a major repair"],
   },
   {
-    title: "Women Empowerment: Strengthening Families, Building Futures",
+    title: "Skills and start-up support for women",
     image: womenImg,
     body: [
-      "When women are empowered, entire communities rise. In Mbale, many women carry the weight of caring for children, farming, trading, and holding families together, yet they often lack access to education, financial services, skills training, and decision-making power.",
-      "Our program equips women and widows with vocational skills (tailoring, baking, soap making, crafts, agriculture), financial literacy and savings groups, startup kits and small grants, leadership and rights workshops, menstrual health support, GBV referrals, and community support networks. Women's empowerment is a pathway to lasting change for generations.",
+      "More than 50 women and widows in Bukonde took part in Global Hearts Community’s shampoo and liquid-soap training. Many participants care for children, orphans, or relatives with disabilities.",
+      "Hands-on sessions covered sourcing local materials, safe mixing, measuring, quality checks, bottling, labelling, and pricing. The program also covered record-keeping, savings, customer care, and group purchasing. Graduates may need start-up kits, containers, labels, and raw materials before they can begin production.",
     ],
     tiers: ["Any amount – helps a woman learn a skill, start a business, feed her family, and pay school fees"],
   },
@@ -101,18 +100,17 @@ const Appeals = () => (
     <div className="container mx-auto px-4">
       <motion.div
         className="text-center max-w-3xl mx-auto mb-16"
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         transition={{ duration: 0.6 }}
       >
         <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider mb-4">
-          <Heart className="h-4 w-4" /> Our Appeals
+          Current programs · Mbale, Uganda
         </span>
-        <h1 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Transform Lives in Mbale, Uganda</h1>
+        <h1 className="text-3xl md:text-5xl font-semibold text-foreground mb-4">Fund current programs in Mbale.</h1>
         <p className="text-lg text-muted-foreground">
-          Your donation directly fuels programs that change lives. Whether you give to Ramadan food support, mobility aids,
-          orphan care, education, tree planting, or food packs, every contribution creates ripple effects of hope.
+          Choose from food assistance, mobility support, education, orphan support, tree planting, water access, and women’s livelihood programs. Each section lists current needs and suggested giving amounts.
         </p>
       </motion.div>
 
@@ -121,17 +119,15 @@ const Appeals = () => (
           <motion.article
             key={a.title}
             className="grid md:grid-cols-2 gap-8 md:gap-12 items-center"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true, amount: 0.2 }}
             transition={{ duration: 0.6 }}
           >
             <div
-              className={`relative rounded-2xl overflow-hidden shadow-strong aspect-[4/3] select-none ${i % 2 ? "md:order-2" : ""}`}
-              onContextMenu={(e) => e.preventDefault()}
+              className={`relative overflow-hidden border border-border aspect-[4/3] ${i % 2 ? "md:order-2" : ""}`}
             >
-              <img src={a.image} alt={a.title} loading="lazy" draggable={false} className="w-full h-full object-cover" />
-              <img src={watermark} alt="" aria-hidden draggable={false} className="absolute inset-0 m-auto w-24 opacity-40 pointer-events-none" />
+              <img src={a.image} alt={`${a.title} program in Mbale and surrounding communities`} loading="lazy" className="w-full h-full object-cover" />
             </div>
             <div>
               <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">{a.title}</h2>
@@ -141,7 +137,7 @@ const Appeals = () => (
               <ul className="space-y-2 mb-6">
                 {a.tiers.map((t) => (
                   <li key={t} className="flex gap-2 text-foreground">
-                    <CheckCircle2 className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <span aria-hidden="true" className="mt-3 h-px w-4 shrink-0 bg-secondary" />
                     <span className="font-medium">{t}</span>
                   </li>
                 ))}
@@ -155,10 +151,10 @@ const Appeals = () => (
       </div>
 
       <div className="mt-24">
-        <h2 className="text-2xl md:text-3xl font-bold text-foreground text-center mb-10">Other Ways Your Gift Transforms Lives</h2>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-8">Other programs</h2>
+        <div className="grid gap-x-8 gap-y-6 sm:grid-cols-2 lg:grid-cols-3">
           {others.map(([t, d]) => (
-            <div key={t} className="bg-card rounded-xl p-6 shadow-medium">
+            <div key={t} className="border-t border-border pt-4">
               <h3 className="font-bold text-foreground mb-2">{t}</h3>
               <p className="text-sm text-muted-foreground">{d}</p>
             </div>
@@ -168,10 +164,10 @@ const Appeals = () => (
 
       <div className="text-center mt-20 max-w-2xl mx-auto">
         <p className="text-xl font-semibold text-foreground mb-6">
-          Every donation counts. Every life matters. Every act of generosity creates a ripple that changes the world.
+          Select a program above or make a general donation to support current work in Mbale.
         </p>
-        <Button variant="hero" size="xl" asChild className="shadow-medium">
-          <Link to="/donate">Donate Now</Link>
+        <Button variant="hero" size="xl" asChild>
+          <Link to="/donate">Donate now <ArrowRight /></Link>
         </Button>
       </div>
     </div>

@@ -6,7 +6,7 @@ import {
   Clock3,
   CreditCard,
   ExternalLink,
-  Heart,
+  ArrowRight,
   LockKeyhole,
   Mail,
   MapPin,
@@ -281,21 +281,21 @@ const Donate = () => {
           alt="Children holding new school bags and gift packages at a Global Hearts Community handover in Mbale"
           className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         />
-        <div className="absolute inset-0 -z-10 bg-gradient-to-r from-foreground/95 via-foreground/85 to-foreground/55" />
+        <div className="absolute inset-0 -z-10 bg-primary/80" />
         <motion.div
           className="container mx-auto px-4 py-16 md:px-6"
           initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <p className="mb-3 flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
-            <Heart className="h-4 w-4" aria-hidden="true" /> Give with purpose
+          <p className="mb-3 text-sm font-semibold uppercase tracking-[0.18em] text-secondary">
+            Donations · Mbale, Uganda
           </p>
-          <h1 className="max-w-3xl text-4xl font-bold leading-tight text-white md:text-6xl">
-            Help communities build a stronger future.
+          <h1 className="max-w-3xl text-4xl font-semibold leading-tight text-white md:text-6xl">
+            Support programs in Mbale.
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
-            Your contribution supports Global Hearts Community’s work with families in Mbale and surrounding communities.
+            Choose Pesapal in Ugandan shillings or PayPal in US dollars. Payment is completed on the provider’s hosted checkout.
           </p>
         </motion.div>
       </header>
@@ -303,7 +303,7 @@ const Donate = () => {
       <div className="container mx-auto px-4 py-12 md:px-6 md:py-16">
         {paymentNotice && (
           <div
-            className={`mb-8 flex items-start gap-3 rounded-xl border p-4 md:p-5 ${
+            className={`mb-8 flex items-start gap-3 rounded-sm border p-4 md:p-5 ${
               paymentNotice.kind === "success"
                 ? "border-green-300 bg-green-50 text-green-950 dark:border-green-900 dark:bg-green-950/30 dark:text-green-100"
                 : paymentNotice.kind === "checking"
@@ -348,17 +348,17 @@ const Donate = () => {
         )}
 
         <div className="mx-auto grid max-w-6xl gap-6 lg:grid-cols-[1.05fr_0.95fr]">
-          <Card className="border-border/80 shadow-sm">
+          <Card className="border-border/80 shadow-none">
             <CardHeader className="pb-3">
               <p className="text-sm font-semibold uppercase tracking-wide text-primary">Make a one-time gift</p>
               <CardTitle className="text-2xl md:text-3xl">Choose your donation</CardTitle>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                Select a suggested amount or enter the gift that feels right for you. The total is shown before you continue.
+                Select an amount or enter another amount. The provider, currency, and total are shown before you continue.
               </p>
             </CardHeader>
             <CardContent className="space-y-6">
               <fieldset>
-                <legend className="mb-3 text-sm font-medium text-foreground">Choose a secure payment provider</legend>
+                <legend className="mb-3 text-sm font-medium text-foreground">Payment provider and currency</legend>
                 <div className="grid gap-3 sm:grid-cols-2">
                   <Button
                     type="button"
@@ -427,7 +427,7 @@ const Donate = () => {
                 </div>
               </div>
 
-              <div className="rounded-xl border border-primary/20 bg-primary/5 p-4">
+              <div className="border-l-2 border-primary bg-primary/5 p-4">
                 <div className="flex items-start gap-3">
                   <LockKeyhole className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
                   <div>
@@ -440,7 +440,7 @@ const Donate = () => {
               </div>
 
               <Button type="button" size="lg" className="h-12 w-full text-base font-semibold" onClick={handleProceedToDonate}>
-                <Heart className="mr-2 h-4 w-4" aria-hidden="true" />
+                <ArrowRight className="mr-2 h-4 w-4" aria-hidden="true" />
                 Continue with {donationAmount && Number.isFinite(donationAmount) ? new Intl.NumberFormat(currency === "UGX" ? "en-UG" : "en-US", { style: "currency", currency, maximumFractionDigits: currency === "UGX" ? 0 : 2 }).format(donationAmount) : "your gift"}
               </Button>
               <p className="text-center text-xs leading-relaxed text-muted-foreground">
@@ -450,7 +450,7 @@ const Donate = () => {
           </Card>
 
           <div className="space-y-6">
-            <Card className="h-full border-border/80 shadow-sm">
+            <Card className="h-full border-border/80 shadow-none">
               <CardHeader className="pb-3">
                 <div className="flex items-center gap-3">
                   <span className="rounded-lg bg-secondary/20 p-2.5 text-primary"><Banknote className="h-5 w-5" aria-hidden="true" /></span>
@@ -488,7 +488,7 @@ const Donate = () => {
           </div>
         </div>
 
-        <div className="mx-auto mt-8 grid max-w-6xl gap-4 rounded-xl border border-border bg-muted/30 p-5 sm:grid-cols-3 sm:p-6">
+        <div className="mx-auto mt-8 grid max-w-6xl gap-x-6 gap-y-5 border-t border-border bg-muted/30 px-5 py-6 sm:grid-cols-3 sm:px-6">
           <div className="flex items-start gap-3"><ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" /><p className="text-sm leading-relaxed text-muted-foreground">Donation details are submitted over your site’s HTTPS connection and kept on the server, not in browser code.</p></div>
           <div className="flex items-start gap-3"><Mail className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" /><p className="text-sm leading-relaxed text-muted-foreground">Donation receipts and newsletter subscriptions are separate; a gift does not automatically opt you into updates.</p></div>
           <div className="flex items-start gap-3"><MapPin className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" /><p className="text-sm leading-relaxed text-muted-foreground">Global Hearts Community serves Mbale and surrounding communities in Uganda.</p></div>

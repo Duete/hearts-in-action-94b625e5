@@ -1,207 +1,108 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { Heart, Accessibility, Stethoscope, Package, BookOpen, Apple } from "lucide-react";
-import { Card, CardContent } from "@/components/ui/card";
-import heroImg from "@/assets/hero-community.jpg";
-import distributionBackground from "@/assets/contact-impact-background.webp";
 import impact from "@/data/impact.json";
+import distributionBackground from "@/assets/contact-impact-background.webp";
+import heroImg from "@/assets/hero-community.jpg";
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
+const impactStats = [
+  { value: `${impact.students}+`, label: "Students supported", description: "Primary school pupils receiving full scholarships and scholastic materials" },
+  { value: `${impact.meals.toLocaleString("en-US")}+`, label: "Hot meals provided", description: "Meals shared with vulnerable communities during Ramadan 2026" },
+  { value: `${impact.foodPackages}+`, label: "Food packages distributed", description: "Essential food packages provided during Ramadan 2026" },
+  { value: `${impact.mobilityAids}+`, label: "Wheelchairs and mobility aids", description: "Distributed across Mbale and surrounding communities over three years" },
+  { value: `${impact.healthFamilies}+`, label: "Families reached by health camp", description: "Screening, health education, and referrals through community outreach" },
+  { value: `${impact.volunteers}+`, label: "Volunteers", description: "Volunteers supporting community programs" },
+];
+
+const successStories = [
+  {
+    title: "Mobility support since 2023",
+    description: "Since 2023, Global Hearts Community has provided wheelchairs and mobility tools to children and adults across Mbale and surrounding communities. Recipients include Wasswa Kevin in Namisindwa and Wamono Shafik in Manafwa, supported with fitting, maintenance, and follow-up care.",
+    impact: `${impact.mobilityAids}+ wheelchairs and mobility aids distributed in three years`,
   },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4 },
+  {
+    title: "School sponsorship program",
+    description: "Full scholarships and essential scholastic materials help vulnerable primary school pupils stay in school. The program supports orphans and children of teenage mothers, easing the burden of school fees and restoring hope for their families.",
+    impact: `${impact.students}+ primary school pupils receive full scholarships`,
   },
-};
+  {
+    title: "Ramadan 2026 feeding program",
+    description: "Volunteers, local leaders, and donors came together to provide fresh hot meals at community Iftar gatherings and essential food packages for vulnerable families across Mbale and surrounding communities.",
+    impact: `${impact.meals.toLocaleString("en-US")}+ hot meals and ${impact.foodPackages}+ food packages provided`,
+  },
+  {
+    title: "Community health outreach",
+    description: "Working with nearby health centers, our community health camp provided diabetes, malaria, and blood pressure screening, practical health education, and referrals for follow-up care in a rural community.",
+    impact: `${impact.healthFamilies}+ families reached with essential health services`,
+  },
+  {
+    title: "Women’s skills training in Bukonde",
+    description: "More than 50 women and widows in Bukonde learned to make shampoo and liquid soap. The training also covered pricing, group savings, record-keeping, customer care, and finding local customers.",
+    impact: "50+ women and widows trained in shampoo and liquid-soap production",
+  },
+];
 
-const Impact = () => {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: headerRef,
-    offset: ["start end", "end start"],
-  });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
-
-  const impactStats = [
-    { icon: BookOpen, value: `${impact.students}+`, label: "Students Supported", description: "Primary school pupils receiving full scholarships and scholastic materials" },
-    { icon: Apple, value: `${impact.meals.toLocaleString("en-US")}+`, label: "Hot Meals Provided", description: "Meals shared with vulnerable communities during Ramadan 2026" },
-    { icon: Package, value: `${impact.foodPackages}+`, label: "Food Packages Distributed", description: "Essential food packages provided during Ramadan 2026" },
-    { icon: Accessibility, value: `${impact.mobilityAids}+`, label: "Wheelchairs & Mobility Aids", description: "Distributed across Mbale and surrounding communities over three years" },
-    { icon: Stethoscope, value: `${impact.healthFamilies}+`, label: "Families Reached by Health Camp", description: "Screening, health education, and referrals through community outreach" },
-    { icon: Heart, value: `${impact.volunteers}+`, label: "Volunteers", description: "Dedicated volunteers making a difference" },
-  ];
-
-  const successStories = [
-    {
-      title: "Restoring Mobility and Independence",
-      description: "Since 2023, Global Hearts Community has provided wheelchairs and mobility tools to children and adults across Mbale and surrounding communities. Recipients include Wasswa Kevin in Namisindwa and Wamono Shafik in Manafwa, supported with fitting, maintenance, and follow-up care.",
-      impact: `${impact.mobilityAids}+ wheelchairs and mobility aids distributed in three years`,
-    },
-    {
-      title: "School Sponsorship Program",
-      description: "Full scholarships and essential scholastic materials help vulnerable primary school pupils stay in school. The program supports orphans and children of teenage mothers, easing the burden of school fees and restoring hope for their families.",
-      impact: `${impact.students}+ primary school pupils receive full scholarships`,
-    },
-    {
-      title: "Ramadan 2026 Feeding Program",
-      description: "Volunteers, local leaders, and donors came together to provide fresh hot meals at community Iftar gatherings and essential food packages for vulnerable families across Mbale and surrounding communities.",
-      impact: `${impact.meals.toLocaleString("en-US")}+ hot meals and ${impact.foodPackages}+ food packages provided`,
-    },
-    {
-      title: "Community Health Outreach",
-      description: "Working with nearby health centers, our community health camp provided diabetes, malaria, and blood pressure screening, practical health education, and referrals for follow-up care in a rural community.",
-      impact: `${impact.healthFamilies}+ families reached with essential health services`,
-    },
-    {
-      title: "Women's Cooperative",
-      description: "Our women's empowerment program helped establish a cooperative, providing women with sustainable income through craft production and marketing.",
-      impact: "50 women supported through the cooperative",
-    },
-  ];
-
-  return (
-    <section className="bg-background">
-      {/* Impact Header with Parallax */}
-      <div
-        ref={headerRef}
-        className="relative h-[300px] flex items-center justify-center overflow-hidden"
-      >
-        <motion.div 
-          className="absolute inset-0 w-full h-[140%] overflow-hidden"
-          style={{ y: bgY }}
-        >
-          <img
-            src={distributionBackground}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover object-center"
-            loading="eager"
-            decoding="async"
-            draggable={false}
-            onError={(event) => {
-              const image = event.currentTarget;
-              if (image.dataset.fallbackApplied) return;
-              image.dataset.fallbackApplied = "true";
-              image.src = heroImg;
-            }}
-          />
-          <div className="absolute inset-0 bg-foreground/60"></div>
-        </motion.div>
-        <motion.div
-          className="relative z-10 text-center"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <h1 className="text-6xl md:text-8xl font-bold text-secondary mb-4">OUR IMPACT</h1>
-        </motion.div>
+const Impact = () => (
+  <section className="bg-background">
+    <header className="relative flex h-[260px] items-end overflow-hidden bg-primary md:h-[320px]">
+      <img
+        src={distributionBackground}
+        alt=""
+        aria-hidden="true"
+        className="absolute inset-0 h-full w-full object-cover object-center"
+        loading="eager"
+        decoding="async"
+        onError={(event) => {
+          const image = event.currentTarget;
+          if (image.dataset.fallbackApplied) return;
+          image.dataset.fallbackApplied = "true";
+          image.src = heroImg;
+        }}
+      />
+      <div className="absolute inset-0 bg-foreground/55" />
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-8 md:pb-12">
+        <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-secondary">Global Hearts Community · Mbale, Uganda</p>
+        <h1 className="text-5xl font-semibold text-white md:text-7xl">Program outcomes</h1>
       </div>
+    </header>
 
-      {/* Impact Stats */}
-      <div className="container mx-auto px-4 py-16">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
-            Making a Measurable Difference
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Every donation, every volunteer hour, and every partnership contributes to lasting change in the communities we serve.
-          </p>
-        </motion.div>
-
-        <motion.div
-          className="grid grid-cols-2 md:grid-cols-3 gap-6 mb-16"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-        >
-          {impactStats.map((stat, index) => (
-            <motion.div key={index} variants={itemVariants}>
-              <Card className="shadow-medium h-full text-center hover:shadow-strong transition-all duration-300">
-                <CardContent className="p-6">
-                  <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <stat.icon className="h-8 w-8 text-primary" />
-                  </div>
-                  <h3 className="text-3xl md:text-4xl font-bold text-primary mb-2">{stat.value}</h3>
-                  <p className="font-semibold text-foreground mb-2">{stat.label}</p>
-                  <p className="text-sm text-muted-foreground">{stat.description}</p>
-                </CardContent>
-              </Card>
-            </motion.div>
+    <div className="mx-auto max-w-6xl px-6 py-14 md:py-20">
+      <section aria-labelledby="impact-results-title" className="mb-16 md:mb-20">
+        <div className="mb-8 max-w-2xl">
+          <p className="mb-2 text-sm font-bold uppercase tracking-[0.16em] text-primary">Selected figures</p>
+          <h2 id="impact-results-title" className="mb-3 text-3xl font-semibold md:text-4xl">Results reported by program</h2>
+          <p className="text-muted-foreground">Selected results from education, food, mobility, health, and community programs in Mbale and surrounding areas.</p>
+        </div>
+        <dl className="grid grid-cols-2 gap-x-6 gap-y-8 md:grid-cols-3">
+          {impactStats.map((stat) => (
+            <div key={stat.label} className="border-t border-border pt-4">
+              <dt className="font-semibold text-foreground">{stat.label}</dt>
+              <dd className="mt-1 font-serif text-3xl font-semibold text-primary md:text-4xl">{stat.value}</dd>
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{stat.description}</p>
+            </div>
           ))}
-        </motion.div>
+        </dl>
+      </section>
 
-        {/* Success Stories */}
-        <motion.div
-          className="mb-16"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground text-center mb-12">
-            Stories of Change
-          </h2>
+      <section aria-labelledby="impact-stories-title" className="mb-16 md:mb-20">
+        <div className="mb-8">
+          <p className="mb-2 text-sm font-bold uppercase tracking-[0.16em] text-primary">From the field</p>
+          <h2 id="impact-stories-title" className="text-3xl font-semibold md:text-4xl">Program notes</h2>
+        </div>
+        <div className="grid gap-x-10 gap-y-8 md:grid-cols-2">
+          {successStories.map((story) => (
+            <article key={story.title} className="border-t border-border pt-5">
+              <h3 className="mb-3 text-xl font-semibold">{story.title}</h3>
+              <p className="mb-4 text-muted-foreground">{story.description}</p>
+              <p className="border-l-2 border-secondary pl-3 text-sm font-semibold text-primary">{story.impact}</p>
+            </article>
+          ))}
+        </div>
+      </section>
 
-          <motion.div
-            className="grid md:grid-cols-3 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            {successStories.map((story, index) => (
-              <motion.div key={index} variants={itemVariants}>
-                <Card className="shadow-medium h-full border-t-4 border-t-secondary">
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-foreground mb-4">{story.title}</h3>
-                    <p className="text-muted-foreground mb-4">{story.description}</p>
-                    <div className="bg-secondary/10 p-4 rounded-lg">
-                      <p className="text-sm font-semibold text-secondary">{story.impact}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </motion.div>
-
-        {/* Call to Action */}
-        <motion.div
-          className="text-center bg-primary/5 rounded-2xl p-8 md:p-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5 }}
-        >
-          <h2 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
-            Be Part of Our Impact Story
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Your support helps us continue this vital work. Together, we can create lasting change for communities in need.
-          </p>
-        </motion.div>
-      </div>
-    </section>
-  );
-};
+      <section className="border-t border-primary/30 bg-primary/5 px-6 py-8 md:px-10 md:py-10">
+        <h2 className="mb-3 text-2xl font-semibold md:text-3xl">Support these programs</h2>
+        <p className="max-w-3xl text-muted-foreground">Your support helps fund education, food assistance, mobility support, health outreach, and water access in Mbale and surrounding communities.</p>
+      </section>
+    </div>
+  </section>
+);
 
 export default Impact;

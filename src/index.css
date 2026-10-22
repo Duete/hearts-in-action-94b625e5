@@ -1,3 +1,6 @@
+@import "@fontsource-variable/newsreader";
+@import "@fontsource-variable/dm-sans";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -24,13 +27,10 @@ All colors MUST be HSL.
     --muted-foreground: 164 8% 39%;
     --border: 155 18% 88%;
     --ring: 170 72% 21%;
-    --radius: 0.5rem;
-    --shadow-soft: 0 6px 24px hsl(170 72% 21% / 0.1);
-    --shadow-medium: 0 8px 24px hsl(170 72% 21% / 0.12);
-    --shadow-strong: 0 16px 36px hsl(170 72% 21% / 0.16);
+    --radius: 0.375rem;
     --newsletter-background: 165 40% 35%;
-    --home-hero-overlay: linear-gradient(90deg, hsl(170 73% 14% / 0.92), hsl(170 73% 14% / 0.65) 50%, hsl(170 73% 14% / 0.12));
-    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    --home-hero-overlay: hsl(170 73% 14% / 0.72);
+    font-family: "DM Sans Variable", "DM Sans", sans-serif;
   }
 
   .home-hero-overlay {
@@ -41,58 +41,9 @@ All colors MUST be HSL.
     background-color: hsl(var(--newsletter-background));
   }
 
-  .impact-marquee {
-    overflow: hidden;
-  }
-
-  .impact-marquee-track {
-    display: flex;
-    width: max-content;
-    animation: impact-marquee-scroll 34s linear infinite;
-  }
-
-  .impact-marquee-group {
-    display: flex;
-    flex-shrink: 0;
-    align-items: center;
-    justify-content: space-around;
-    gap: 1.75rem;
-    min-width: 100vw;
-    padding: 0.8rem 1.25rem;
-    white-space: nowrap;
-    font-weight: 750;
-  }
-
-  .impact-marquee-item {
-    display: inline-flex;
-    align-items: center;
-    gap: 1.75rem;
-  }
-
-  .impact-marquee-separator {
-    opacity: 0.45;
-  }
-
-  .impact-marquee:hover .impact-marquee-track,
-  .impact-marquee:focus-within .impact-marquee-track {
-    animation-play-state: paused;
-  }
-
-  @keyframes impact-marquee-scroll {
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .impact-marquee-track {
-      animation: none;
-    }
-  }
-
   :root {
-    --background: 0 0% 100%;
-    --foreground: 150 10% 15%;
+    --background: 42 30% 98%;
+    --foreground: 150 10% 13%;
 
     --card: 0 0% 100%;
     --card-foreground: 150 10% 15%;
@@ -125,37 +76,27 @@ All colors MUST be HSL.
     --input: 150 15% 88%;
     --ring: 120 60% 35%;
 
-    --radius: 0.75rem;
-    
-    /* Gradients */
-    --gradient-primary: linear-gradient(135deg, hsl(140 60% 25%), hsl(140 55% 35%));
-    --gradient-warm: linear-gradient(135deg, hsl(30 85% 50%), hsl(35 80% 55%));
-    --gradient-hero: linear-gradient(135deg, hsl(140 60% 25% / 0.95), hsl(180 45% 40% / 0.9));
-    
-    /* Shadows */
-    --shadow-soft: 0 4px 16px hsl(140 60% 25% / 0.08);
-    --shadow-medium: 0 8px 24px hsl(140 60% 25% / 0.12);
-    --shadow-strong: 0 12px 32px hsl(140 60% 25% / 0.16);
+    --radius: 0.375rem;
     
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
-    --sidebar-background: 0 0% 98%;
+    --sidebar-background: 42 30% 98%;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-foreground: 150 10% 13%;
 
-    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary: 140 60% 25%;
 
-    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-primary-foreground: 0 0% 100%;
 
-    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent: 150 15% 95%;
 
-    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-accent-foreground: 150 10% 15%;
 
-    --sidebar-border: 220 13% 91%;
+    --sidebar-border: 150 15% 88%;
 
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-ring: 140 60% 35%;
   }
 
   .dark {
@@ -190,30 +131,6 @@ All colors MUST be HSL.
 }
 
 @layer utilities {
-  .gradient-primary {
-    background: var(--gradient-primary);
-  }
-  
-  .gradient-warm {
-    background: var(--gradient-warm);
-  }
-  
-  .gradient-hero {
-    background: var(--gradient-hero);
-  }
-  
-  .shadow-soft {
-    box-shadow: var(--shadow-soft);
-  }
-  
-  .shadow-medium {
-    box-shadow: var(--shadow-medium);
-  }
-  
-  .shadow-strong {
-    box-shadow: var(--shadow-strong);
-  }
-  
   .transition-smooth {
     transition: var(--transition-smooth);
   }
@@ -230,5 +147,34 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: "DM Sans Variable", "DM Sans", sans-serif;
+    font-optical-sizing: auto;
+    line-height: 1.6;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: "Newsreader Variable", "Newsreader", Georgia, serif;
+    font-optical-sizing: auto;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    text-wrap: balance;
+  }
+
+  :focus-visible {
+    outline-color: hsl(var(--secondary));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      scroll-behavior: auto !important;
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
   }
 }

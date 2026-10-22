@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { motion, useScroll, useTransform, AnimatePresence, PanInfo } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import womenImg from "@/assets/women-empowerment-new.png";
@@ -40,7 +40,6 @@ import maizeFlourCloseupImg from "@/assets/gallery/maize-flour-closeup.png";
 import childrenIftarMealImg from "@/assets/gallery/children-iftar-meal.jpg";
 import elderlyWheelchairSupportImg from "@/assets/gallery/elderly-wheelchair-support.png";
 import orphanFeedingProgramImg from "@/assets/gallery/orphan-feeding-program.png";
-import watermarkImg from "@/assets/watermark.png";
 import foodDistributionBannerImg from "@/assets/gallery/food-distribution-banner.webp.asset.json";
 import nabukwasiJaneWheelchairImg from "@/assets/gallery/nabukwasi-jane-wheelchair.webp.asset.json";
 import waterwellCelebrationImg from "@/assets/gallery/waterwell-celebration.webp.asset.json";
@@ -62,66 +61,25 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, scale: 0.9 },
+  hidden: { opacity: 0, y: 0 },
   visible: {
     opacity: 1,
-    scale: 1,
-    transition: { duration: 0.5 },
+    y: 0,
+    transition: { duration: 0.25 },
   },
 };
 
-const ParallaxImage = ({ 
-  src, 
-  alt, 
-  onClick 
-}: { 
-  src: string; 
-  alt: string; 
-  onClick: () => void;
-}) => {
-  const ref = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  });
-  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
-
-  // Prevent right-click context menu
-  const handleContextMenu = (e: React.MouseEvent) => {
-    e.preventDefault();
-  };
-
-  return (
-    <div 
-      ref={ref} 
-      className="relative overflow-hidden rounded-lg shadow-medium hover:shadow-strong transition-smooth group aspect-[4/3] select-none cursor-pointer"
-      onContextMenu={handleContextMenu}
-      onClick={onClick}
-    >
-      <motion.img
-        src={src}
-        alt={alt}
-        className="w-full h-[120%] object-cover group-hover:scale-105 transition-smooth pointer-events-none"
-        style={{ y }}
-        draggable={false}
-      />
-      {/* Centered Watermark overlay */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-20">
-        <img 
-          src={watermarkImg} 
-          alt="" 
-          className="w-16 h-16 object-contain opacity-40 pointer-events-none"
-          draggable={false}
-        />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-t from-primary/80 to-transparent opacity-0 group-hover:opacity-100 transition-smooth flex items-end p-6 z-10">
-        <p className="text-primary-foreground font-medium">{alt}</p>
-      </div>
-      {/* Invisible overlay to prevent direct image interaction */}
-      <div className="absolute inset-0 z-30" onContextMenu={handleContextMenu} />
-    </div>
-  );
-};
+const ParallaxImage = ({ src, alt, onClick }: { src: string; alt: string; onClick: () => void }) => (
+  <button
+    type="button"
+    className="group block w-full text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
+    onClick={onClick}
+    aria-label={`Open photo: ${alt}`}
+  >
+    <img src={src} alt="" className="aspect-[4/3] w-full border border-border object-cover" loading="lazy" decoding="async" />
+    <span className="mt-2 block border-l-2 border-secondary pl-3 text-sm leading-snug text-muted-foreground group-hover:text-foreground">{alt}</span>
+  </button>
+);
 
 interface LightboxProps {
   images: { src: string; alt: string }[];
@@ -132,10 +90,6 @@ interface LightboxProps {
 }
 
 const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxProps) => {
-  const handleContextMenu = (e: React.MouseEvent) => {
-    e.preventDefault();
-  };
-
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") onClose();
     if (e.key === "ArrowLeft") onPrev();
@@ -158,17 +112,20 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/95"
       onClick={onClose}
       onKeyDown={handleKeyDown}
       tabIndex={0}
-      onContextMenu={handleContextMenu}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
     >
       {/* Close button */}
       <Button
         variant="ghost"
         size="icon"
         className="absolute top-4 right-4 z-50 text-white hover:bg-white/20 h-12 w-12"
+        aria-label="Close photo viewer"
         onClick={(e) => {
           e.stopPropagation();
           onClose();
@@ -182,6 +139,7 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
         variant="ghost"
         size="icon"
         className="absolute left-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 h-14 w-14 hidden md:flex"
+        aria-label="Previous photo"
         onClick={(e) => {
           e.stopPropagation();
           onPrev();
@@ -195,6 +153,7 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
         variant="ghost"
         size="icon"
         className="absolute right-4 top-1/2 -translate-y-1/2 z-50 text-white hover:bg-white/20 h-14 w-14 hidden md:flex"
+        aria-label="Next photo"
         onClick={(e) => {
           e.stopPropagation();
           onNext();
@@ -228,15 +187,6 @@ const Lightbox = ({ images, currentIndex, onClose, onPrev, onNext }: LightboxPro
           className="max-w-full max-h-[75vh] object-contain pointer-events-none"
           draggable={false}
         />
-        {/* Centered Watermark on lightbox image */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <img
-            src={watermarkImg} 
-            alt="" 
-            className="w-24 h-24 object-contain opacity-50 pointer-events-none"
-            draggable={false}
-          />
-        </div>
         <p className="text-white text-center mt-4 text-lg font-medium">
           {images[currentIndex].alt}
         </p>
@@ -322,17 +272,17 @@ const Gallery = () => {
   return (
     <>
       <section id="gallery" className="py-20 md:py-32 bg-background">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-6">
           <motion.div
-            className="text-center mb-16"
+            className="mb-10 max-w-2xl"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4">Gallery</h2>
+            <h1 className="text-3xl md:text-5xl font-semibold text-foreground mb-4">Photos from the field</h1>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Capturing moments of transformation and hope in our community.
+              Photographs from food distributions, health outreach, water projects, education, and mobility support in Mbale and surrounding districts.
             </p>
           </motion.div>
 

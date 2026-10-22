@@ -1,206 +1,95 @@
-import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { MapPin, Mail, Phone, Banknote } from "lucide-react";
+import { Banknote, Mail, MapPin, Phone } from "lucide-react";
 import { SocialHandleIcons, socialHandlesWithWhatsApp } from "@/components/SocialHandles";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import heroImg from "@/assets/hero-community.jpg";
 import distributionBackground from "@/assets/contact-impact-background.webp";
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.4 },
-  },
-};
 
 const ContactUs = () => {
   const { toast } = useToast();
-  
-  const headerRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: headerRef,
-    offset: ["start end", "end start"],
-  });
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
     toast({
-      title: "Message Sent!",
-      description: "Thank you for reaching out. We'll get back to you soon.",
+      title: "This form is not connected yet",
+      description: "No message was sent. Please email globalheartscommunity@gmail.com or call the Mbale team.",
+      variant: "destructive",
     });
   };
 
-  const contactInfo = [
-    {
-      icon: MapPin,
-      title: "Location",
-      content: "Mbale City, Uganda",
-    },
-    {
-      icon: Mail,
-      title: "Email",
-      content: "globalheartscommunity@gmail.com, info@globalheartscommunity.org",
-    },
-    {
-      icon: Phone,
-      title: "Phone",
-      content: "+256784 434 649, +256791 481 089",
-    },
-    {
-      icon: Banknote,
-      title: "Bank Account",
-      content: "Global Hearts Community - 01110017845397 - DFCU Bank Uganda | SWIFT: DFCUUGKA | DFCU Towers, Kampala Road, Kampala, Uganda",
-    },
-  ];
-
   return (
     <section className="bg-background">
-      {/* Contact Header with Parallax */}
-      <div
-        ref={headerRef}
-        className="relative h-[300px] flex items-center justify-center overflow-hidden"
-      >
-        <motion.div 
-          className="absolute inset-0 w-full h-[140%] overflow-hidden"
-          style={{ y: bgY }}
-        >
-          <img
-            src={distributionBackground}
-            alt=""
-            aria-hidden="true"
-            className="absolute inset-0 h-full w-full object-cover object-center"
-            loading="eager"
-            decoding="async"
-            draggable={false}
-            onError={(event) => {
-              const image = event.currentTarget;
-              if (image.dataset.fallbackApplied) return;
-              image.dataset.fallbackApplied = "true";
-              image.src = heroImg;
-            }}
-          />
-          <div className="absolute inset-0 bg-foreground/60"></div>
-        </motion.div>
-        <motion.div
-          className="relative z-10"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-        >
-          <h1 className="text-6xl md:text-8xl font-bold text-secondary mb-4">CONTACT US</h1>
-        </motion.div>
-      </div>
+      <header className="relative flex min-h-[250px] items-end overflow-hidden bg-primary md:min-h-[300px]">
+        <img src={distributionBackground} alt="" aria-hidden="true" className="absolute inset-0 h-full w-full object-cover object-center" loading="eager" decoding="async" />
+        <div className="absolute inset-0 bg-foreground/60" />
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-6 pb-8 md:pb-12">
+          <p className="mb-2 text-sm font-semibold uppercase tracking-[0.16em] text-secondary">Global Hearts Community · Mbale</p>
+          <h1 className="text-5xl font-semibold text-white md:text-7xl">Talk to the team.</h1>
+        </div>
+      </header>
 
-      {/* Contact Content */}
-      <div className="container mx-auto px-4 py-16">
-        <div className="max-w-4xl mx-auto">
-          {/* Contact Form */}
-          <motion.div
-            className="grid md:grid-cols-2 gap-8 mb-12"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <motion.div variants={itemVariants}>
-              <Card className="shadow-medium h-full">
-                <CardContent className="p-6">
-                  <h3 className="text-xl font-bold text-foreground mb-6">Send us a Message</h3>
-                  <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-foreground mb-2">
-                        Full Name
-                      </label>
-                      <Input id="name" placeholder="John Doe" required />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                        Email Address
-                      </label>
-                      <Input id="email" type="email" placeholder="john@example.com" required />
-                    </div>
-                    <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                        Message
-                      </label>
-                      <Textarea id="message" placeholder="Tell us how you'd like to get involved..." rows={4} required />
-                    </div>
-                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                      Send Message
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
-            </motion.div>
+      <div className="mx-auto max-w-6xl px-6 py-12 md:py-16">
+        <div className="mb-8 max-w-2xl">
+          <h2 className="mb-2 text-2xl font-semibold">Contact Global Hearts Community</h2>
+          <p className="text-muted-foreground">For program, volunteer, partnership, or donation questions, use the contact details below. Please call ahead before visiting the Mbale office.</p>
+        </div>
 
-            <motion.div className="space-y-6" variants={containerVariants}>
-              {contactInfo.map((info, index) => (
-                <motion.div key={index} variants={itemVariants}>
-                  <Card className="shadow-soft">
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
-                        <div className="bg-primary/10 p-3 rounded-lg">
-                          <info.icon className="h-5 w-5 text-primary" />
-                        </div>
-                        <div>
-                          <h4 className="font-bold text-foreground mb-1">{info.title}</h4>
-                          <p className="text-sm text-muted-foreground">{info.content}</p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </motion.div>
-          </motion.div>
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <aside className="space-y-6" aria-label="Contact details">
+            <div className="border-t border-border pt-4">
+              <div className="mb-2 flex items-center gap-2 text-primary"><MapPin className="h-4 w-4" aria-hidden="true" /><h3 className="font-semibold">Office</h3></div>
+              <p className="mb-2 text-sm text-muted-foreground">Mbale City, Uganda</p>
+              <a href="https://maps.app.goo.gl/AALiKMYTYQHwptsS9" target="_blank" rel="noopener noreferrer" className="font-semibold text-primary underline underline-offset-4">Open the map pin</a>
+            </div>
+            <div className="border-t border-border pt-4">
+              <div className="mb-2 flex items-center gap-2 text-primary"><Mail className="h-4 w-4" aria-hidden="true" /><h3 className="font-semibold">Email</h3></div>
+              <p className="space-y-1 text-sm"><a className="block text-primary underline underline-offset-4" href="mailto:globalheartscommunity@gmail.com">globalheartscommunity@gmail.com</a><a className="block text-primary underline underline-offset-4" href="mailto:info@globalheartscommunity.org">info@globalheartscommunity.org</a></p>
+            </div>
+            <div className="border-t border-border pt-4">
+              <div className="mb-2 flex items-center gap-2 text-primary"><Phone className="h-4 w-4" aria-hidden="true" /><h3 className="font-semibold">Phone and WhatsApp</h3></div>
+              <p className="space-y-1 text-sm"><a className="block text-primary underline underline-offset-4" href="tel:+256784434649">+256 784 434 649</a><a className="block text-primary underline underline-offset-4" href="tel:+256791481089">+256 791 481 089</a></p>
+            </div>
+            <div className="border-t border-border pt-4">
+              <div className="mb-2 flex items-center gap-2 text-primary"><Banknote className="h-4 w-4" aria-hidden="true" /><h3 className="font-semibold">Bank transfers</h3></div>
+              <p className="text-sm leading-relaxed text-muted-foreground">Global Hearts Community · DFCU Bank Uganda<br />Account: 01110017845397 · SWIFT: DFCUUGKA<br />DFCU Towers, Kampala Road, Kampala, Uganda</p>
+            </div>
+          </aside>
 
-          {/* Office Hours & Social */}
-          <motion.div
-            className="grid md:grid-cols-2 gap-8"
-            variants={containerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-          >
-            <motion.div variants={itemVariants}>
-              <Card className="shadow-soft border-l-4 border-l-secondary h-full">
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-xl text-foreground mb-4">Office Hours</h3>
-                  <div className="space-y-2 text-muted-foreground">
-                    <p>Monday - Friday: 8:00 AM - 5:00 PM</p>
-                    <p>Saturday: 9:00 AM - 1:00 PM</p>
-                    <p>Sunday: Closed</p>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
+          <div className="border border-border bg-card p-5 md:p-7">
+            <h2 className="mb-2 text-2xl font-semibold">Send a message</h2>
+            <p className="mb-6 text-sm text-muted-foreground">This form is not connected to email yet. For a response, contact us directly using the email or phone details.</p>
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div>
+                <label htmlFor="name" className="mb-2 block text-sm font-medium text-foreground">Full name</label>
+                <Input id="name" name="name" autoComplete="name" placeholder="Your name" required />
+              </div>
+              <div>
+                <label htmlFor="email" className="mb-2 block text-sm font-medium text-foreground">Email address</label>
+                <Input id="email" name="email" type="email" autoComplete="email" placeholder="you@example.com" required />
+              </div>
+              <div>
+                <label htmlFor="message" className="mb-2 block text-sm font-medium text-foreground">Message</label>
+                <Textarea id="message" name="message" placeholder="Tell us what you would like to discuss." rows={5} required />
+              </div>
+              <Button type="submit" className="w-full">Send message</Button>
+            </form>
+          </div>
+        </div>
 
-            <motion.div variants={itemVariants}>
-              <Card className="shadow-soft h-full">
-                <CardContent className="p-6">
-                  <h3 className="font-bold text-xl text-foreground mb-4">Follow Us</h3>
-                  <SocialHandleIcons handles={socialHandlesWithWhatsApp} />
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
+        <div className="mt-12 grid gap-8 border-t border-border pt-6 md:grid-cols-2">
+          <section>
+            <h2 className="mb-3 text-xl font-semibold">Office hours</h2>
+            <div className="space-y-1 text-sm text-muted-foreground">
+              <p>Monday–Friday: 8:00 AM–5:00 PM</p>
+              <p>Saturday: 9:00 AM–1:00 PM</p>
+              <p>Sunday: Closed</p>
+            </div>
+          </section>
+          <section>
+            <h2 className="mb-3 text-xl font-semibold">Connect with Global Hearts</h2>
+            <SocialHandleIcons handles={socialHandlesWithWhatsApp} />
+          </section>
         </div>
       </div>
     </section>

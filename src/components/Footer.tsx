@@ -4,17 +4,20 @@ import { MapPin } from "lucide-react";
 
 const Footer = () => {
   const footerLinks = {
-    quickLinks: [
+    explore: [
       { name: "Home", href: "/" },
-      { name: "About Us", href: "/about" },
-      { name: "Our Programs", href: "/#programs" },
+      { name: "About", href: "/about" },
+      { name: "Programs", href: "/#programs" },
       { name: "Impact", href: "/impact" },
+      { name: "Appeals", href: "/appeals" },
+      { name: "Gallery", href: "/gallery" },
     ],
-    resources: [
+    takeAction: [
       { name: "Get Involved", href: "/get-involved" },
       { name: "Donate", href: "/donate" },
       { name: "Contact", href: "/contact" },
       { name: "News", href: "/news" },
+      { name: "Find Us", href: "/#find-us" },
     ],
   };
 
@@ -32,16 +35,15 @@ const Footer = () => {
               />
               <span className="text-2xl font-bold">Global Hearts Community</span>
             </Link>
-            <p className="text-primary-foreground/80 leading-relaxed mb-4">
-              Registered Charity Organization (MC/195) headquartered in <a href="https://maps.app.goo.gl/AALiKMYTYQHwptsS9" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-primary-foreground"><MapPin className="h-3.5 w-3.5" aria-hidden="true" />Mbale City</a> and also Registered as a company limited by guarantee Company Number 80034932237372. Empowering vulnerable groups through education, health programs, and community development initiatives.
-            </p>
+            <p className="mb-3 leading-relaxed text-primary-foreground/85">Education, health, food, water, and community programs based in Mbale, Uganda.</p>
+            <p className="text-sm leading-relaxed text-primary-foreground/70">Registered Charity Organization MC/195 · Company limited by guarantee No. 80034932237372 · <a href="https://maps.app.goo.gl/AALiKMYTYQHwptsS9" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 underline underline-offset-4 hover:text-primary-foreground"><MapPin className="h-3.5 w-3.5" aria-hidden="true" />Mbale City</a></p>
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-4">Quick Links</h3>
+            <h3 className="mb-4 font-semibold text-lg">Explore</h3>
             <ul className="space-y-2">
-              {footerLinks.quickLinks.map((link, index) => (
-                <li key={index}>
+              {footerLinks.explore.map((link) => (
+                <li key={link.href}>
                   <Link
                     to={link.href}
                     className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth"
@@ -54,10 +56,10 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-4">Resources</h3>
+            <h3 className="mb-4 font-semibold text-lg">Take action</h3>
             <ul className="space-y-2">
-              {footerLinks.resources.map((link, index) => (
-                <li key={index}>
+              {footerLinks.takeAction.map((link) => (
+                <li key={link.href}>
                   <Link
                     to={link.href}
                     className="text-primary-foreground/80 hover:text-primary-foreground transition-smooth"
