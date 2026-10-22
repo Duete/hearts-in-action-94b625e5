@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowUpRight, Heart, Loader2, LockKeyhole, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, Loader2, LockKeyhole } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -51,7 +51,7 @@ const DonationModal = ({ isOpen, onClose, amount, gateway }: DonationModalProps)
     if (!amount || !Number.isFinite(amount) || amount < 1) {
       toast({
         title: "Choose a valid amount",
-        description: "Select or enter a donation of at least $1.00.",
+        description: gateway === "pesapal" ? "Enter a whole-number donation of at least UGX 1." : "Select or enter a donation of at least $1.00 USD.",
         variant: "destructive",
       });
       return;
@@ -132,29 +132,25 @@ const DonationModal = ({ isOpen, onClose, amount, gateway }: DonationModalProps)
   return (
     <Dialog open={isOpen} onOpenChange={(open) => !open && handleClose()}>
       <DialogContent className="max-h-[90vh] overflow-y-auto p-0 sm:max-w-xl">
-        <div className="bg-primary px-6 py-7 text-primary-foreground sm:px-8">
+        <div className="border-t-4 border-primary bg-muted/50 px-6 py-7 text-foreground sm:px-8">
           <DialogHeader>
             <div className="mb-3 flex items-center gap-3">
-              <span className="rounded-full bg-white/15 p-2.5">
-                <Heart className="h-5 w-5" aria-hidden="true" />
-              </span>
-              <DialogTitle className="text-2xl font-bold text-primary-foreground">
-                Complete your donation
+              <DialogTitle className="text-2xl font-semibold text-foreground">
+                Donation details
               </DialogTitle>
             </div>
-            <p className="text-sm leading-relaxed text-primary-foreground/85">
-              Your gift to Global Hearts Community will be processed through {providerName}’s hosted checkout.
+            <p className="text-sm leading-relaxed text-muted-foreground">
+              {providerName} will process this payment on its hosted checkout.
             </p>
           </DialogHeader>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6 px-6 py-6 sm:px-8">
-          <div className="flex items-center justify-between rounded-xl border border-primary/20 bg-primary/5 p-4">
+          <div className="flex items-center justify-between rounded-sm border border-border bg-muted/40 p-4">
             <div>
               <p className="text-sm text-muted-foreground">One-time donation</p>
-              <p className="text-2xl font-bold text-primary">{formattedAmount}</p>
+              <p className="font-serif text-2xl font-semibold text-primary">{formattedAmount}</p>
             </div>
-            <ShieldCheck className="h-7 w-7 text-primary" aria-hidden="true" />
           </div>
 
           <div className="space-y-4">

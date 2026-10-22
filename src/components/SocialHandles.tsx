@@ -90,9 +90,9 @@ export const SocialHandleIcons = ({ handles = socialHandlesWithWhatsApp, classNa
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${social.label} — ${social.handle}`}
-        className="group inline-flex min-h-11 max-w-full min-w-0 items-center gap-2 rounded-md bg-primary/10 px-3 py-1.5 text-sm font-medium transition-smooth hover:bg-primary hover:text-primary-foreground"
+        className="group inline-flex min-h-11 max-w-full min-w-0 items-center gap-2 rounded-sm border border-border bg-background px-3 py-1.5 text-sm font-medium transition-colors duration-150 hover:border-primary hover:text-primary"
       >
-        <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-background/70 transition-smooth group-hover:bg-primary-foreground/15">
+        <span className="flex h-8 w-8 shrink-0 items-center justify-center text-primary">
           <social.icon className="h-4 w-4" aria-hidden="true" />
         </span>
         <span className="min-w-0 break-words">{social.handle}</span>
@@ -111,9 +111,9 @@ export const SocialHandleList = ({ handles = socialHandlesWithWhatsApp, classNam
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${social.label} — ${social.handle}`}
-          className="group inline-flex min-h-11 max-w-full min-w-0 items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 transition-smooth hover:border-primary hover:bg-primary/10 hover:shadow-soft"
+          className="group inline-flex min-h-11 max-w-full min-w-0 items-center gap-2 rounded-sm border border-border bg-background px-3 py-2 transition-colors duration-150 hover:border-primary hover:text-primary"
         >
-          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-primary/10 transition-smooth group-hover:bg-primary group-hover:text-primary-foreground">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center text-primary">
             <social.icon className="h-4 w-4" aria-hidden="true" />
           </span>
           <span className="min-w-0 break-words text-sm text-foreground">{social.handle}</span>
@@ -133,9 +133,9 @@ export const SocialHandleInline = ({ handles = socialHandlesWithWhatsApp, classN
         target="_blank"
         rel="noopener noreferrer"
         aria-label={`${social.label} — ${social.handle}`}
-        className="group inline-flex min-h-10 max-w-full min-w-0 items-center gap-2 rounded-md bg-primary/10 px-3 py-1.5 text-sm font-medium text-primary transition-smooth hover:bg-primary hover:text-primary-foreground"
+        className="group inline-flex min-h-10 max-w-full min-w-0 items-center gap-2 rounded-sm border border-border bg-background px-3 py-1.5 text-sm font-medium text-foreground transition-colors duration-150 hover:border-primary hover:text-primary"
       >
-        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-background/70 transition-smooth group-hover:bg-primary-foreground/15">
+        <span className="flex h-7 w-7 shrink-0 items-center justify-center text-primary">
           <social.icon className="h-4 w-4" aria-hidden="true" />
         </span>
         <span className="min-w-0 break-words">{social.handle}</span>

@@ -68,17 +68,17 @@ const Newsletter = () => {
         transition={{ duration: 0.5 }}
       >
         <div className="max-w-xl">
-          <h2 id="newsletter-title" className="mb-2 text-2xl font-bold text-primary-foreground md:text-3xl">
-            Get Updates From the Field
+          <h2 id="newsletter-title" className="mb-2 text-2xl font-semibold text-primary-foreground md:text-3xl">
+            Get field updates
           </h2>
           <p className="leading-relaxed text-primary-foreground/80">
-            Impact stories, distribution reports and appeals — straight to your inbox.
+            Program reports, distribution updates, and appeals by email.
           </p>
         </div>
 
         <div className="w-full md:max-w-lg">
           {confirmationMessage ? (
-            <div className="flex items-start gap-3 rounded-lg bg-white/10 p-4 text-primary-foreground" role="status" aria-live="polite">
+            <div className="flex items-start gap-3 border border-white/25 bg-white/10 p-4 text-primary-foreground" role="status" aria-live="polite">
               <CheckCircle className="mt-0.5 h-6 w-6 shrink-0" aria-hidden="true" />
               <div className="min-w-0 flex-1">
                 <p className="font-semibold">Request received</p>

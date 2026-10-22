@@ -1,4 +1,4 @@
-import { ArrowRight, Heart, Target, Eye, Sparkles, MapPin } from "lucide-react";
+import { ArrowRight, MapPin } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
@@ -16,24 +16,21 @@ const impactHighlights = [
 const About = () => {
   const values = [
     {
-      icon: Heart,
-      title: "Compassion",
-      description: "We lead with empathy and care for every individual we serve.",
+      title: "Respect and care",
+      description: "We listen to local people and treat each person with care when planning and delivering support.",
     },
     {
-      icon: Sparkles,
-      title: "Empowerment",
-      description: "We believe in enabling communities to create their own sustainable solutions.",
+      title: "Community leadership",
+      description: "Local leaders, women’s groups, and disability advocates help shape program priorities.",
     },
     {
-      icon: Target,
-      title: "Integrity",
-      description: "We maintain transparency and accountability in all our actions.",
+      title: "Accountability",
+      description: "Global Hearts Community is registered as NGO MC/195. Annual reports and financial summaries are available on request.",
     },
   ];
 
   const headerVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 0 },
     visible: {
       opacity: 1,
       y: 0,
@@ -45,7 +42,7 @@ const About = () => {
   };
 
   const leftColumnVariants = {
-    hidden: { opacity: 0, x: -30 },
+    hidden: { opacity: 0, x: 0 },
     visible: {
       opacity: 1,
       x: 0,
@@ -58,7 +55,7 @@ const About = () => {
   };
 
   const rightColumnVariants = {
-    hidden: { opacity: 0, x: 30 },
+    hidden: { opacity: 0, x: 0 },
     visible: {
       opacity: 1,
       x: 0,
@@ -70,7 +67,7 @@ const About = () => {
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
+    hidden: { opacity: 0, y: 0 },
     visible: {
       opacity: 1,
       y: 0,
@@ -82,7 +79,7 @@ const About = () => {
   };
 
   const valueCardVariants = {
-    hidden: { opacity: 0, x: 20 },
+    hidden: { opacity: 0, x: 0 },
     visible: {
       opacity: 1,
       x: 0,
@@ -105,11 +102,11 @@ const About = () => {
             viewport={{ once: true, amount: 0.3 }}
           >
             <p className="text-sm font-bold uppercase tracking-[0.16em] text-primary">Who We Are · Mbale, Uganda</p>
-            <h1 className="text-4xl font-extrabold leading-tight text-foreground md:text-5xl">
-              Building stronger communities through compassionate action.
+            <h1 className="text-4xl font-semibold leading-tight text-foreground md:text-6xl">
+              Community programs rooted in Mbale.
             </h1>
             <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-              Global Hearts Community is a registered Ugandan charity based in Mbale. We work alongside communities to support vulnerable people through education, health outreach, food assistance, women’s empowerment, disability support, and environmental programs. We believe no one should go hungry, face crisis alone, or be denied the chance to build a better life.
+              Global Hearts Community is a registered Ugandan charity based in Mbale. We work with local communities on education, health outreach, food assistance, women’s livelihoods, disability support, and environmental programs.
             </p>
             <div className="flex flex-wrap gap-3 pt-1">
               <Button asChild>
@@ -135,7 +132,7 @@ const About = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <figure className="overflow-hidden rounded-2xl shadow-medium">
+              <figure className="overflow-hidden border border-border">
               <img
                 src="/images/about-water-well-1440.webp"
                 srcSet="/images/about-water-well-720.webp 720w, /images/about-water-well-1440.webp 1440w"
@@ -163,15 +160,15 @@ const About = () => {
         >
           <div className="mb-6 text-center">
             <p className="mb-2 text-sm font-bold uppercase tracking-[0.16em] text-primary">Selected program milestones</p>
-            <h2 className="text-2xl font-bold text-foreground md:text-3xl">Our impact at a glance</h2>
+            <h2 className="text-2xl font-semibold text-foreground md:text-3xl">Reported results</h2>
           </div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4 md:gap-5">
             {impactHighlights.map((item) => (
-              <Card key={item.label} className="border-t-4 border-t-secondary shadow-soft">
-                <CardContent className="p-4 text-center sm:p-5">
-                  <p className="text-3xl font-extrabold text-primary md:text-4xl">{item.value.toLocaleString()}+</p>
-                  <p className="mt-1 font-bold text-foreground">{item.label}</p>
-                  <p className="mt-1 text-xs text-muted-foreground">{item.context}</p>
+              <Card key={item.label} className="border-0 border-t border-border bg-transparent shadow-none">
+                <CardContent className="p-4 px-0 text-left sm:p-5 sm:px-0">
+                  <p className="font-serif text-3xl font-semibold text-primary md:text-4xl">{item.value.toLocaleString()}+</p>
+                  <p className="mt-1 font-semibold text-foreground">{item.label}</p>
+                  <p className="mt-1 text-xs uppercase tracking-wide text-muted-foreground">{item.context}</p>
                 </CardContent>
               </Card>
             ))}
@@ -187,26 +184,22 @@ const About = () => {
             viewport={{ once: true, amount: 0.3 }}
           >
             <motion.div variants={itemVariants}>
-              <div className="flex items-center gap-3 mb-4">
-                <Target className="h-8 w-8 text-primary" />
+              <div className="mb-4 border-b border-border pb-3">
+                <p className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-primary">01 · Purpose</p>
                 <h2 className="text-2xl font-bold text-foreground">Our Mission</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                To empower vulnerable groups in Mbale and surrounding areas through comprehensive education support,
-                health outreach, women’s empowerment initiatives, and environmental conservation programs.
-                We strive to create lasting positive change that transforms lives and strengthens communities.
+                We support vulnerable people in Mbale and surrounding areas through education, health outreach, women’s livelihood programs, and environmental work. Programs are planned with local communities and leaders.
               </p>
             </motion.div>
 
             <motion.div variants={itemVariants}>
-              <div className="flex items-center gap-3 mb-4">
-                <Eye className="h-8 w-8 text-accent" />
+              <div className="mb-4 border-b border-border pb-3">
+                <p className="mb-1 text-xs font-semibold uppercase tracking-[0.16em] text-accent">02 · Direction</p>
                 <h2 className="text-2xl font-bold text-foreground">Our Vision</h2>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                A thriving community where every individual has access to quality education, healthcare, 
-                economic opportunities, and lives in a sustainable environment. We envision a future where 
-                communities are self-sufficient and empowered to shape their own destinies.
+                Communities where people can access education, healthcare, income opportunities, and a sustainable environment, and can shape decisions that affect their lives.
               </p>
             </motion.div>
           </motion.div>
@@ -233,16 +226,12 @@ const About = () => {
             >
               {values.map((value, index) => (
                 <motion.div key={value.title} variants={valueCardVariants}>
-                  <Card className="shadow-soft hover:shadow-medium transition-smooth border-l-4 border-l-primary">
-                    <CardContent className="p-6">
-                      <div className="flex items-start gap-4">
-                        <div className="bg-primary/10 p-3 rounded-lg">
-                          <value.icon className="h-6 w-6 text-primary" />
-                        </div>
-                        <div>
-                          <h3 className="font-bold text-lg text-foreground mb-2">{value.title}</h3>
-                          <p className="text-muted-foreground">{value.description}</p>
-                        </div>
+                  <Card className="border-0 border-t border-border bg-transparent shadow-none">
+                    <CardContent className="flex gap-4 px-0 py-5">
+                      <span className="font-serif text-sm text-secondary">0{index + 1}</span>
+                      <div>
+                        <h3 className="font-semibold text-lg text-foreground mb-2">{value.title}</h3>
+                        <p className="text-muted-foreground">{value.description}</p>
                       </div>
                     </CardContent>
                   </Card>
@@ -260,7 +249,7 @@ const About = () => {
             </h2>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
-            <Card className="h-full shadow-soft">
+            <Card className="h-full border-0 border-t border-border bg-transparent shadow-none">
               <CardContent className="p-6">
                 <h3 className="mb-2 text-lg font-bold text-foreground">What is Global Hearts Community?</h3>
                 <p className="leading-relaxed text-muted-foreground">
@@ -268,7 +257,7 @@ const About = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="h-full shadow-soft">
+            <Card className="h-full border-0 border-t border-border bg-transparent shadow-none">
               <CardContent className="p-6">
                 <h3 className="mb-2 text-lg font-bold text-foreground">Where does the organization work?</h3>
                 <p className="leading-relaxed text-muted-foreground">
@@ -276,7 +265,7 @@ const About = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="h-full shadow-soft">
+            <Card className="h-full border-0 border-t border-border bg-transparent shadow-none">
               <CardContent className="p-6">
                 <h3 className="mb-2 text-lg font-bold text-foreground">What programs does it run?</h3>
                 <p className="leading-relaxed text-muted-foreground">
@@ -284,7 +273,7 @@ const About = () => {
                 </p>
               </CardContent>
             </Card>
-            <Card className="h-full shadow-soft">
+            <Card className="h-full border-0 border-t border-border bg-transparent shadow-none">
               <CardContent className="p-6">
                 <h3 className="mb-2 text-lg font-bold text-foreground">How can I support the work?</h3>
                 <p className="leading-relaxed text-muted-foreground">
@@ -302,11 +291,11 @@ const About = () => {
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
         >
-          <Card className="shadow-medium border-t-4 border-t-primary">
+          <Card className="border-0 border-t border-border bg-transparent shadow-none">
             <CardContent className="p-8 md:p-10">
               <div className="flex flex-col md:flex-row md:items-center gap-8">
                 <div className="md:max-w-xs">
-                  <h2 className="text-2xl font-bold text-foreground mb-2">Follow Our Journey</h2>
+                  <h2 className="text-2xl font-semibold text-foreground mb-2">Follow our work</h2>
                   <p className="text-muted-foreground leading-relaxed">
                     See our latest activities, appeals and community stories on social media.
                   </p>

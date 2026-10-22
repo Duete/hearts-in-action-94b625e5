@@ -6,41 +6,29 @@ const mapEmbedUrl = "https://maps.google.com/maps?q=1.0797455,34.1546022&z=17&hl
 
 const FindUs = () => (
   <section id="find-us" className="scroll-mt-24 bg-muted/70 py-10 md:py-12" aria-labelledby="find-us-title">
-    <div className="container mx-auto grid max-w-5xl items-center gap-8 px-6 md:grid-cols-2 md:gap-10">
+    <div className="container mx-auto grid max-w-5xl items-center gap-8 px-6 md:grid-cols-[0.9fr_1.1fr] md:gap-10">
       <div>
-        <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-soft">
-          <MapPin className="h-6 w-6" aria-hidden="true" />
-        </div>
-        <p className="mb-2 text-sm font-bold uppercase tracking-[0.16em] text-primary">Visit Us</p>
-        <h2 id="find-us-title" className="mb-3 text-2xl font-extrabold text-foreground md:text-3xl">
-          Find Us in Mbale
+        <p className="mb-2 text-sm font-bold uppercase tracking-[0.16em] text-primary">Local office</p>
+        <h2 id="find-us-title" className="mb-3 text-3xl font-semibold text-foreground md:text-4xl">
+          Visit the Mbale team
         </h2>
         <p className="max-w-xl text-base leading-relaxed text-muted-foreground">
-          We would love to meet you. Visit our office in Mbale, Uganda, or get directions straight to our door.
+          Global Hearts Community is based in Mbale, Uganda. The map pin shows the office area; call ahead before visiting.
         </p>
-        <p className="mt-4 font-bold text-primary">Mbale, Uganda</p>
+        <p className="mt-4 inline-flex items-center gap-2 font-semibold text-primary"><MapPin className="h-4 w-4" aria-hidden="true" />Mbale City, Uganda</p>
         <p className="mt-1 text-sm text-muted-foreground">
           Open Monday–Saturday · Please call ahead before visiting.
         </p>
         <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-3">
           <Button asChild size="sm" className="gap-2">
             <a href={directionsUrl} target="_blank" rel="noopener noreferrer">
-              Get Directions <ExternalLink className="h-4 w-4" aria-hidden="true" />
+              Open map pin <ExternalLink className="h-4 w-4" aria-hidden="true" />
             </a>
           </Button>
-          <a
-            href={directionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 font-semibold text-primary underline-offset-4 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-primary"
-          >
-            <MapPin className="h-4 w-4" aria-hidden="true" />
-            View on Google Maps
-          </a>
         </div>
       </div>
 
-      <div className="overflow-hidden rounded-2xl border-4 border-background bg-muted shadow-soft">
+      <div className="overflow-hidden border border-border bg-muted">
         <iframe
           title="Map showing the location of Global Hearts Community in Mbale, Uganda"
           src={mapEmbedUrl}

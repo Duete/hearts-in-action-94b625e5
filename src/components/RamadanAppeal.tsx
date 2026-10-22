@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { Heart, ArrowRight } from "lucide-react";
+import { ArrowRight, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import ramadanAppealImg from "@/assets/ramadan-appeal.png";
@@ -7,123 +6,74 @@ import ramadanIftarImg from "@/assets/ramadan-iftar.png";
 import ramadanMealsImg from "@/assets/ramadan-meals.png";
 
 const mealOptions = [
-  { meals: "1 Iftar Meal", price: "£5" },
-  { meals: "7 Iftar Meals", price: "£25" },
-  { meals: "13 Iftar Meals", price: "£50" },
-  { meals: "30 Iftar Meals", price: "£125" },
+  { meals: "1 hot meal", detail: "For one person" },
+  { meals: "7 hot meals", detail: "A week of Iftar" },
+  { meals: "13 hot meals", detail: "Share across a household" },
+  { meals: "30 hot meals", detail: "A month of Iftar" },
 ];
 
-const RamadanAppeal = () => {
-  return (
-    <section className="py-20 bg-gradient-to-b from-background to-muted/30">
-      <div className="container mx-auto px-4">
-        {/* Header */}
-        <motion.div
-          className="text-center max-w-3xl mx-auto mb-12"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <span className="inline-flex items-center gap-2 text-primary font-semibold text-sm uppercase tracking-wider mb-4">
-            <Heart className="h-4 w-4" /> Ramadan Appeal
-          </span>
-          <h2 className="text-3xl md:text-5xl font-bold text-foreground mb-4 leading-tight">
-            Feed the Soul, Reap the Rewards
-          </h2>
-          <p className="text-lg md:text-xl text-primary font-medium">
-            This Ramadan, your generosity can be the reason someone's fast is fulfilled.
-          </p>
-        </motion.div>
+const RamadanAppeal = () => (
+  <section className="bg-muted/50 py-16 md:py-20">
+    <div className="mx-auto max-w-6xl px-6">
+      <header className="mb-9 max-w-3xl border-t-4 border-secondary pt-5 md:mb-12">
+        <p className="mb-3 text-sm font-bold uppercase tracking-[0.16em] text-primary">Ramadan appeal · 2026</p>
+        <h2 className="mb-4 text-3xl font-semibold text-foreground md:text-5xl">Help serve 10,000 hot meals.</h2>
+        <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
+          Last season, Global Hearts Community delivered more than 8,000 hot meals and 200+ food packages to families in Mbale. This appeal aims to reach further.
+        </p>
+      </header>
 
-        {/* Image Gallery Row */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          {[
-            { src: ramadanAppealImg, alt: "Ramadan appeal community gathering in Uganda" },
-            { src: ramadanIftarImg, alt: "Community iftar meal during Ramadan" },
-            { src: ramadanMealsImg, alt: "Prepared iftar meals for distribution" },
-          ].map((img, i) => (
-            <div key={i} className="rounded-xl overflow-hidden shadow-medium aspect-[4/3]">
-              <img
-                src={img.src}
-                alt={img.alt}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-              />
-            </div>
-          ))}
-        </motion.div>
-
-        {/* Body Content */}
-        <div className="max-w-4xl mx-auto">
-          <motion.div
-            className="bg-card rounded-2xl shadow-strong p-8 md:p-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <div className="space-y-5 text-muted-foreground leading-relaxed mb-8">
-              <p>
-                As the crescent moon is sighted, we welcome a season of mercy, forgiveness, and immense reward. 
-                Ramadan is not just about abstaining from food and drink; it is about purifying our wealth and our hearts.
-              </p>
-              <p>
-                Yet, for millions of our brothers and sisters around the world, the fast is a struggle against hunger, 
-                not a choice. This month, let your charity be the bridge between their hardship and their iftar.
-              </p>
-            </div>
-
-            {/* Hadith Quote */}
-            <div className="border-l-4 border-primary bg-primary/5 rounded-r-lg p-6 mb-8">
-              <p className="text-foreground italic text-lg leading-relaxed mb-2">
-                "Whoever feeds a person breaking his fast will have the same reward as him, without anything being 
-                deducted from the reward of the fasting person."
-              </p>
-              <p className="text-sm text-muted-foreground font-medium">— (Tirmidhi)</p>
-            </div>
-
-            {/* Meal Options */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-8">
-              {mealOptions.map((option) => (
-                <div
-                  key={option.meals}
-                  className="bg-muted rounded-xl p-4 text-center hover:bg-primary/10 transition-colors"
-                >
-                  <p className="text-2xl font-bold text-primary mb-1">{option.price}</p>
-                  <p className="text-sm text-muted-foreground">{option.meals}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* CTA */}
-            <p className="text-foreground font-medium text-center mb-6">
-              Double your reward this Ramadan. Donate now to provide a hot meal to those in need.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button variant="hero" size="xl" asChild className="group">
-                <Link to="/donate">
-                  Give a Meal
-                  <Heart className="ml-2 group-hover:scale-110 transition-transform" />
-                </Link>
-              </Button>
-              <Button variant="warm" size="xl" asChild className="group">
-                <Link to="/donate">
-                  Donate Now
-                  <ArrowRight className="ml-2 group-hover:translate-x-1 transition-transform" />
-                </Link>
-              </Button>
-            </div>
-          </motion.div>
-        </div>
+      <div className="mb-10 grid gap-4 md:grid-cols-3">
+        {[
+          { src: ramadanAppealImg, alt: "Community gathering during a Ramadan food program in Uganda" },
+          { src: ramadanIftarImg, alt: "Community Iftar meal during Ramadan" },
+          { src: ramadanMealsImg, alt: "Prepared meals for Ramadan distribution" },
+        ].map((image) => (
+          <figure key={image.src} className="border border-border bg-background">
+            <img src={image.src} alt={image.alt} className="aspect-[4/3] w-full object-cover" loading="lazy" decoding="async" />
+          </figure>
+        ))}
       </div>
-    </section>
-  );
-};
+
+      <div className="grid gap-8 border-t border-border pt-8 md:grid-cols-[1.1fr_0.9fr] md:gap-12">
+        <div className="space-y-5 leading-relaxed text-muted-foreground">
+          <p>
+            In Mbale, families breaking their fast rely on shared meals and food packages. Volunteers and local leaders help prepare food and bring it to community Iftar gatherings and households that need support.
+          </p>
+          <p>
+            Donations to this appeal help cover food, preparation, and distribution. The donation page accepts Pesapal in Ugandan shillings and PayPal in US dollars; the final amount appears before checkout.
+          </p>
+          <blockquote className="border-l-2 border-secondary bg-primary/5 px-5 py-4 text-foreground">
+            <p className="font-serif text-lg italic leading-relaxed">
+              “Whoever feeds a person breaking his fast will have the same reward as him, without anything being deducted from the reward of the fasting person.”
+            </p>
+            <cite className="mt-2 block text-sm not-italic text-muted-foreground">Hadith · Tirmidhi</cite>
+          </blockquote>
+        </div>
+
+        <aside className="border-t border-primary/30 pt-5">
+          <h3 className="mb-4 text-xl font-semibold">Meal quantities</h3>
+          <ul className="mb-6 grid grid-cols-2 gap-x-5 gap-y-4">
+            {mealOptions.map((option) => (
+              <li key={option.meals} className="border-t border-border pt-3">
+                <p className="font-semibold text-primary">{option.meals}</p>
+                <p className="text-sm text-muted-foreground">{option.detail}</p>
+              </li>
+            ))}
+          </ul>
+          <p className="mb-5 text-sm leading-relaxed text-muted-foreground">Choose the donation amount that works for you. No fixed meal price is implied; current payment currencies are shown at checkout.</p>
+          <div className="flex flex-wrap gap-3">
+            <Button asChild size="lg" className="gap-2">
+              <Link to="/donate">Donate now <Heart className="h-4 w-4" aria-hidden="true" /></Link>
+            </Button>
+            <Button asChild variant="outline" size="lg" className="gap-2">
+              <Link to="/appeals">See other appeals <ArrowRight className="h-4 w-4" aria-hidden="true" /></Link>
+            </Button>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+);
 
 export default RamadanAppeal;
