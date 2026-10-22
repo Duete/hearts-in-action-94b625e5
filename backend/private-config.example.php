@@ -33,8 +33,13 @@ return [
         // Register https://www.globalheartscommunity.org/api/pesapal-ipn.php once per environment
         // and paste the returned ipn_id here.
         'ipn_id' => '',
-        'currency' => 'UGX',
-        'max_amount' => '100000000.00',
+        // Enable USD only after Pesapal confirms it for the merchant account and settlement setup.
+        'currencies' => ['UGX', 'USD'],
+        'currency' => 'USD',
+        'max_amount_by_currency' => [
+            'UGX' => '100000000.00',
+            'USD' => '100000.00',
+        ],
     ],
     'mailerlite' => [
         'api_key' => '',
