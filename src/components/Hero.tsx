@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import waterImg from "@/assets/water_well.webp";
@@ -18,6 +18,16 @@ const slides = [
 
 const Hero = () => {
   const [active, setActive] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
+  useEffect(() => {
+    if (isPaused || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const interval = window.setInterval(() => {
+      if (document.visibilityState === "visible") {
+        setActive(current => (current + 1) % slides.length);
+      }
+    }, 6500);
+    return () => window.clearInterval(interval);
+  }, [isPaused]);
   const move = (step: number) => setActive(current => (current + step + slides.length) % slides.length);
 
   return (
@@ -40,6 +50,7 @@ const Hero = () => {
       <div className="absolute bottom-6 inset-x-0 z-20 flex justify-center items-center gap-3">
         <Button variant="ghost" size="icon" className="hover:bg-accent-foreground/10" aria-label="Previous story" onClick={() => move(-1)}><ChevronLeft /></Button>
         {slides.map((slide, index) => <Button key={slide.title} variant="ghost" size="icon" aria-label={`Show slide ${index + 1}`} aria-pressed={active === index} onClick={() => setActive(index)} className="w-6 h-8 hover:bg-transparent"><span className={`h-2.5 w-2.5 rounded-full ${active === index ? "bg-secondary" : "bg-accent-foreground/50"}`} /></Button>)}
+        <Button variant="ghost" size="icon" className="hover:bg-accent-foreground/10" aria-label={isPaused ? "Resume automatic slide rotation" : "Pause automatic slide rotation"} aria-pressed={isPaused} onClick={() => setIsPaused(paused => !paused)}>{isPaused ? <Play /> : <Pause />}</Button>
         <Button variant="ghost" size="icon" className="hover:bg-accent-foreground/10" aria-label="Next story" onClick={() => move(1)}><ChevronRight /></Button>
       </div>
     </section>

@@ -33,13 +33,18 @@ const commitments = [
 ];
 
 export const HomeImpactStrip = () => (
-  <section className="border-y border-secondary/70 bg-secondary text-secondary-foreground" aria-label="Community impact statistics">
-    <div className="mx-auto flex max-w-6xl flex-wrap justify-center gap-x-8 gap-y-3 px-6 py-4 sm:justify-between">
-      {stats.map(stat => (
-        <p className="flex items-baseline gap-2" key={stat.label}>
-          <strong className="font-serif text-2xl font-semibold tabular-nums">{stat.value.toLocaleString()}+</strong>
-          <span className="text-xs font-semibold uppercase tracking-wide sm:text-sm">{stat.label}</span>
-        </p>
+  <section className="home-impact-strip border-y border-secondary/70" aria-label="Community impact statistics">
+    <div className="home-impact-marquee">
+      {[0, 1].map(copy => (
+        <div className="home-impact-track" key={copy} aria-hidden={copy === 1}>
+          {stats.map(stat => (
+            <p className="home-impact-stat" key={stat.label}>
+              <strong className="font-serif text-2xl font-semibold tabular-nums text-secondary">{stat.value.toLocaleString()}+</strong>
+              <span className="text-xs font-semibold uppercase tracking-wide text-accent-foreground sm:text-sm">{stat.label}</span>
+              <span className="home-impact-divider" aria-hidden="true">•</span>
+            </p>
+          ))}
+        </div>
       ))}
     </div>
   </section>
