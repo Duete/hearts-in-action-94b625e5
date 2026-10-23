@@ -178,3 +178,68 @@ All colors MUST be HSL.
     }
   }
 }
+
+@keyframes home-impact-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.home-impact-strip {
+  overflow: hidden;
+  background: hsl(var(--foreground));
+  color: hsl(var(--secondary));
+}
+
+.home-impact-marquee {
+  display: flex;
+  width: max-content;
+  animation: home-impact-scroll 32s linear infinite;
+}
+
+.home-impact-track {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 2.5rem;
+  padding: 0.85rem 1.25rem;
+}
+
+.home-impact-stat {
+  display: flex;
+  flex: 0 0 auto;
+  align-items: baseline;
+  gap: 0.6rem;
+  white-space: nowrap;
+}
+
+.home-impact-divider {
+  margin-left: 1.8rem;
+  color: hsl(var(--secondary));
+  font-size: 1.25rem;
+}
+
+.home-impact-strip:hover .home-impact-marquee {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-impact-marquee {
+    width: 100%;
+    overflow: visible;
+  }
+
+  .home-impact-track {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .home-impact-marquee {
+    width: 100%;
+    animation: none;
+  }
+
+  .home-impact-track[aria-hidden="true"] {
+    display: none;
+  }
+}

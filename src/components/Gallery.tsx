@@ -4,7 +4,7 @@ import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import womenImg from "@/assets/women-empowerment-new.png";
 import healthImg from "@/assets/health-outreach.jpg";
-import environmentImg from "@/assets/tree-planting-mbale.png.asset.json";
+import environmentImg from "@/assets/tree-planting-mbale.jpg";
 import kurbanImg from "@/assets/gallery/kurban.png";
 import childrenFeedingImg from "@/assets/gallery/children-feeding.webp";
 import disabilitySupportImg from "@/assets/gallery/disability-support.webp";
@@ -40,15 +40,15 @@ import maizeFlourCloseupImg from "@/assets/gallery/maize-flour-closeup.png";
 import childrenIftarMealImg from "@/assets/gallery/children-iftar-meal.jpg";
 import elderlyWheelchairSupportImg from "@/assets/gallery/elderly-wheelchair-support.png";
 import orphanFeedingProgramImg from "@/assets/gallery/orphan-feeding-program.png";
-import foodDistributionBannerImg from "@/assets/gallery/food-distribution-banner.webp.asset.json";
-import nabukwasiJaneWheelchairImg from "@/assets/gallery/nabukwasi-jane-wheelchair.webp.asset.json";
-import waterwellCelebrationImg from "@/assets/gallery/waterwell-celebration.webp.asset.json";
-import manafwaWheelchairImg from "@/assets/gallery/manafwa-wheelchair.webp.asset.json";
-import namisindwaFoodPackagesImg from "@/assets/gallery/namisindwa-food-packages.jpg.asset.json";
-import namisindwaPackageHandoverImg from "@/assets/gallery/namisindwa-package-handover.jpg.asset.json";
-import childrenFeedingJuiceImg from "@/assets/gallery/children-feeding-juice.jpg.asset.json";
-import wasswaKevinWheelchairImg from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
-import namisindwaWheelchairFoodImg from "@/assets/gallery/wheelchair-donation-namisindwa-food.png.asset.json";
+import foodDistributionBannerImg from "@/assets/gallery/food-distribution-banner.webp";
+import nabukwasiJaneWheelchairImg from "@/assets/gallery/nabukwasi-jane-wheelchair.webp";
+import waterwellCelebrationImg from "@/assets/gallery/waterwell-celebration.webp";
+import manafwaWheelchairImg from "@/assets/gallery/manafwa-wheelchair.webp";
+import namisindwaFoodPackagesImg from "@/assets/gallery/namisindwa-food-packages.jpg";
+import namisindwaPackageHandoverImg from "@/assets/gallery/namisindwa-package-handover.jpg";
+import childrenFeedingJuiceImg from "@/assets/gallery/children-feeding-juice.jpg";
+import wasswaKevinWheelchairImg from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png";
+import namisindwaWheelchairFoodImg from "@/assets/gallery/wheelchair-donation-namisindwa-food.png";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -205,7 +205,7 @@ const Gallery = () => {
   const images = [
     { src: womenImg, alt: "Women empowerment program" },
     { src: healthImg, alt: "Health outreach and medical care" },
-    { src: environmentImg.url, alt: "Volunteers planting tree saplings along a roadside in Mbale" },
+    { src: environmentImg, alt: "Volunteers planting tree saplings along a roadside in Mbale" },
     { src: kurbanImg, alt: "Qurban meat distribution program" },
     { src: childrenFeedingImg, alt: "Children enjoying nutritious meals" },
     { src: disabilitySupportImg, alt: "Supporting persons with disabilities" },
@@ -241,15 +241,15 @@ const Gallery = () => {
     { src: childrenIftarMealImg, alt: "Children sharing an iftar meal during Ramadan" },
     { src: elderlyWheelchairSupportImg, alt: "Elderly woman receiving wheelchair and care support" },
     { src: orphanFeedingProgramImg, alt: "Orphan feeding program providing meals to children" },
-    { src: wasswaKevinWheelchairImg.url, alt: "Boy smiling in his new wheelchair in Namisindwa District" },
-    { src: namisindwaWheelchairFoodImg.url, alt: "Family with a donated wheelchair and food support in Namisindwa District" },
-    { src: nabukwasiJaneWheelchairImg.url, alt: "Elderly woman waving from her new wheelchair in Namisindwa District" },
-    { src: manafwaWheelchairImg.url, alt: "Wheelchair handover to an elderly man in Manafwa District" },
-    { src: foodDistributionBannerImg.url, alt: "Women carrying food packages at a community distribution" },
-    { src: namisindwaFoodPackagesImg.url, alt: "Food relief packages laid out for community distribution" },
-    { src: namisindwaPackageHandoverImg.url, alt: "Community members celebrating as food packages are handed over" },
-    { src: waterwellCelebrationImg.url, alt: "Children playing at the inauguration of a new community water well" },
-    { src: childrenFeedingJuiceImg.url, alt: "Children holding juice cups during a community feeding program" },
+    { src: wasswaKevinWheelchairImg, alt: "Boy smiling in his new wheelchair in Namisindwa District" },
+    { src: namisindwaWheelchairFoodImg, alt: "Family with a donated wheelchair and food support in Namisindwa District" },
+    { src: nabukwasiJaneWheelchairImg, alt: "Elderly woman waving from her new wheelchair in Namisindwa District" },
+    { src: manafwaWheelchairImg, alt: "Wheelchair handover to an elderly man in Manafwa District" },
+    { src: foodDistributionBannerImg, alt: "Women carrying food packages at a community distribution" },
+    { src: namisindwaFoodPackagesImg, alt: "Food relief packages laid out for community distribution" },
+    { src: namisindwaPackageHandoverImg, alt: "Community members celebrating as food packages are handed over" },
+    { src: waterwellCelebrationImg, alt: "Children playing at the inauguration of a new community water well" },
+    { src: childrenFeedingJuiceImg, alt: "Children holding juice cups during a community feeding program" },
   ];
 
   const openLightbox = (index: number) => {
