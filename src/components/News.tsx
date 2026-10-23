@@ -9,15 +9,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import scholarshipHandoverImg from "@/assets/gallery/scholarship-school-bag-handover.png.asset.json";
-import scholarshipAidImg from "@/assets/gallery/scholarship-school-aid-event.png.asset.json";
-import scholarshipClassroomImg from "@/assets/gallery/scholarship-classroom.jpg.asset.json";
-import skillsTrainingImg from "@/assets/gallery/women-skills-training-starter-kit.webp.asset.json";
+import scholarshipHandoverImg from "@/assets/gallery/scholarship-school-bag-handover.png";
+import scholarshipAidImg from "@/assets/gallery/scholarship-school-aid-event.png";
+import scholarshipClassroomImg from "@/assets/gallery/scholarship-classroom.jpg";
+import skillsTrainingImg from "@/assets/gallery/women-skills-training-starter-kit.webp";
 import healthImg from "@/assets/health-outreach.jpg";
 import healthCheckupImg from "@/assets/gallery/health-checkup-news.webp";
 import ramadanMealsImg from "@/assets/gallery/ramadan-iftar-meals.png";
-import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
-import wheelchairFoodPhoto from "@/assets/gallery/wheelchair-donation-namisindwa-food.png.asset.json";
+import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png";
+import wheelchairFoodPhoto from "@/assets/gallery/wheelchair-donation-namisindwa-food.png";
 import orphanSupportImg from "@/assets/gallery/orphan-support.webp";
 import { SocialHandleInline, SocialHandleList } from "@/components/SocialHandles";
 import { Link } from "react-router-dom";
@@ -67,10 +67,10 @@ const News = () => {
       date: "October 18, 2026",
       excerpt: "Global Hearts Community Uganda has distributed more than 15 wheelchairs and other mobility aids to individuals living with disabilities across Mbale and surrounding communities over the past three years, restoring dignity, independence, and opportunity.",
       fullContent: "MBALE, UGANDA — Global Hearts Community Uganda has distributed more than 15 wheelchairs and other mobility aids to individuals living with disabilities across Mbale and surrounding communities over the past three years. The milestone marks a significant step in the organization’s ongoing mission to restore dignity, independence, and opportunity for persons with mobility challenges in Uganda.\n\nThe distributions, which began in 2023, have reached children and adults alike, many of whom had been confined to their homes for years due to the lack of an affordable wheelchair. In Uganda, a wheelchair that would cost up to $1,000 in the local market remains far beyond the reach of most families. Through partnerships and generous donations, Global Hearts Community has been able to provide wheelchairs and other mobility tools at no cost to recipients.\n\n“For many people with disabilities in our community, a wheelchair is not a luxury; it is the key to education, employment, and social inclusion,” said a spokesperson for Global Hearts Community. “Over the last three years, we have seen firsthand how a single wheelchair can transform a life. Children who could not attend school are now in classrooms. Adults who could not work are now earning a living. Parents who could not move around their own homes are now active members of their communities.”\n\nAmong the recipients are school-going children like Wasswa Kevin in Namisindwa district, who had previously dropped out due to mobility barriers, as well as adults who had been unable to pursue livelihoods. Each distribution event includes not only the handover of mobility tools but also follow-up support to ensure proper fitting, maintenance, and community integration.\n\n“I had not left my house in two years,” said Wamono Shafik, one of the beneficiaries in Manafwa District. “Now I can go to the market, visit my friends, and feel like part of the community again. I thank Global Hearts Community for giving me my freedom back.”\n\nThe organization notes that the need remains great. With thousands of persons with disabilities in the region still waiting for mobility support, Global Hearts Community is appealing for continued donations to expand the program.\n\nHow You Can Help: A gift of $300 can provide a wheelchair to a school-going child living with a disability, while $200 can help deliver a brand-new wheelchair to someone in desperate need of mobility. Every contribution brings freedom, dignity, and a future to a person who has been left behind.\n\nTo support the wheelchair and mobility program, please visit our Donate page or contact Global Hearts Community directly.\n\nAbout Global Hearts Community: Global Hearts Community is a Mbale-based nonprofit dedicated to empowering vulnerable groups through education support, health outreach, women’s empowerment, clean water access, and environmental initiatives. The organization serves orphans, street children, individuals with disabilities, widows, and marginalized communities across Uganda.",
-      image: wheelchairPhoto.url,
+      image: wheelchairPhoto,
       photos: [
-        { image: wheelchairPhoto.url, caption: "Wasswa Kevin receives a wheelchair in Namisindwa District." },
-        { image: wheelchairFoodPhoto.url, caption: "Wasswa Kevin and his family with the donated wheelchair and food support in Namisindwa District." },
+        { image: wheelchairPhoto, caption: "Wasswa Kevin receives a wheelchair in Namisindwa District." },
+        { image: wheelchairFoodPhoto, caption: "Wasswa Kevin and his family with the donated wheelchair and food support in Namisindwa District." },
       ],
     },
     {
@@ -85,13 +85,13 @@ const News = () => {
       date: "March 15, 2025",
       excerpt: "Global Hearts Community continues to make a quiet but meaningful impact through its education support project aimed at vulnerable children.",
       fullContent: "Global Hearts Community continues to make a quiet but meaningful impact through its education support project aimed at vulnerable children. So far, more than 150 primary school pupils have received full scholarships, giving them a real chance to stay in school and learn without the burden of school fees.\n\nThe beneficiaries are mainly orphans and children born from unintended pregnancies to teenage mothers, groups that often face the highest risk of dropping out of school. Through this project, Global Hearts Community covers school fees and provides essential scholastic materials, helping to create a stable learning environment for each child.\n\nBeyond financial support, the initiative restores hope to families and children who might otherwise see education as unreachable. For many of these learners, the scholarship is more than assistance. It is a lifeline that allows them to focus on their studies, grow in confidence, and imagine a better future.\n\nGlobal Hearts Community remains committed to expanding this program and reaching even more children in need, guided by the belief that access to education can break cycles of poverty and change lives in lasting ways.",
-      image: scholarshipHandoverImg.url,
+      image: scholarshipHandoverImg,
       imageAlt: "Children holding school bags and support packages at a Global Hearts Community handover.",
       photoFeature: true,
       photos: [
-        { image: scholarshipHandoverImg.url, caption: "Children with school bags and support packages at a Global Hearts Community handover." },
-        { image: scholarshipAidImg.url, caption: "A pupil with a school bag, shoes and scholastic materials at a school-aid event." },
-        { image: scholarshipClassroomImg.url, caption: "Primary school pupils working in their classroom." },
+        { image: scholarshipHandoverImg, caption: "Children with school bags and support packages at a Global Hearts Community handover." },
+        { image: scholarshipAidImg, caption: "A pupil with a school bag, shoes and scholastic materials at a school-aid event." },
+        { image: scholarshipClassroomImg, caption: "Primary school pupils working in their classroom." },
       ],
     },
     {
@@ -117,11 +117,11 @@ How You Can Help
 Donations fund training, raw materials, and startup kits so graduates can begin production immediately.
 
 Editors’ Note: High-resolution photos from the training sessions are available upon request.`,
-      image: skillsTrainingImg.url,
+      image: skillsTrainingImg,
       imageAlt: "Women unpacking starter-kit supplies — hair dryers, styling tools and containers of finished liquid soap — at a Global Hearts Community handover in Bukonde, Mbale.",
       photos: [
         {
-          image: skillsTrainingImg.url,
+          image: skillsTrainingImg,
           caption: "Participants unpack starter-kit supplies — hair dryers, styling tools and containers of finished liquid soap — after the shampoo and liquid soap making training in Bukonde, Mbale.",
         },
       ],

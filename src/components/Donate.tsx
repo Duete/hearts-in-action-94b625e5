@@ -19,7 +19,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import donateHeroImg from "@/assets/donate-school-bags.png.asset.json";
+import donateHeroImg from "@/assets/donate-school-bags.png";
 import DonationModal from "./DonationModal";
 
 interface CaptureResponse {
@@ -304,7 +304,7 @@ const Donate = () => {
     <section className="bg-background">
       <header className="relative isolate flex min-h-[320px] items-center overflow-hidden md:min-h-[390px]">
         <img
-          src={donateHeroImg.url}
+          src={donateHeroImg}
           alt="Children holding new school bags and gift packages at a Global Hearts Community handover in Mbale"
           className="absolute inset-0 -z-20 h-full w-full object-cover object-center"
         />

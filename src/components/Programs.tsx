@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import educationImg from "@/assets/education-classroom.jpg";
 import womenImg from "@/assets/women-empowerment-new.png";
 import healthImg from "@/assets/health-outreach.jpg";
-import environmentImg from "@/assets/tree-planting-mbale.png.asset.json";
+import environmentImg from "@/assets/tree-planting-mbale.jpg";
 import waterImg from "@/assets/water_well.webp";
 import elderlyImg from "@/assets/elderly-care.jpg";
 import disabilityImg from "@/assets/pwds.webp";
@@ -14,7 +14,7 @@ const programs = [
   { title: "Education support", description: "Scholarships, school supplies, and tutoring for children in Mbale and surrounding communities.", image: educationImg },
   { title: "Women’s livelihoods", description: "Skills training, savings groups, start-up support, and leadership workshops for women and widows.", image: womenImg },
   { title: "Health outreach", description: "Community health camps, screening, health education, and referrals to local health facilities.", image: healthImg },
-  { title: "Environmental conservation", description: "Tree planting, sustainable farming practices, and environmental education in communities and schools.", image: environmentImg.url },
+  { title: "Environmental conservation", description: "Tree planting, sustainable farming practices, and environmental education in communities and schools.", image: environmentImg },
   { title: "Water and sanitation", description: "Borehole drilling and repair, protection of water sources, and hygiene education.", image: waterImg },
   { title: "Elderly and vulnerable support", description: "Practical care and essential supplies for older people, widows, orphans, and displaced people.", image: elderlyImg },
   { title: "Disability inclusion", description: "Mobility support, skills training, and advocacy for people with disabilities.", image: disabilityImg },

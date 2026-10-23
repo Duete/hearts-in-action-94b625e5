@@ -2,7 +2,7 @@ import { ArrowRight, GraduationCap, Handshake, Heart, Users } from "lucide-react
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import impact from "@/data/impact.json";
-import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
+import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png";
 import ramadanPhoto from "@/assets/gallery/ramadan-iftar-meals.png";
 import educationPhoto from "@/assets/education-program.jpg";
 
@@ -77,7 +77,7 @@ const HomeHighlights = () => (
     </section>
     <section className="py-16 md:py-20">
         <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-8 md:gap-14 items-center">
-        <img src={wheelchairPhoto.url} alt="Wasswa Kevin in his new blue wheelchair in Namisindwa" loading="lazy" className="w-full aspect-[4/3] object-cover" />
+        <img src={wheelchairPhoto} alt="Wasswa Kevin in his new blue wheelchair in Namisindwa" loading="lazy" className="w-full aspect-[4/3] object-cover" />
         <div><p className="text-primary text-sm font-bold mb-3">MOBILITY SUPPORT · NAMISINDWA</p><h2 className="text-3xl md:text-4xl font-semibold mb-5">Wasswa Kevin’s new wheelchair helps him take part in daily life.</h2><p className="text-muted-foreground leading-relaxed mb-6">Over three years, Global Hearts Community has distributed more than 15 wheelchairs and mobility aids to children and adults in Mbale and surrounding communities.</p><Button asChild size="lg"><Link to="/news">Read the report<ArrowRight /></Link></Button></div>
       </div>
     </section>
@@ -93,7 +93,7 @@ const HomeHighlights = () => (
       <div className="max-w-6xl mx-auto px-6">
         <div className="flex flex-wrap items-end justify-between gap-4 mb-8"><div><p className="text-primary text-sm font-bold mb-3">FROM THE FIELD</p><h2 className="text-3xl md:text-4xl font-bold">News & updates</h2></div><Button variant="link" asChild><Link to="/news">All news<ArrowRight /></Link></Button></div>
         <div className="grid md:grid-cols-3 gap-6">
-          {[{ image: wheelchairPhoto.url, category: "Mobility · Namisindwa", title: "15+ mobility aids distributed since 2023.", text: "Support for children and adults across Mbale and surrounding districts." }, { image: ramadanPhoto, category: "Ramadan · 2026", title: "8,000+ meals and 200+ food packages delivered.", text: "Food support for families across Mbale." }, { image: educationPhoto, category: "Education", title: "150+ pupils receive full scholarships.", text: "School fees and learning materials help pupils stay in school." }].map(item => <article key={item.title} className="border-t border-border bg-card"><img src={item.image} alt={item.category} loading="lazy" className="w-full h-48 object-cover" /><div className="pt-5"><p className="text-xs text-primary font-bold mb-3">{item.category}</p><h3 className="text-xl font-semibold leading-snug mb-3">{item.title}</h3><p className="text-sm text-muted-foreground mb-3">{item.text}</p><Button variant="link" asChild className="px-0"><Link to="/news">Read the report<ArrowRight /></Link></Button></div></article>)}
+          {[{ image: wheelchairPhoto, category: "Mobility · Namisindwa", title: "15+ mobility aids distributed since 2023.", text: "Support for children and adults across Mbale and surrounding districts." }, { image: ramadanPhoto, category: "Ramadan · 2026", title: "8,000+ meals and 200+ food packages delivered.", text: "Food support for families across Mbale." }, { image: educationPhoto, category: "Education", title: "150+ pupils receive full scholarships.", text: "School fees and learning materials help pupils stay in school." }].map(item => <article key={item.title} className="border-t border-border bg-card"><img src={item.image} alt={item.category} loading="lazy" className="w-full h-48 object-cover" /><div className="pt-5"><p className="text-xs text-primary font-bold mb-3">{item.category}</p><h3 className="text-xl font-semibold leading-snug mb-3">{item.title}</h3><p className="text-sm text-muted-foreground mb-3">{item.text}</p><Button variant="link" asChild className="px-0"><Link to="/news">Read the report<ArrowRight /></Link></Button></div></article>)}
         </div>
       </div>
     </section>

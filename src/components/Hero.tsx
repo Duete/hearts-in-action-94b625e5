@@ -3,7 +3,7 @@ import { ArrowDown, ArrowRight, ChevronLeft, ChevronRight, Pause, Play } from "l
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import waterImg from "@/assets/water_well.webp";
-import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png.asset.json";
+import wheelchairPhoto from "@/assets/gallery/joyful-wheelchair-donation-namisindwa.png";
 import womenImg from "@/assets/women-empowerment-new.png";
 import ramadanFoodImage from "@/assets/gallery/food-distribution.jpg";
 import communityFeedingImage from "@/assets/gallery/community-feeding.jpg";
@@ -12,7 +12,7 @@ const slides = [
   { image: ramadanFoodImage, alt: "Global Hearts Community distributing food packages to families in Mbale", label: "Ramadan appeal · 2026", title: "Help us serve 10,000 hot meals this Ramadan.", text: "Last season, volunteers served more than 8,000 hot meals and distributed 200 food packages across Mbale.", cta: "Donate now", href: "/donate", secondary: "See our programs", secondaryHref: "#programs" },
   { image: communityFeedingImage, alt: "Families sharing a meal at a community feeding activity", label: "Our work · Mbale, Uganda", title: "Local programs for families in Mbale.", text: "Global Hearts Community works with local leaders on food assistance, education, health outreach, water access and mobility support.", cta: "Support a program", href: "/donate", secondary: "See our programs", secondaryHref: "#programs" },
   { image: waterImg, alt: "Community clean water source", label: "Water access", title: "Repair broken boreholes in Mbale.", text: "Support repairs and new water points so families can collect clean water closer to home.", cta: "Support water access", href: "/appeals", secondary: "See our programs", secondaryHref: "#programs" },
-  { image: wheelchairPhoto.url, alt: "Wasswa Kevin with his new wheelchair in Namisindwa", label: "Mobility support", title: "More than 15 mobility aids distributed since 2023.", text: "Wheelchair support has helped children and adults in Mbale, Namisindwa and Manafwa travel to school, work and community activities.", cta: "Support mobility", href: "/appeals", secondary: "See our programs", secondaryHref: "#programs" },
+  { image: wheelchairPhoto, alt: "Wasswa Kevin with his new wheelchair in Namisindwa", label: "Mobility support", title: "More than 15 mobility aids distributed since 2023.", text: "Wheelchair support has helped children and adults in Mbale, Namisindwa and Manafwa travel to school, work and community activities.", cta: "Support mobility", href: "/appeals", secondary: "See our programs", secondaryHref: "#programs" },
   { image: womenImg, alt: "Women taking part in a community skills activity", label: "Women’s livelihoods · Bukonde", title: "More than 50 women trained in soap making.", text: "Women and widows in Bukonde learned to make shampoo and liquid soap and received practical guidance on pricing and group savings.", cta: "Support the program", href: "/get-involved", secondary: "See our programs", secondaryHref: "#programs" },
 ];
 
