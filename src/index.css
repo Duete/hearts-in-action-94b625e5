@@ -185,9 +185,18 @@ All colors MUST be HSL.
 }
 
 .home-impact-strip {
+  position: sticky;
+  top: 4rem;
+  z-index: 40;
   overflow: hidden;
   background: hsl(var(--foreground));
   color: hsl(var(--secondary));
+}
+
+@media (min-width: 768px) {
+  .home-impact-strip {
+    top: 5rem;
+  }
 }
 
 .home-impact-marquee {
