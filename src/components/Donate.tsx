@@ -522,6 +522,32 @@ const Donate = () => {
                 </div>
               </CardHeader>
               <CardContent className="space-y-4">
+                <section aria-labelledby="remitly-heading" className="border-b border-border pb-5">
+                  <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                      <p className="text-sm font-semibold uppercase tracking-wide text-primary">International transfer</p>
+                      <h3 id="remitly-heading" className="mt-1 text-lg font-semibold text-foreground">Give with Remitly</h3>
+                    </div>
+                    <Button asChild variant="outline" className="gap-2">
+                      <a href="https://remit.ly/pay/globalheartscommunityg8894" target="_blank" rel="noopener noreferrer">
+                        Open Remitly <ExternalLink className="h-4 w-4" aria-hidden="true" />
+                      </a>
+                    </Button>
+                  </div>
+                  <a href="https://remit.ly/pay/globalheartscommunityg8894" target="_blank" rel="noopener noreferrer" className="inline-block rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+                    <img
+                      src="/images/remitly-qr-code.png"
+                      alt="Scan this Remitly QR code to open the Global Hearts Community payment page"
+                      className="mx-auto h-auto w-full max-w-[280px] border border-border"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </a>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                    Open the Remitly link or scan the QR code to enter your transfer. After sending, email your Remitly transaction reference to{" "}
+                    <a className="font-medium text-primary underline-offset-4 hover:underline" href="mailto:globalheartscommunity@gmail.com">globalheartscommunity@gmail.com</a>. We verify transfers manually; Remitly gifts are not confirmed or receipted automatically by this website.
+                  </p>
+                </section>
                 <dl className="divide-y divide-border rounded-lg border border-border px-4">
                   <div className="flex justify-between gap-4 py-3 text-sm"><dt className="text-muted-foreground">Account name</dt><dd className="text-right font-medium text-foreground">Global Hearts Community</dd></div>
                   <div className="flex justify-between gap-4 py-3 text-sm"><dt className="text-muted-foreground">Account number</dt><dd className="text-right font-mono font-medium text-foreground">01110017845397</dd></div>
